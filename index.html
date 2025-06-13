@@ -3,30 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique Pixel - Entrada</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>Ryuko Anime</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="pixel-border">
-            <h1>BIENVENIDO A<br>Ryuko Anime</h1>
-            
-            <div class="icons-row">
-                <div class="clothes-icon shirt"></div>
-                <div class="clothes-icon pants"></div>
-                <div class="clothes-icon hat"></div>
+    <header>
+        <!-- Primera fila (logo + búsqueda + user/carrito) -->
+        <div class="navbar-top">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="#"><span class="brand">Ryuko Anime</span></a>
             </div>
             
-            <p>Moda única con estilo...tuyo?</p>
+            <!-- Barra de búsqueda -->
+            <div class="search-bar">
+                <input type="text" id="real-time-search" placeholder="Buscar productos...">
+                <button class="search-button">🔍</button>
+            </div>
             
-            <button class="pixel-button" onclick="window.location.href='inicio.html'">
-                ENTRAR A LA TIENDA
-            </button>
+            <!-- User + Carrito -->
+            <div class="user-actions">
+                <a href="#" class="account">Cuenta</a>
+                <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+        
+        <!-- Nueva sección de presentación -->
+        <div class="navbar-presentation">
+            <img src="Naruto.jpg" alt="Colección Ryuko Anime" class="presentation-image">
+            <div class="presentation-content">
+                <h1>Ryuko Anime Store</h1>
+                <h2 class="site-description">
+                    La mejor selección de pullovers y ropa anime de alta calidad. 
+                    Diseños exclusivos de tus series favoritas: Naruto, Dragon Ball, 
+                    Attack on Titan y más. Envíos a todo el país.
+                </h2>
+            </div>
+        </div>
+    </header>
 
-    <script src="java.js"></script>
+    <main>
+
+        <section class="products" id="products-container">
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <!-- Más productos... -->
+
+            
+            <!-- Más productos... -->
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Melon" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <!-- Más productos... -->
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <div class="product" data-id="1">
+                <div class="product-image-container">
+                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Naruto</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="2">
+                <div class="product-image-container">
+                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Dragon Ball</h3>
+                    <p class="product-price">$22.00</p>
+                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <div class="product" data-id="3">
+                <div class="product-image-container">
+                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Attack on Titan</h3>
+                    <p class="product-price">$24.00</p>
+                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+
+
+        <div class="cart-modal hidden">
+            <div class="cart-content">
+                <h2>Tu Carrito</h2>
+                <div id="cart-items"></div>
+                <div class="cart-total">
+                    <p>Total: $<span id="total">0.00</span></p>
+                </div>
+                <button id="checkout">Enviar pedido por WhatsApp</button>
+                <button id="close-cart">Cerrar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
