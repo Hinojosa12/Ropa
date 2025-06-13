@@ -78,6 +78,7 @@ header {
 .navbar-top{
     position: sticky;
 }
+
 .logo .brand {
     font-size: 24px;
     font-weight: bold;
@@ -112,6 +113,7 @@ header {
     display: flex;
     align-items: center;
     gap: 15px;
+    height: 50px;
 }
 
 .user-actions a {
@@ -384,3 +386,6 @@ header {
     0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
     100% { opacity: 1; transform: translateY(-50%) scale(1); }
 }
+
+
+
