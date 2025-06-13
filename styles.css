@@ -23,7 +23,7 @@ header {
 .navbar-presentation {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                 url('Naruto.jpg') center/cover no-repeat;
-    padding: 60px 20px;
+    padding: 120px 20px;
     min-height: 300px;
     display: flex;
     align-items: center;
@@ -32,6 +32,7 @@ header {
     position: relative;
     color: white;
     text-align: center; /* Centra el contenido general */
+    
 }
 
 .navbar-presentation h1{
@@ -76,7 +77,11 @@ header {
 }
 
 .navbar-top{
-    position: sticky;
+
+    width: 100%;
+    background-color: #131921;
+    position: fixed;
+    z-index: 1001; /* Mayor que el header */
 }
 
 .logo .brand {
@@ -386,6 +391,9 @@ header {
     0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
     100% { opacity: 1; transform: translateY(-50%) scale(1); }
 }
+
+
+
 
 
 
