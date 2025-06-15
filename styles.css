@@ -19,7 +19,7 @@ header {
 /* --- Presentación --- */
 .navbar-presentation {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                url('Naruto.jpg') center/cover no-repeat;
+                url('Imagen7.jpg') center/cover no-repeat;
     padding: 120px 20px;
     min-height: 300px;
     display: flex;
