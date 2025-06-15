@@ -29,6 +29,7 @@
             </div>
         </div>
         
+        
         <!-- Nueva sección de presentación -->
         
     </header>
@@ -513,7 +514,39 @@
         </div>
     </main>
 
+
+
+<!-- Modal de Registro -->
+<div class="registration-modal" id="registration-modal">
+    <div class="registration-content">
+        <h2>Registro de Cliente</h2>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" required>
+            </div>
+            <div class="form-group">
+                <label for="carnet">Carnet de Identidad:</label>
+                <input type="text" id="carnet" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <textarea id="direccion" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="save-btn">Guardar Datos</button>
+        </form>
+    </div>
+</div>
+
+
     <script src="script.js"></script>
 </body>
 </html>
-
