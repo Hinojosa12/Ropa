@@ -350,17 +350,22 @@ header {
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Cambiado de center a flex-start */
     z-index: 1000;
+    overflow-y: auto; /* Permite hacer scroll si el contenido es muy largo */
+    padding: 20px 0; /* Espacio arriba y abajo */
 }
 
 .cart-content {
     background: white;
     padding: 2rem;
-    width: 80%;
+    width: 90%; /* Cambiado de 80% a 90% para móviles */
     max-width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin: 20px auto; /* Centrado con margen */
+    max-height: 90vh; /* Altura máxima */
+    overflow-y: auto; /* Scroll interno si es necesario */
 }
 
 .cart-item {
@@ -632,6 +637,39 @@ header {
         order: 3;
         justify-content: flex-end;
     }
+
+    /* Estilos específicos para el modal en móviles */
+    .cart-content {
+        padding: 1rem;
+        width: 95%; /* Más ancho en móviles */
+        max-height: 85vh; /* Altura máxima */
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item div:last-child {
+        width: 100%;
+        margin-top: 5px;
+        align-items: flex-end;
+    }
+
+    .customer-data-form {
+        padding: 0.5rem;
+    }
+
+    .form-group input, 
+    .form-group textarea {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    #checkout, #close-cart {
+        padding: 12px;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -660,6 +698,16 @@ header {
     
     .navbar-presentation {
         padding: 115px 15px;
+    }
+
+    /* Ajustes adicionales para móviles muy pequeños */
+    .cart-content {
+        width: 98%;
+        padding: 0.8rem;
+    }
+
+    .cart-item {
+        font-size: 0.9rem;
     }
 }
 
