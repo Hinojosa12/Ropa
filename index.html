@@ -9,191 +9,192 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <!-- Primera fila (logo + búsqueda + user/carrito) -->
-        <div class="navbar-top">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="#"><span class="brand">Ryuko Anime</span></a>
-            </div>
-            
-            <!-- Barra de búsqueda -->
-            <div class="search-bar">
-                <input type="text" id="real-time-search" placeholder="Buscar productos...">
-                <button class="search-button">🔍</button>
-            </div>
-            
-            <!-- User + Carrito -->
-            <div class="user-actions">
-                <a href="#" class="account">Carrito</a>
-                <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
-            </div>
-        </div>
-        
-        <!-- Nueva sección de presentación -->
-        <div class="navbar-presentation">
-            <img src="Imagen7.jpg" alt="Colección Ryuko Anime" class="presentation-image">
-            <div class="presentation-content">
-                <h1>Ryuko Anime Store</h1>
-                <h2 class="site-description">
-                    Nos dedicamos a la venta de prendas sublimadas con imágenes y referentes del anime
-                </h2>
-                <div class="personalized-message">
-                    <p>Escoge a tu gusto y preferencia</p>
-                    <span class="wink-emoji">😉</span>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <main>
-        <section class="products" id="products-container">
-            <!-- Productos repetidos para demostración -->
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <!-- Más productos... -->
-        </section>
-
-        <!-- Modal del Carrito con formulario de datos -->
-        <div class="cart-modal hidden">
-            <div class="cart-content">
-                <h2>Tu Carrito</h2>
-                <div id="cart-items"></div>
-                <div class="cart-total">
-                    <p>Total: $<span id="total">0.00</span></p>
+    <body>
+        <header>
+            <!-- Primera fila (logo + búsqueda + user/carrito) -->
+            <div class="navbar-top">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="#"><span class="brand">Ryuko Anime</span></a>
                 </div>
                 
-                <!-- Formulario de datos del cliente -->
-                <div class="customer-data-form">
-                    <h3>Datos para el envío</h3>
-                    <form id="customer-form">
-                        <div class="form-group">
-                            <input type="text" id="customer-name" placeholder="Nombre*" required 
-                                   pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
-                                   title="Solo letras y espacios">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="customer-lastname" placeholder="Apellidos*" required
-                                   pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
-                                   title="Solo letras y espacios">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="customer-phone" placeholder="Número de teléfono*" required
-                                   pattern="[0-9]+" minlength="8" maxlength="15"
-                                   title="Solo números (8-15 dígitos)">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="customer-address" placeholder="Dirección completa*" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="customer-notes" placeholder="Datos extra (ej: Venga después de las 4 de la tarde)"></textarea>
-                        </div>
-                    </form>
+                <!-- Barra de búsqueda -->
+                <div class="search-bar">
+                    <input type="text" id="real-time-search" placeholder="Buscar productos...">
+                    <button class="search-button">🔍</button>
                 </div>
                 
-                <button id="checkout">Enviar pedido por WhatsApp</button>
-                <button id="close-cart">Cerrar</button>
+                <!-- User + Carrito -->
+                <div class="user-actions">
+                    <a href="#" class="account">Carrito</a>
+                    <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+                </div>
             </div>
-        </div>
-    </main>
-    <footer class="samurai-footer">
-        <div class="footer-container">
-            <!-- Sección Superior -->
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="imagen12.jpg" alt="Ryuko Anime Logo" class="footer-logo">
-                    <p class="footer-description">
+            
+            <!-- Nueva sección de presentación -->
+            <div class="navbar-presentation">
+                <img src="Imagen7.jpg" alt="Colección Ryuko Anime" class="presentation-image">
+                <div class="presentation-content">
+                    <h1>Ryuko Anime Store</h1>
+                    <h2 class="site-description">
                         Nos dedicamos a la venta de prendas sublimadas con imágenes y referentes del anime
-                    </p>
-                    <div class="footer-message">
-                        <span>Escoge a tu gusto y preferencia</span>
+                    </h2>
+                    <div class="personalized-message">
+                        <p>Escoge a tu gusto y preferencia</p>
                         <span class="wink-emoji">😉</span>
                     </div>
                 </div>
-                
-                <div class="footer-kanji">
-                    <span>龍虎</span>
-                </div>
             </div>
-            
-            <!-- Sección Central -->
-            <div class="footer-middle">
-                <div class="footer-section">
-                    <h3>Contacto</h3>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> +51 999 888 777</li>
-                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51999888777">WhatsApp</a></li>
-                        <li><i class="fas fa-envelope"></i> contacto@ryukoanime.com</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Horario</h3>
-                    <ul>
-                        <li><i class="fas fa-clock"></i> Lunes-Domingo: 8am - 12am</li>
-                       
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Redes Sociales</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+        </header>
+        
+        <main>
+            <section class="products" id="products-container">
+                <!-- Productos repetidos para demostración -->
+                <div class="product" data-id="1">
+                    <div class="product-image-container">
+                        <img src="Imagen1.jpg" alt="Pullover Naruto" class="product-img">
                     </div>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-paypal"></i>
+                    <div class="product-info">
+                        <h3 class="product-title">Pullover Naruto</h3>
+                        <p class="product-price">$20.00</p>
+                        <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
+                        <button class="add-to-cart">Añadir al carrito</button>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Sección Inferior -->
-            <div class="footer-bottom">
-                <p>© 2025 Ryuko Anime Store. Todos los derechos reservados por @Alcide </p>
-                <div class="legal-links">
+                
+                <div class="product" data-id="2">
+                    <div class="product-image-container">
+                        <img src="Imagen2.jpg" alt="Pullover Dragon Ball" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Pullover Dragon Ball</h3>
+                        <p class="product-price">$22.00</p>
+                        <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
+                        <button class="add-to-cart">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product" data-id="3">
+                    <div class="product-image-container">
+                        <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Pullover Attack on Titan</h3>
+                        <p class="product-price">$24.00</p>
+                        <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
+                        <button class="add-to-cart">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Más productos... -->
+            </section>
+    
+            <!-- Modal del Carrito con formulario de datos -->
+            <div class="cart-modal hidden">
+                <div class="cart-content">
+                    <h2>Tu Carrito</h2>
+                    <div id="cart-items"></div>
+                    <div class="cart-total">
+                        <p>Total: $<span id="total">0.00</span></p>
+                    </div>
                     
+                    <!-- Formulario de datos del cliente -->
+                    <div class="customer-data-form">
+                        <h3>Datos para el envío</h3>
+                        <form id="customer-form">
+                            <div class="form-group">
+                                <input type="text" id="customer-name" placeholder="Nombre*" required 
+                                       pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
+                                       title="Solo letras y espacios">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="customer-lastname" placeholder="Apellidos*" required
+                                       pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
+                                       title="Solo letras y espacios">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="customer-phone" placeholder="Número de teléfono*" required
+                                       pattern="[0-9]+" minlength="8" maxlength="15"
+                                       title="Solo números (8-15 dígitos)">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="customer-address" placeholder="Dirección completa*" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="customer-notes" placeholder="Datos extra (ej: Venga después de las 4 de la tarde)"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <button id="checkout">Enviar pedido por WhatsApp</button>
+                    <button id="close-cart">Cerrar</button>
                 </div>
             </div>
-        </div>
-    </footer>
+        </main>
+        <footer class="samurai-footer">
+            <div class="footer-container">
+                <!-- Sección Superior -->
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <img src="imagen12.jpg" alt="Ryuko Anime Logo" class="footer-logo">
+                        <p class="footer-description">
+                            Nos dedicamos a la venta de prendas sublimadas con imágenes y referentes del anime
+                        </p>
+                        <div class="footer-message">
+                            <span>Escoge a tu gusto y preferencia</span>
+                            <span class="wink-emoji">😉</span>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-kanji">
+                        <span>龍虎</span>
+                    </div>
+                </div>
+                
+                <!-- Sección Central -->
+                <div class="footer-middle">
+                    <div class="footer-section">
+                        <h3>Contacto</h3>
+                        <ul>
+                            <li><i class="fas fa-phone-alt"></i> +51 999 888 777</li>
+                            <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51999888777">WhatsApp</a></li>
+                            <li><i class="fas fa-envelope"></i> contacto@ryukoanime.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Horario</h3>
+                        <ul>
+                            <li><i class="fas fa-clock"></i> Lunes-Domingo: 8am - 12am</li>
+                           
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Redes Sociales</h3>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="payment-methods">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sección Inferior -->
+                <div class="footer-bottom">
+                    <p>© 2025 Ryuko Anime Store. Todos los derechos reservados por @Alcide </p>
+                    <div class="legal-links">
+                        
+                    </div>
+                </div>
+            </div>
+        </footer>
     <script src="script.js"></script>
 
 </body>
