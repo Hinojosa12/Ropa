@@ -156,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.cart-icon').addEventListener('click', function() {
         cartModal.classList.remove('hidden');
         renderCart();
+        // Desplazarse al inicio del modal
+        document.querySelector('.cart-content').scrollTo(0, 0);
     });
     
     closeCartBtn.addEventListener('click', function() {
@@ -222,19 +224,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-// Eventos para validación en tiempo real
-document.getElementById('customer-name').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
-});
-
-document.getElementById('customer-lastname').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
-});
-
-document.getElementById('customer-phone').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-});
-
+        // Eventos para validación en tiempo real
+        document.getElementById('customer-name').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
+        });
+        
+        document.getElementById('customer-lastname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
+        });
+        
+        document.getElementById('customer-phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
         // Obtener datos del formulario
         const name = document.getElementById('customer-name').value;
         const lastname = document.getElementById('customer-lastname').value;
