@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalElement = document.getElementById('total');
     const checkoutBtn = document.getElementById('checkout');
     const closeCartBtn = document.getElementById('close-cart');
+    const customerForm = document.getElementById('customer-form');
     
     // ========== FUNCIONES DEL CARRITO ==========
     
@@ -39,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p>Tu carrito está vacío</p>';
             totalElement.textContent = '0.00';
+            document.querySelector('.customer-data-form').style.display = 'none';
             return;
+        } else {
+            document.querySelector('.customer-data-form').style.display = 'block';
         }
         
         cart.forEach((item, index) => {
@@ -158,73 +162,85 @@ document.addEventListener('DOMContentLoaded', function() {
         cartModal.classList.add('hidden');
     });
     
-    // ========== FUNCIONALIDAD DE REGISTRO DE USUARIO ==========
-    
-    // Verificar si ya hay datos guardados
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    
-    // Si no hay datos, mostrar el modal de registro
-    if (!userData) {
-        document.getElementById('registration-modal').style.display = 'flex';
-    }
-    
-    // Manejar el envío del formulario de registro
-    const registrationForm = document.getElementById('registration-form');
-    if (registrationForm) {
-        registrationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Obtener los datos del formulario
-            const userData = {
-                nombre: document.getElementById('nombre').value,
-                apellidos: document.getElementById('apellidos').value,
-                telefono: document.getElementById('telefono').value,
-                carnet: document.getElementById('carnet').value,
-                direccion: document.getElementById('direccion').value
-            };
-            
-            // Guardar en localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Ocultar el modal
-            document.getElementById('registration-modal').style.display = 'none';
-        });
-    }
-    
-    // Permitir editar los datos desde el enlace de cuenta
-    document.querySelector('.account').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const modal = document.getElementById('registration-modal');
-        
-        if (userData) {
-            // Rellenar el formulario con los datos existentes
-            document.getElementById('nombre').value = userData.nombre;
-            document.getElementById('apellidos').value = userData.apellidos;
-            document.getElementById('telefono').value = userData.telefono;
-            document.getElementById('carnet').value = userData.carnet;
-            document.getElementById('direccion').value = userData.direccion;
+    // Cerrar modal al hacer clic fuera del contenido
+    cartModal.addEventListener('click', function(e) {
+        if (e.target === cartModal) {
+            cartModal.classList.add('hidden');
         }
-        
-        modal.style.display = 'flex';
     });
     
     // ========== FUNCIONALIDAD DE CHECKOUT ==========
     
     checkoutBtn.addEventListener('click', function() {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        
         if (cart.length === 0) {
             alert('Tu carrito está vacío');
             return;
         }
-        
-        if (!userData) {
-            alert('Por favor completa tus datos primero');
-            document.getElementById('registration-modal').style.display = 'flex';
+    
+        // Validar formulario
+        if (!customerForm.checkValidity()) {
+            // Validación manual adicional para mejor feedback
+            const name = document.getElementById('customer-name');
+            const lastname = document.getElementById('customer-lastname');
+            const phone = document.getElementById('customer-phone');
+            const address = document.getElementById('customer-address');
+            
+            // Validar nombres y apellidos (solo letras)
+            const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+            if (!nameRegex.test(name.value)) {
+                alert('El nombre solo puede contener letras y espacios');
+                name.focus();
+                return;
+            }
+            
+            if (!nameRegex.test(lastname.value)) {
+                alert('Los apellidos solo pueden contener letras y espacios');
+                lastname.focus();
+                return;
+            }
+            
+            // Validar teléfono (solo números)
+            const phoneRegex = /^[0-9]+$/;
+            if (!phoneRegex.test(phone.value)) {
+                alert('El teléfono solo puede contener números');
+                phone.focus();
+                return;
+            }
+            
+            if (phone.value.length < 8 || phone.value.length > 15) {
+                alert('El teléfono debe tener entre 8 y 15 dígitos');
+                phone.focus();
+                return;
+            }
+            
+            if (address.value.trim() === '') {
+                alert('Por favor ingrese una dirección válida');
+                address.focus();
+                return;
+            }
+            
             return;
         }
+        
+// Eventos para validación en tiempo real
+document.getElementById('customer-name').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
+});
+
+document.getElementById('customer-lastname').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '');
+});
+
+document.getElementById('customer-phone').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+        // Obtener datos del formulario
+        const name = document.getElementById('customer-name').value;
+        const lastname = document.getElementById('customer-lastname').value;
+        const phone = document.getElementById('customer-phone').value;
+        const address = document.getElementById('customer-address').value;
+        const notes = document.getElementById('customer-notes').value;
         
         // Crear mensaje para WhatsApp con formato mejorado
         let message = `¡Hola! Quiero hacer un pedido:%0A%0A`;
@@ -242,21 +258,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         message += `💵 *Total:* $${total.toFixed(2)}%0A%0A`;
         message += `=== MIS DATOS ===%0A`;
-        message += `👤 *Nombre:* ${userData.nombre} ${userData.apellidos}%0A`;
-        message += `📱 *Teléfono:* ${userData.telefono}%0A`;
-        message += `🆔 *CI:* ${userData.carnet}%0A`;
-        message += `🏠 *Dirección:* ${userData.direccion}%0A%0A`;
-        message += `Por favor confirmen mi pedido. ¡Gracias!`;
+        message += `👤 *Nombre:* ${name} ${lastname}%0A`;
+        message += `📱 *Teléfono:* ${phone}%0A`;
+        message += `🏠 *Dirección:* ${address}%0A`;
+        
+        // Agregar notas si existen
+        if (notes) {
+            message += `📝 *Notas:* ${notes}%0A`;
+        }
+        
+        message += `%0APor favor confirmen mi pedido. ¡Gracias!`;
         
         // Abrir WhatsApp con el número específico y mensaje formateado
         window.open(`https://wa.me/+5358639594?text=${message}`, '_blank');
         
-        // Opcional: Limpiar el carrito después del pedido
+        // Limpiar el carrito después del pedido
         localStorage.removeItem('cart');
         cart = [];
         updateCartCount();
         renderCart();
         cartModal.classList.add('hidden');
+        
+        // Limpiar el formulario
+        customerForm.reset();
     });
     
     // ========== INICIALIZACIÓN ==========
