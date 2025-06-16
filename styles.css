@@ -16,10 +16,127 @@ header {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* ----- ESTILO SAMURAI MODERNO ----- */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@500;700&display=swap');
+
+.logo .brand {
+    font-size: 2.4rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    color: #f0eacc;
+    background: linear-gradient(135deg, #FF9500 20%, #FF3300 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        4px 4px 0px rgba(0,0,0,0.15),
+        0 0 12px rgba(255,153,0,0.3);
+    letter-spacing: -1px;
+    position: relative;
+    display: inline-block;
+    padding: 0 8px;
+    transform: skew(-5deg);
+    border-left: 3px solid #FF3300;
+    border-right: 3px solid #FF9500;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo .brand:hover {
+    transform: skew(-5deg) scale(1.05);
+    text-shadow: 
+        6px 6px 0px rgba(0,0,0,0.15),
+        0 0 20px rgba(255,153,0,0.5);
+}
+
+/* --- Título Principal --- */
+.navbar-presentation h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.5rem;
+    color: #FFF;
+    text-shadow: 
+        3px 3px 0 #FF4500,
+        6px 6px 0 #000;
+    letter-spacing: 3px;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+    padding: 0 15px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+}
+
+/* --- Descripción --- */
+.site-description {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    color: #dfd7ae;
+    text-shadow: 1px 1px 2px #000;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.6);
+    border-left: 2px solid #FF4500;
+    display: inline-block;
+    max-width: 80%;
+}
+
+/* Efecto Kanji Decorativo */
+.site-description::before {
+    content: "龍虎";
+    position: absolute;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 5rem;
+    opacity: 0.08;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    color: white;
+}
+
+/* --- Mensaje Personalizado --- */
+.personalized-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.personalized-message p {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    color: #d4d0b6;
+    text-shadow: 1px 1px 2px #000;
+    font-size: 1.2rem;
+    margin: 0;
+    position: relative;
+}
+
+.wink-emoji {
+    font-size: 1.8rem;
+    display: inline-block;
+    animation: wink 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+/* Animaciones */
+@keyframes wink {
+    0%, 45%, 55%, 100% { transform: scale(1); }
+    50% { transform: scale(0.8) rotate(-5deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
 /* --- Presentación --- */
 .navbar-presentation {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                url('Imagen7.jpg') center/cover no-repeat;
+                url('fondo.jpg') center/cover no-repeat;
     padding: 120px 20px;
     min-height: 300px;
     display: flex;
@@ -42,7 +159,7 @@ header {
     border-radius: 50%;
     border: 3px solid #FF9900;
     display: block;
-    margin: 0 auto 30px;
+    margin: 0 auto -4px;
     shape-outside: circle(50%);
     float: none;
 }
@@ -95,7 +212,7 @@ header {
     display: flex;
     align-items: center;
     gap: 15px;
-    height: 50px;
+    height: 40px;
 }
 
 .user-actions a {
@@ -107,7 +224,7 @@ header {
 /* --- Productos --- */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
     padding: 1rem;
     background-color: white;
@@ -118,7 +235,7 @@ header {
 
 .product {
     border: 1px solid #e1e1e1;
-    padding: 10px;
+    padding: 15px;
     border-radius: 15px;
     transition: transform 0.3s, box-shadow 0.3s;
     background: white;
@@ -126,17 +243,16 @@ header {
     flex-direction: column;
     color: #6c757d;
     height: 100%;
-    margin-bottom: 10px;
 }
 
 .product-image-container {
     width: 100%;
-    height: 180px;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     border-radius: 8px;
     background: #f8f8f8;
 }
@@ -160,7 +276,7 @@ header {
 
 .product-info {
     width: 100%;
-    padding-top: 5px;
+    padding-top: 10px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -169,14 +285,14 @@ header {
 .product-title {
     font-weight: bold;
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 40px;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .product-price {
@@ -184,11 +300,11 @@ header {
     font-weight: bold;
     margin-top: auto;
     padding-top: 5px;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .product-description {
-    font-size: 12px;
+    font-size: 14px;
     margin: 5px 0;
     color: #666;
     display: -webkit-box;
@@ -196,24 +312,24 @@ header {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 .product button {
     background: #FF9900;
     color: white;
     border: none;
-    padding: 8px 10px;
+    padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
-    margin-top: 8px;
-    font-size: 13px;
-    transition: transform 0.3s;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: all 0.3s;
 }
 
 .product button:hover {
-    background: #e68a00;
+    background: #1e7916;
 }
 
 /* --- Carrito --- */
@@ -293,6 +409,86 @@ header {
 #close-cart {
     background: #6c757d;
     color: white;
+}
+/* --- Barra del Carrito --- */
+.navbar-bottom {
+    width: 100%;
+    background: linear-gradient(135deg, #232f3e 0%, #1a242f 100%);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 60px; /* Ajusta según la altura de tu navbar-top */
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,152,0,0.3);
+    border-bottom: 1px solid rgba(255,152,0,0.2);
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon {
+    position: relative;
+    padding: 2px 5px;
+    background: rgba(255,153,0,0.15);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,153,0,0.3);
+    left: -15px;
+}
+
+.cart-icon:hover {
+    background: rgba(255, 153, 0, 0.404);
+    transform: translateY(-2px);
+}
+
+.cart-icon::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    background: #c0871d;
+    border-radius: 50%;
+    border: 2px solid #232f3e;
+}
+
+#cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #926717;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.account {
+    color: #dfd7ae;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+}
+
+.account:hover {
+    color: #FF9900;
+    background: rgba(255,255,255,0.1);
 }
 
 /* --- Registro --- */
@@ -464,5 +660,210 @@ header {
     
     .navbar-presentation {
         padding: 115px 15px;
+    }
+}
+
+/* ===== ESTILOS FOOTER ===== */
+.samurai-footer {
+    background: linear-gradient(135deg, #131921 0%, #0a0e13 100%);
+    color: #dfd7ae;
+    padding: 40px 0 0;
+    position: relative;
+    border-top: 3px solid #FF4500;
+}
+
+.samurai-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #FF9900, transparent);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255,152,0,0.2);
+}
+
+.footer-brand {
+    max-width: 400px;
+}
+
+.footer-logo {
+    height: 50px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+}
+
+.footer-description {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #f0eacc;
+}
+
+.footer-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-style: italic;
+    color: #FF9900;
+}
+
+.footer-kanji span {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 5rem;
+    opacity: 0.1;
+    color: #FF9900;
+}
+
+.footer-middle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 40px 0;
+}
+
+.footer-section h3 {
+    color: #FF9900;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #FF4500;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-section a {
+    color: #dfd7ae;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #FF9900;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: white;
+    background: rgba(255,255,255,0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background: #FF9900;
+    transform: translateY(-3px);
+}
+
+.payment-methods {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    font-size: 1.8rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.footer-bottom {
+    background: rgba(0,0,0,0.3);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.legal-links {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.legal-links a {
+    color: #dfd7ae;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.legal-links a:hover {
+    color: #FF9900;
+}
+
+/* Iconos Font Awesome */
+.fas, .fab {
+    width: 20px;
+    text-align: center;
+    color: #FF9900;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-kanji {
+        display: none;
+    }
+    
+    .footer-section h3 {
+        margin-top: 30px;
+    }
+    
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .social-icons, .payment-methods {
+        justify-content: center;
     }
 }
