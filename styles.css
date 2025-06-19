@@ -62,8 +62,16 @@ header {
     position: relative;
     display: inline-block;
     padding: 0 15px;
-    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    /* Nuevos estilos de fondo con imagen */
+    background: 
+        linear-gradient(90deg, rgba(56, 53, 53, 0.7) 0%, rgba(0,0,0,0.3) 100%),
+        url('fondos-azul-hd-v8iznbqgjjkmmnjc.jpg') center/cover no-repeat;
+    /* Mezcla de fondos */
+    background-blend-mode: overlay;
     clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    /* Asegurar que el texto sea legible */
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
 }
 
 /* --- Descripción --- */
@@ -189,7 +197,7 @@ header {
 .search-bar {
     flex-grow: 1;
     display: flex;
-    max-width: 600px;
+    max-width: 1600px;
     min-width: 200px;
 }
 
@@ -915,3 +923,160 @@ header {
         justify-content: center;
     }
 }
+
+
+    /* Estilos para el modal de selección de producto */
+    .product-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .product-modal-content {
+        background-color: white;
+        margin: 2rem auto;
+        padding: 2rem;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 10px;
+        position: relative;
+    }
+    
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .product-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+    
+    .product-main-image {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .product-main-image img {
+        width: 100%;
+        border-radius: 8px;
+    }
+    
+    .product-selection {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .size-selector, .color-selector {
+        margin-bottom: 1.5rem;
+    }
+    
+    .size-options {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .size-option {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .size-option.selected {
+        background-color: #da8b32;
+        color: white;
+        border-color: #da8b32;
+    }
+    
+    .color-options {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .color-option {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+    
+    .color-option.selected {
+        border-color: #333;
+    }
+    
+    .design-selection {
+        margin-top: 2rem;
+    }
+    
+    .design-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .design-option {
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .design-option.selected {
+        border-color: #da8b32;
+    }
+    
+    .design-option img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .custom-design-upload {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+    
+    .custom-design-upload label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    .modal-action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+    
+    .modal-action-buttons button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .add-to-cart-modal {
+        background-color: #da8b32;
+        color: white;
+    }
+    
+    .cancel-modal {
+        background-color: #f1f1f1;
+    }
