@@ -3,559 +3,1364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryuko Anime</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="styles.css">
+    <title>Béisbol con Dados - Con Fotos de Jugadores</title>
     <style>
-        /* Estilo para el scroll suave */
-        html {
-            scroll-behavior: smooth;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
-        /* Estilo adicional para el enlace del carrito */
-        .account {
-            transition: all 0.3s ease;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #ffcc00;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+        
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 40, 0, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid #ffcc00;
+        }
+        
+        .team {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .score {
+            font-size: 2rem;
+            color: #ffcc00;
+            margin-top: 5px;
+        }
+        
+        .inning-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+        
+        .inning {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .outs {
+            font-size: 1.2rem;
+        }
+        
+        .current-batter {
+            font-size: 1.1rem;
+            margin-top: 5px;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .field-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #228B22;
+            border: 3px solid #8B4513;
+        }
+        
+        .baseball-field {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .diamond {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            border: 2px solid white;
+            background: #CD853F;
+        }
+        
+        .mound {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #CD853F;
+            border-radius: 50%;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid white;
+            z-index: 2;
+        }
+        
+        .mound::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        #home {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            clip-path: polygon(50% 0%, 100% 100%, 50% 100%, 0% 100%);
+            z-index: 3;
+        }
+        
+        .base {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: white;
+            border: 2px solid #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
             color: #333;
-            text-decoration: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            font-size: 0.7rem;
+            z-index: 3;
         }
         
-        .account:hover {
-            color: #e74c3c;
-            text-decoration: underline;
+        #first {
+            bottom: 120px;
+            right: 220px;
+        }
+        
+        #second {
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #third {
+            bottom: 120px;
+            left: 220px;
+        }
+        
+        .grass {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(135deg, rgba(0, 100, 0, 0.2) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(0, 100, 0, 0.2) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(0, 100, 0, 0.2) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(0, 100, 0, 0.2) 25%, transparent 25%);
+            background-size: 15px 15px;
+        }
+        
+        .player-photo {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            object-fit: cover;
+            z-index: 10;
+            display: none;
+            border-radius: 5px;
+            border: 2px solid white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        #player-home {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #player-first {
+            top: 135px;
+            right: 220px;
+        }
+        
+        #player-second {
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #player-third {
+            top: 135px;
+            left: 220px;
+        }
+        
+        .dice-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .dice-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .dice-label {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #ffcc00;
+        }
+        
+        .dice {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .dice-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            transition: transform 0.6s;
+        }
+        
+        .dice-face.front {
+            background: white;
+            transform: rotateY(0deg);
+        }
+        
+        .dice-face.back {
+            background: #f0f0f0;
+            transform: rotateY(180deg);
+        }
+        
+        .dice.rolling .dice-face.front {
+            transform: rotateY(-180deg);
+        }
+        
+        .dice.rolling .dice-face.back {
+            transform: rotateY(0deg);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            color: #1a2a6c;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn:disabled {
+            background: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .game-log {
+            background: rgba(0, 20, 0, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            height: 120px;
+            overflow-y: auto;
+            border: 2px solid #ffcc00;
+            margin-bottom: 15px;
+        }
+        
+        .log-header {
+            font-size: 1.1rem;
+            color: #ffcc00;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .log-content {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .log-entry {
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .result-display {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #ffcc00;
+            min-height: 50px;
+            margin: 12px 0;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+        }
+        
+        .players-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .team-players {
+            flex: 1;
+            padding: 0 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .team-title {
+            font-size: 1.1rem;
+            color: #ffcc00;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            padding: 3px;
+            align-items: center;
+        }
+        
+        .player-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .player-stats {
+            color: #ffcc00;
+        }
+        
+        .player-thumbnail {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ffcc00;
+            object-fit: cover;
+        }
+        
+        .stats-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .stats-content {
+            background: #1a2a6c;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            border: 3px solid #ffcc00;
+            position: relative;
+        }
+        
+        .close-stats {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #ffcc00;
+            cursor: pointer;
+        }
+        
+        .stats-title {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .stats-section {
+            margin-bottom: 20px;
+        }
+        
+        .stats-subtitle {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #ffcc00;
+            padding-bottom: 5px;
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .stats-table th, .stats-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ffcc00;
+        }
+        
+        .stats-table th {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .score {
+                font-size: 1.8rem;
+            }
+            
+            .dice-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            
+            .field-container {
+                height: 250px;
+            }
+            
+            .players-info {
+                flex-direction: column;
+            }
+            
+            .team-players {
+                margin-bottom: 15px;
+            }
+            
+            /* Ajustes para móviles */
+            .diamond {
+                width: 180px;
+                height: 180px;
+            }
+            
+            #first {
+                right: 10px;
+                top: 120px;
+            }
+            
+            #third {
+                left: 10px;
+                top: 120px;
+            }
+
+            #second {
+             top: 10px;
+             left: 50%;
+             transform: translateX(-50%);
+           }
+
+           #player-second {
+             top: 0px;
+             left: 50%;
+             transform: translateX(-50%);
+              }
+
+              #player-first {
+              top: 135px;
+             right: 20px;
+              }
+
+              #player-third {
+                top: 135px;
+               left: 20px;
+               }
+            
+            .player-photo {
+                width: 40px;
+                height: 60px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <!-- Primera fila (logo + búsqueda + user/carrito) -->
-        <div class="navbar-top">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="#"><span class="brand">Ryuko Anime</span></a>
+    <div class="container">
+        <header>
+            <h1>⚾ Béisbol con Dados ⚾</h1>
+            <div class="subtitle">¡Lanza los dados y vive la emoción del béisbol!</div>
+        </header>
+        
+        <div class="scoreboard">
+            <div class="team">
+                <div>Visitante</div>
+                <div class="score" id="away-score">0</div>
             </div>
             
-            <!-- Barra de búsqueda -->
-            <div class="search-bar">
-                <input type="text" id="real-time-search" placeholder="Buscar productos...">
-                <button class="search-button">🔍</button>
+            <div class="inning-info">
+                <div class="inning">Inning: <span id="inning">1</span><span id="top-bottom">↑</span></div>
+                <div class="outs">Outs: <span id="outs">0</span></div>
+                <div class="current-batter" id="current-batter"></div>
             </div>
             
-            <!-- User + Carrito -->
-            <div class="user-actions">
-                <a href="#products-container" class="account">Comprar</a>
-                <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+            <div class="team">
+                <div>Local</div>
+                <div class="score" id="home-score">0</div>
             </div>
         </div>
         
-        <!-- Nueva sección de presentación -->
-        <div class="navbar-presentation">
-            <img src="Imagen7.jpg" alt="Colección Ryuko Anime" class="presentation-image">
-            <div class="presentation-content">
-                <h1>Ryuko Anime Store</h1>
-                <h2 class="site-description">
-                    Nos dedicamos a la venta de prendas sublimadas con imágenes y referentes del anime
-                </h2>
-                <div class="personalized-message">
-                    <p>Escoge a tu gusto y preferencia</p>
-                    <span class="wink-emoji">😉</span>
-                </div>
+        <div class="players-info">
+            <div class="team-players">
+                <div class="team-title">Visitantes</div>
+                <div id="away-players"></div>
+            </div>
+            <div class="team-players">
+                <div class="team-title">Locales</div>
+                <div id="home-players"></div>
             </div>
         </div>
-    </header>
-    
-    <main>
-        <!-- Sección Información - NUEVA SECCIÓN -->
-        <section class="info-section py-5 bg-light">
-            <div class="container">
-                <h2 class="text-center mb-5">Cómo creamos tus productos de anime</h2>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-tshirt fa-3x mb-3" style="color: #da8b32;"></i>
-                                <h4>Pullovers de Anime</h4>
-                                <p>Impresión de alta calidad con tus personajes favoritos. Usamos técnicas de sublimación para colores vibrantes que duran.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-fire fa-3x mb-3" style="color: #da8b32;"></i>
-                                <h4>Diseños Exclusivos</h4>
-                                <p>Colecciones únicas de los animes más populares. Desde clásicos hasta los últimos estrenos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-user-ninja fa-3x mb-3" style="color: #da8b32;"></i>
-                                <h4>Personalización</h4>
-                                <p>¿Tienes un diseño en mente? ¡Lo hacemos realidad! Envíanos tu idea y la plasmamos en tu prenda.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="products" id="products-container">
-            <!-- Productos repetidos para demostración -->
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="product" data-id="1">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Naruto" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Naruto</h3>
-                    <p class="product-price">$20.00</p>
-                    <p class="product-description">Pullover de poliéster con imagen de Naruto impresa. Tallas S a XL.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="2">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Dragon Ball" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Dragon Ball</h3>
-                    <p class="product-price">$22.00</p>
-                    <p class="product-description">Pullover de algodón con estampado de Goku. Disponible en varios colores.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-            
-            <div class="product" data-id="3">
-                <div class="product-image-container">
-                    <img src="Imagen3.jpg" alt="Pullover Attack on Titan" class="product-img">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Pullover Attack on Titan</h3>
-                    <p class="product-price">$24.00</p>
-                    <p class="product-description">Pullover de tejido grueso con símbolo de las alas de la libertad.</p>
-                    <button class="add-to-cart">Añadir al carrito</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modal del Carrito con formulario de datos -->
-        <div class="cart-modal hidden">
-            <div class="cart-content">
-                <h2>Tu Carrito</h2>
-                <div id="cart-items"></div>
-                <div class="cart-total">
-                    <p>Total: $<span id="total">0.00</span></p>
-                </div>
-                
-                <!-- Formulario de datos del cliente -->
-                <div class="customer-data-form">
-                    <h3>Datos para el envío</h3>
-                    <form id="customer-form">
-                        <div class="form-group">
-                            <input type="text" id="customer-name" placeholder="Nombre*" required 
-                                   pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
-                                   title="Solo letras y espacios">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="customer-lastname" placeholder="Apellidos*" required
-                                   pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+" 
-                                   title="Solo letras y espacios">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="customer-phone" placeholder="Número de teléfono*" required
-                                   pattern="[0-9]+" minlength="8" maxlength="15"
-                                   title="Solo números (8-15 dígitos)">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="customer-address" placeholder="Dirección completa*" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="customer-notes" placeholder="Datos extra (ej: Venga después de las 4 de la tarde)"></textarea>
-                        </div>
-                    </form>
-                </div>
-                
-                <button id="checkout">Enviar pedido por WhatsApp</button>
-                <button id="close-cart">Cerrar</button>
-            </div>
-        </div>
-    </main>
-    
-    <footer class="samurai-footer">
-        <div class="footer-container">
-            <!-- Sección Superior -->
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="imagen12.jpg" alt="Ryuko Anime Logo" class="footer-logo">
-                    <p class="footer-description">
-                        Nos dedicamos a la venta de prendas sublimadas con imágenes y referentes del anime
-                    </p>
-                    <div class="footer-message">
-                        <span>Escoge a tu gusto y preferencia</span>
-                        <span class="wink-emoji">😉</span>
-                    </div>
-                </div>
-                
-                <div class="footer-kanji">
-                    <span>龍虎</span>
-                </div>
-            </div>
-            
-            <!-- Sección Central -->
-            <div class="footer-middle">
-                <div class="footer-section">
-                    <h3>Contacto</h3>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> +51 999 888 777</li>
-                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51999888777">WhatsApp</a></li>
-                        <li><i class="fas fa-envelope"></i> contacto@ryukoanime.com</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Horario</h3>
-                    <ul>
-                        <li><i class="fas fa-clock"></i> Lunes-Domingo: 8am - 12am</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Redes Sociales</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-paypal"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Sección Inferior -->
-            <div class="footer-bottom">
-                <p>© 2025 Ryuko Anime Store. Todos los derechos reservados por @Alcide </p>
-                <div class="legal-links">
-                    
-                </div>
-            </div>
-        </div>
-    </footer>
-<!-- Modal de selección de producto -->
-<div class="product-modal" id="product-modal">
-    <div class="product-modal-content">
-        <span class="close-modal">&times;</span>
         
-        <div class="product-options">
-            <div class="product-main-image">
-                <img id="modal-product-image" src="" alt="Producto seleccionado">
+        <div class="field-container">
+            <div class="baseball-field">
+                <div class="grass"></div>
+                <div class="diamond"></div>
+                <div class="mound"></div>
+                
+                <!-- Bases -->
+                <div class="base" id="home">H</div>
+                <div class="base" id="first">1</div>
+                <div class="base" id="second">2</div>
+                <div class="base" id="third">3</div>
+                
+                <!-- Jugadores en bases (fotos) -->
+                <img class="player-photo" id="player-home" style="display: none;" />
+                <img class="player-photo" id="player-first" style="display: none;" />
+                <img class="player-photo" id="player-second" style="display: none;" />
+                <img class="player-photo" id="player-third" style="display: none;" />
+            </div>
+        </div>
+        
+        <div class="result-display" id="result-display">Esperando lanzamiento...</div>
+        
+        <div class="dice-section">
+            <div class="dice-container">
+                <div class="dice-label">Dado 1</div>
+                <div class="dice" id="dice1">
+                    <div class="dice-face front">?</div>
+                    <div class="dice-face back">?</div>
+                </div>
             </div>
             
-            <div class="product-selection">
-                <h3 id="modal-product-title"></h3>
-                <p class="product-price" id="modal-product-price"></p>
-                <p class="product-description" id="modal-product-description"></p>
-                
-                <div class="size-selector">
-                    <h4>Talla</h4>
-                    <div class="size-options">
-                        <div class="size-option" data-size="S">S</div>
-                        <div class="size-option" data-size="M">M</div>
-                        <div class="size-option selected" data-size="L">L</div>
-                        <div class="size-option" data-size="XL">XL</div>
-                    </div>
+            <div class="dice-container">
+                <div class="dice-label">Dado 2</div>
+                <div class="dice" id="dice2">
+                    <div class="dice-face front">?</div>
+                    <div class="dice-face back">?</div>
                 </div>
-                
-                <div class="color-selector">
-                    <h4>Color</h4>
-                    <div class="color-options">
-                        <div class="color-option selected" style="background-color: #000000;" data-color="Negro"></div>
-                        <div class="color-option" style="background-color: #ffffff; border: 1px solid #ddd;" data-color="Blanco"></div>
-                        <div class="color-option" style="background-color: #da8b32;" data-color="Marrón"></div>
-                        <div class="color-option" style="background-color: #e74c3c;" data-color="Rojo"></div>
-                        <div class="color-option" style="background-color: #3498db;" data-color="Azul"></div>
-                    </div>
-                </div>
-                
-              
-                
-                <div class="custom-design-upload">
-                    <h4>¿Quieres subir tu propio diseño?</h4>
-                    <label for="custom-design">Sube tu imagen (JPG/PNG, máximo 5MB)</label>
-                    <input type="file" id="custom-design" accept="image/jpeg, image/png">
-                    <p class="file-info" style="font-size: 0.8rem; color: #666; margin-top: 5px;">No se ha seleccionado archivo</p>
-                </div>
-                
-                <div class="modal-action-buttons">
-                    <button class="cancel-modal">Cancelar</button>
-                    <button class="add-to-cart-modal">Añadir al carrito</button>
-                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="roll-button">Lanzar Dados</button>
+            <button class="btn" id="next-button">Siguiente Bateador</button>
+        </div>
+        
+        <div class="game-log">
+            <div class="log-header">Registro del Juego</div>
+            <div class="log-content" id="game-log"></div>
+        </div>
+        
+        <button class="btn" id="stats-button" style="display: none;">Ver Estadísticas</button>
+    </div>
+    
+    <!-- Modal de estadísticas -->
+    <div class="stats-modal" id="stats-modal">
+        <div class="stats-content">
+            <span class="close-stats" id="close-stats">&times;</span>
+            <h2 class="stats-title">Estadísticas Finales</h2>
+            
+            <div class="stats-section">
+                <h3 class="stats-subtitle">Resultado Final</h3>
+                <p id="final-score" style="text-align: center; font-size: 1.5rem; margin-bottom: 20px;"></p>
+            </div>
+            
+            <div class="stats-section">
+                <h3 class="stats-subtitle">Jugadores Destacados - Visitantes</h3>
+                <table class="stats-table" id="away-stats">
+                    <thead>
+                        <tr>
+                            <th>Jugador</th>
+                            <th>VB</th>
+                            <th>H</th>
+                            <th>HR</th>
+                            <th>CI</th>
+                            <th>AVG</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="stats-section">
+                <h3 class="stats-subtitle">Jugadores Destacados - Locales</h3>
+                <table class="stats-table" id="home-stats">
+                    <thead>
+                        <tr>
+                            <th>Jugador</th>
+                            <th>VB</th>
+                            <th>H</th>
+                            <th>HR</th>
+                            <th>CI</th>
+                            <th>AVG</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="stats-section">
+                <h3 class="stats-subtitle">Líderes del Juego</h3>
+                <div id="game-leaders"></div>
             </div>
         </div>
     </div>
-</div>
-    <!-- Bootstrap JS Bundle con Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+// Variables del juego
+let bases = [false, false, false]; // [1ra, 2da, 3ra]
+let baseRunners = [null, null, null]; // Fotos de los corredores en cada base
+let outs = 0;
+let inning = 1;
+let isTopInning = true;
+let awayScore = 0;
+let homeScore = 0;
+let currentRoll = [0, 0];
+let isRolling = false;
+let awayBatterIndex = 0;
+let homeBatterIndex = 0;
+let gameOver = false;
+let isFirstBatterOfInning = true;
+
+// Listas de jugadores con URLs de fotos
+const awayPlayers = [
+    { name: "Carlos Méndez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "1img.png" },
+    { name: "José Rojas", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/2.jpg" },
+    { name: "Luis Torres", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/3.jpg" },
+    { name: "Miguel Sánchez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/4.jpg" },
+    { name: "Juan Castro", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/5.jpg" },
+    { name: "Pedro Álvarez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/6.jpg" },
+    { name: "Fernando Ruiz", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/7.jpg" },
+    { name: "Ricardo Gómez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/8.jpg" },
+    { name: "Daniel Vargas", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/9.jpg" }
+];
+
+const homePlayers = [
+    { name: "Alejandro Pérez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/10.jpg" },
+    { name: "Roberto Jiménez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/11.jpg" },
+    { name: "Javier López", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/12.jpg" },
+    { name: "Andrés García", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/13.jpg" },
+    { name: "Sergio Martínez", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/14.jpg" },
+    { name: "Manuel Díaz", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/15.jpg" },
+    { name: "Raúl Herrera", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/16.jpg" },
+    { name: "Eduardo Silva", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/17.jpg" },
+    { name: "Pablo Mendoza", atBats: 0, hits: 0, homeRuns: 0, rbi: 0, photo: "https://randomuser.me/api/portraits/men/18.jpg" }
+];
+
+// Estadísticas
+const gameStats = {
+    awayTeam: { totalHits: 0, totalHomeRuns: 0, totalRBI: 0 },
+    homeTeam: { totalHits: 0, totalHomeRuns: 0, totalRBI: 0 },
+    leaders: { hits: { name: "", value: 0 }, homeRuns: { name: "", value: 0 }, rbi: { name: "", value: 0 } }
+};
+
+// Elementos del DOM
+const dice1 = document.getElementById('dice1');
+const dice2 = document.getElementById('dice2');
+const rollButton = document.getElementById('roll-button');
+const nextButton = document.getElementById('next-button');
+const outsDisplay = document.getElementById('outs');
+const inningDisplay = document.getElementById('inning');
+const topBottomDisplay = document.getElementById('top-bottom');
+const awayScoreDisplay = document.getElementById('away-score');
+const homeScoreDisplay = document.getElementById('home-score');
+const gameLog = document.getElementById('game-log');
+const resultDisplay = document.getElementById('result-display');
+const currentBatterDisplay = document.getElementById('current-batter');
+const playerFirst = document.getElementById('player-first');
+const playerSecond = document.getElementById('player-second');
+const playerThird = document.getElementById('player-third');
+const playerHome = document.getElementById('player-home');
+const awayPlayersDisplay = document.getElementById('away-players');
+const homePlayersDisplay = document.getElementById('home-players');
+const statsButton = document.getElementById('stats-button');
+const statsModal = document.getElementById('stats-modal');
+const closeStats = document.getElementById('close-stats');
+const finalScoreDisplay = document.getElementById('final-score');
+const awayStatsTable = document.getElementById('away-stats').querySelector('tbody');
+const homeStatsTable = document.getElementById('home-stats').querySelector('tbody');
+const gameLeadersDisplay = document.getElementById('game-leaders');
+
+// Inicialización
+function initGame() {
+    updateBasesDisplay();
+    updateScoreboard();
+    renderPlayersList();
+    updateCurrentBatter();
+    rollButton.disabled = false;
+    nextButton.disabled = true;
+    statsButton.style.display = 'none';
+    isFirstBatterOfInning = true;
+}
+
+// Event Listeners
+rollButton.addEventListener('click', rollDice);
+nextButton.addEventListener('click', nextBatter);
+statsButton.addEventListener('click', showStats);
+closeStats.addEventListener('click', () => statsModal.style.display = 'none');
+
+// Funciones del juego
+function rollDice() {
+    if (isRolling || gameOver) return;
     
-    <script src="script.js"></script>
+    isRolling = true;
+    resultDisplay.textContent = "Lanzando...";
+    rollButton.disabled = true;
+    nextButton.disabled = true;
+    
+    dice1.classList.add('rolling');
+    dice2.classList.add('rolling');
+    
+    setTimeout(() => {
+        currentRoll = [
+            Math.floor(Math.random() * 6) + 1,
+            Math.floor(Math.random() * 6) + 1
+        ];
+        
+        dice1.querySelector('.front').textContent = dice1.querySelector('.back').textContent = currentRoll[0];
+        dice2.querySelector('.front').textContent = dice2.querySelector('.back').textContent = currentRoll[1];
+        
+        const currentTeam = isTopInning ? awayPlayers : homePlayers;
+        const currentBatterIndex = isTopInning ? awayBatterIndex : homeBatterIndex;
+        currentTeam[currentBatterIndex].atBats++;
+        
+        setTimeout(() => {
+            dice1.classList.remove('rolling');
+            dice2.classList.remove('rolling');
+            isRolling = false;
+            
+            const result = getRollResult(currentRoll);
+            processResult(result);
+            
+            if (outs < 3) {
+                nextButton.disabled = false;
+            }
+            
+            isFirstBatterOfInning = false;
+        }, 300);
+    }, 1000);
+}
+
+function getRollResult(roll) {
+    const sortedRoll = [...roll].sort((a, b) => a - b);
+    const rollKey = sortedRoll.join('/');
+    
+    if (rollKey === '1/1' || rollKey === '6/6') return 'HOME_RUN';
+    if (rollKey === '1/2' || rollKey === '3/6') return 'DOUBLE'; // Corregido conflicto
+    if (rollKey === '1/3' || rollKey === '1/4' || rollKey === '3/3' || rollKey === '4/4') return 'WALK';
+    if (rollKey === '1/5' || rollKey === '4/5') return 'POP_OUT';
+    if (rollKey === '1/6' || rollKey === '2/5') return 'SINGLE';
+    if (rollKey === '2/2' || rollKey === '5/5') return 'DOUBLE_PLAY';
+    if (rollKey === '2/3' || rollKey === '3/5') return 'GROUND_OUT';
+    if (rollKey === '2/4' || rollKey === '2/6' || rollKey === '4/6') return 'STRIKE_OUT';
+    if (rollKey === '3/4') return 'TRIPLE';
+    if (rollKey === '5/6') return 'SACRIFICE_FLY';
+    
+    return 'STRIKE_OUT';
+}
+
+function processResult(result) {
+    let logMessage = '';
+    let resultMessage = '';
+    let rbi = 0;
+    let isHit = false;
+    let isHomeRun = false;
+    
+    const currentTeam = isTopInning ? awayPlayers : homePlayers;
+    const currentTeamStats = isTopInning ? gameStats.awayTeam : gameStats.homeTeam;
+    const currentBatterIndex = isTopInning ? awayBatterIndex : homeBatterIndex;
+    const currentBatter = currentTeam[currentBatterIndex];
+    
+    switch (result) {
+        case 'HOME_RUN':
+            resultMessage = '¡HOME RUN!';
+            logMessage = `¡HOME RUN de ${currentBatter.name}! Todos los corredores anotan!`;
+            rbi = 1;
+            for (let i = 0; i < 3; i++) {
+                if (bases[i]) {
+                    rbi++;
+                }
+            }
+            bases = [false, false, false];
+            baseRunners = [null, null, null];
+            addRuns(rbi);
+            isHit = true;
+            isHomeRun = true;
+            break;
+            
+        case 'DOUBLE':
+            resultMessage = '¡DOBLE!';
+            logMessage = `¡Doble de ${currentBatter.name}! Bateador a 2da, corredores avanzan 2 bases.`;
+            isHit = true;
+            rbi = advanceRunners(2);
+            bases[1] = true;
+            baseRunners[1] = currentBatter.photo;
+            break;
+            
+        case 'WALK':
+            resultMessage = 'Base por bola';
+            logMessage = `Base por bola para ${currentBatter.name}. Bateador avanza a primera.`;
+            
+            // Lógica corregida para base por bola
+            if (bases[0] && bases[1] && bases[2]) {
+                // Bases llenas: se anota 1 carrera y se avanzan todos los corredores
+                addRuns(1);
+                // Avanzar corredores: 2da a 3ra, 1ra a 2da
+                baseRunners[2] = baseRunners[1];
+                baseRunners[1] = baseRunners[0];
+                // Bateador a primera
+                baseRunners[0] = currentBatter.photo;
+                rbi = 1;
+            } else {
+                // Avanzar corredores solo si es necesario (cuando primera está ocupada)
+                if (bases[0]) {
+                    // Si segunda base está libre, mover corredor de primera a segunda
+                    if (!bases[1]) {
+                        bases[1] = true;
+                        baseRunners[1] = baseRunners[0];
+                    } 
+                    // Si segunda está ocupada pero tercera libre, mover a tercera
+                    else if (!bases[2]) {
+                        bases[2] = true;
+                        baseRunners[2] = baseRunners[1];
+                        baseRunners[1] = baseRunners[0];
+                    }
+                    // Si todas están ocupadas pero no estamos en el caso de bases llenas (no debería pasar)
+                    else {
+                        addRuns(1);
+                        baseRunners[2] = baseRunners[1];
+                        baseRunners[1] = baseRunners[0];
+                        rbi = 1;
+                    }
+                }
+                // Colocar bateador en primera base
+                bases[0] = true;
+                baseRunners[0] = currentBatter.photo;
+            }
+            break;
+            
+        case 'POP_OUT':
+            resultMessage = 'Pop out';
+            logMessage = `${currentBatter.name} hace pop out. Un out.`;
+            outs++;
+            break;
+            
+        case 'SINGLE':
+            resultMessage = '¡HIT!';
+            logMessage = `¡Hit de ${currentBatter.name}! Bateador a 1ra, corredores avanzan una base.`;
+            isHit = true;
+            rbi = advanceRunners(1);
+            bases[0] = true;
+            baseRunners[0] = currentBatter.photo;
+            break;
+            
+        case 'DOUBLE_PLAY':
+            if (bases[0] || bases[1] || bases[2]) {
+                resultMessage = 'Double play';
+                logMessage = `${currentBatter.name} batea en doble play. Dos outs y elimina al corredor más adelantado.`;
+                outs = Math.min(outs + 2, 3);
+                for (let i = 2; i >= 0; i--) {
+                    if (bases[i]) {
+                        bases[i] = false;
+                        baseRunners[i] = null;
+                        break;
+                    }
+                }
+            } else {
+                resultMessage = 'Ground out';
+                logMessage = `${currentBatter.name} batea en doble play, pero no hay corredores. Solo un out.`;
+                outs++;
+            }
+            break;
+            
+        case 'GROUND_OUT':
+            resultMessage = 'Ground out';
+            logMessage = `${currentBatter.name} hace ground out. Un out.`;
+            outs++;
+            break;
+            
+        case 'STRIKE_OUT':
+            resultMessage = 'Strike out';
+            logMessage = `${currentBatter.name} ponchado. Un out.`;
+            outs++;
+            break;
+            
+        case 'TRIPLE':
+            resultMessage = '¡TRIPLE!';
+            logMessage = `¡Triple de ${currentBatter.name}! Bateador a 3ra, corredores anotan.`;
+            isHit = true;
+            for (let i = 0; i < 3; i++) {
+                if (bases[i]) {
+                    rbi++;
+                    bases[i] = false;
+                    baseRunners[i] = null;
+                }
+            }
+            bases[2] = true;
+            baseRunners[2] = currentBatter.photo;
+            addRuns(rbi);
+            break;
+            
+        case 'SACRIFICE_FLY': // Corregido typo
+            resultMessage = 'Fly de sacrificio';
+            if (outs < 2) {
+                logMessage = `${currentBatter.name} batea fly de sacrificio. Un out, pero avanza un corredor.`;
+                outs++;
+                if (bases[2]) {
+                    rbi = 1;
+                    addRuns(1);
+                    bases[2] = false;
+                    baseRunners[2] = null;
+                } else if (bases[1]) {
+                    bases[1] = false;
+                    bases[2] = true;
+                    baseRunners[2] = baseRunners[1];
+                    baseRunners[1] = null;
+                } else if (bases[0]) {
+                    bases[0] = false;
+                    bases[1] = true;
+                    baseRunners[1] = baseRunners[0];
+                    baseRunners[0] = null;
+                }
+            } else {
+                logMessage = `${currentBatter.name} batea fly out. Un out.`;
+                outs++;
+            }
+            break;
+            
+        default:
+            resultMessage = 'Strike out';
+            logMessage = `${currentBatter.name} ponchado. Un out.`;
+            outs++;
+    }
+    
+    if (isHit) {
+        currentTeam[currentBatterIndex].hits++;
+        currentTeamStats.totalHits++;
+        if (isHomeRun) {
+            currentTeam[currentBatterIndex].homeRuns++;
+            currentTeamStats.totalHomeRuns++;
+        }
+        if (rbi > 0) {
+            currentTeam[currentBatterIndex].rbi += rbi;
+            currentTeamStats.totalRBI += rbi;
+        }
+    }
+    
+    resultDisplay.textContent = resultMessage;
+    addLog(logMessage);
+    updateBasesDisplay();
+    updateScoreboard();
+    renderPlayersList();
+    
+    if (outs >= 3) {
+        nextInning();
+    }
+}
+
+function nextInning() {
+    if (isTopInning) {
+        awayBatterIndex = (awayBatterIndex + 1) % awayPlayers.length;
+    } else {
+        homeBatterIndex = (homeBatterIndex + 1) % homePlayers.length;
+    }
+    
+    outs = 0;
+    bases = [false, false, false];
+    baseRunners = [null, null, null];
+    
+    if (isTopInning) {
+        isTopInning = false;
+    } else {
+        isTopInning = true;
+        inning++;
+        
+        if (inning > 9) {
+            endGame();
+            return;
+        }
+    }
+    
+    updateBasesDisplay();
+    updateScoreboard();
+    updateCurrentBatter();
+    addLog(`Nuevo inning: ${inning}${isTopInning ? '↑' : '↓'}`);
+    
+    dice1.querySelector('.front').textContent = '?';
+    dice2.querySelector('.front').textContent = '?';
+    resultDisplay.textContent = "Esperando lanzamiento...";
+    rollButton.disabled = false;
+    nextButton.disabled = true;
+    isFirstBatterOfInning = true;
+}
+
+function nextBatter() {
+    if (isTopInning) {
+        awayBatterIndex = (awayBatterIndex + 1) % awayPlayers.length;
+    } else {
+        homeBatterIndex = (homeBatterIndex + 1) % homePlayers.length;
+    }
+    
+    updateCurrentBatter();
+    dice1.querySelector('.front').textContent = '?';
+    dice2.querySelector('.front').textContent = '?';
+    resultDisplay.textContent = "Esperando lanzamiento...";
+    rollButton.disabled = false;
+    nextButton.disabled = true;
+}
+
+function advanceRunners(basesToAdvance) {
+    let runs = 0;
+    const newBaseRunners = [null, null, null];
+    
+    // Avanzar corredores desde tercera hacia primera
+    for (let i = 2; i >= 0; i--) {
+        if (bases[i]) {
+            const newBase = i + basesToAdvance;
+            if (newBase >= 3) {
+                runs++;
+                // No guardar en nueva posición, se anota
+            } else {
+                newBaseRunners[newBase] = baseRunners[i];
+            }
+        }
+    }
+    
+    // Actualizar bases con los nuevos corredores
+    for (let i = 0; i < 3; i++) {
+        bases[i] = (newBaseRunners[i] !== null);
+        baseRunners[i] = newBaseRunners[i];
+    }
+    
+    if (runs > 0) {
+        addRuns(runs);
+    }
+    
+    return runs;
+}
+
+function addRuns(runs) {
+    if (isTopInning) {
+        awayScore += runs;
+    } else {
+        homeScore += runs;
+    }
+    updateScoreboard();
+}
+
+function updateBasesDisplay() {
+    playerFirst.style.display = baseRunners[0] ? 'block' : 'none';
+    playerSecond.style.display = baseRunners[1] ? 'block' : 'none';
+    playerThird.style.display = baseRunners[2] ? 'block' : 'none';
+    playerHome.style.display = 'none';
+    
+    if (baseRunners[0]) playerFirst.src = baseRunners[0];
+    if (baseRunners[1]) playerSecond.src = baseRunners[1];
+    if (baseRunners[2]) playerThird.src = baseRunners[2];
+}
+
+function updateScoreboard() {
+    outsDisplay.textContent = outs;
+    inningDisplay.textContent = inning;
+    topBottomDisplay.textContent = isTopInning ? '↑' : '↓';
+    awayScoreDisplay.textContent = awayScore;
+    homeScoreDisplay.textContent = homeScore;
+}
+
+function renderPlayersList() {
+    awayPlayersDisplay.innerHTML = '';
+    awayPlayers.forEach((player, index) => {
+        const playerElement = document.createElement('div');
+        playerElement.className = 'player-item';
+        
+        playerElement.innerHTML = `
+            <span class="player-name ${index === awayBatterIndex && isTopInning ? 'highlight' : ''}">
+                <img src="${player.photo}" alt="${player.name}" class="player-thumbnail">
+                ${player.name}
+            </span>
+            <span class="player-stats">${player.hits}/${player.atBats}</span>
+        `;
+        awayPlayersDisplay.appendChild(playerElement);
+    });
+    
+    homePlayersDisplay.innerHTML = '';
+    homePlayers.forEach((player, index) => {
+        const playerElement = document.createElement('div');
+        playerElement.className = 'player-item';
+        
+        playerElement.innerHTML = `
+            <span class="player-name ${index === homeBatterIndex && !isTopInning ? 'highlight' : ''}">
+                <img src="${player.photo}" alt="${player.name}" class="player-thumbnail">
+                ${player.name}
+            </span>
+            <span class="player-stats">${player.hits}/${player.atBats}</span>
+        `;
+        homePlayersDisplay.appendChild(playerElement);
+    });
+}
+
+function addLog(message) {
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.textContent = `[${inning}${isTopInning ? '↑' : '↓'}] ${message}`;
+    gameLog.prepend(logEntry);
+    
+    if (gameLog.children.length > 10) {
+        gameLog.removeChild(gameLog.lastChild);
+    }
+}
+
+function updateCurrentBatter() {
+    const currentTeam = isTopInning ? awayPlayers : homePlayers;
+    const currentBatterIndex = isTopInning ? awayBatterIndex : homeBatterIndex;
+    const batter = currentTeam[currentBatterIndex];
+    currentBatterDisplay.innerHTML = `Bateador: <img src="${batter.photo}" alt="${batter.name}" style="width:25px;height:25px;border-radius:50%;vertical-align:middle;margin:0 5px;"> ${batter.name}`;
+}
+
+function endGame() {
+    gameOver = true;
+    rollButton.disabled = true;
+    nextButton.disabled = true;
+    
+    awayPlayers.forEach(player => {
+        player.avg = player.atBats > 0 ? (player.hits / player.atBats).toFixed(3) : '.000';
+    });
+    
+    homePlayers.forEach(player => {
+        player.avg = player.atBats > 0 ? (player.hits / player.atBats).toFixed(3) : '.000';
+    });
+    
+    determineLeaders();
+    statsButton.style.display = 'block';
+    addLog(`¡JUEGO TERMINADO! Final: Visitante ${awayScore} - Local ${homeScore}`);
+}
+
+function determineLeaders() {
+    let maxHits = 0;
+    let hitsLeaders = [];
+    
+    const allPlayers = [...awayPlayers, ...homePlayers];
+    allPlayers.forEach(player => {
+        if (player.hits > maxHits) {
+            maxHits = player.hits;
+            hitsLeaders = [player.name];
+        } else if (player.hits === maxHits) {
+            hitsLeaders.push(player.name);
+        }
+    });
+    
+    gameStats.leaders.hits = {
+        name: hitsLeaders.join(', '),
+        value: maxHits
+    };
+    
+    let maxHR = 0;
+    let hrLeaders = [];
+    
+    allPlayers.forEach(player => {
+        if (player.homeRuns > maxHR) {
+            maxHR = player.homeRuns;
+            hrLeaders = [player.name];
+        } else if (player.homeRuns === maxHR) {
+            hrLeaders.push(player.name);
+        }
+    });
+    
+    gameStats.leaders.homeRuns = {
+        name: hrLeaders.join(', '),
+        value: maxHR
+    };
+    
+    let maxRBI = 0;
+    let rbiLeaders = [];
+    
+    allPlayers.forEach(player => {
+        if (player.rbi > maxRBI) {
+            maxRBI = player.rbi;
+            rbiLeaders = [player.name];
+        } else if (player.rbi === maxRBI) {
+            rbiLeaders.push(player.name);
+        }
+    });
+    
+    gameStats.leaders.rbi = {
+        name: rbiLeaders.join(', '),
+        value: maxRBI
+    };
+}
+
+function showStats() {
+    finalScoreDisplay.textContent = `Visitante ${awayScore} - Local ${homeScore}`;
+    
+    awayStatsTable.innerHTML = '';
+    awayPlayers.sort((a, b) => b.hits - a.hits).forEach(player => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src="${player.photo}" alt="${player.name}" style="width:30px;height:30px;border-radius:50%;vertical-align:middle;margin-right:8px;">${player.name}</td>
+            <td>${player.atBats}</td>
+            <td>${player.hits}</td>
+            <td>${player.homeRuns}</td>
+            <td>${player.rbi}</td>
+            <td>${player.avg}</td>
+        `;
+        awayStatsTable.appendChild(row);
+    });
+    
+    homeStatsTable.innerHTML = '';
+    homePlayers.sort((a, b) => b.hits - a.hits).forEach(player => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src="${player.photo}" alt="${player.name}" style="width:30px;height:30px;border-radius:50%;vertical-align:middle;margin-right:8px;">${player.name}</td>
+            <td>${player.atBats}</td>
+            <td>${player.hits}</td>
+            <td>${player.homeRuns}</td>
+            <td>${player.rbi}</td>
+            <td>${player.avg}</td>
+        `;
+        homeStatsTable.appendChild(row);
+    });
+    
+    gameLeadersDisplay.innerHTML = `
+        <p><strong>Líder en Hits:</strong> ${gameStats.leaders.hits.name} (${gameStats.leaders.hits.value})</p>
+        <p><strong>Líder en Home Runs:</strong> ${gameStats.leaders.homeRuns.name} (${gameStats.leaders.homeRuns.value})</p>
+        <p><strong>Líder en Carreras Impulsadas:</strong> ${gameStats.leaders.rbi.name} (${gameStats.leaders.rbi.value})</p>
+    `;
+    
+    statsModal.style.display = 'flex';
+}
+
+// Iniciar el juego
+initGame();
+    </script>
 </body>
 </html>
