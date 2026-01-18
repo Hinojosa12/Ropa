@@ -14,38 +14,6 @@
             --light: #fef7ff;
             --accent: #ff9e6d;
             --success: #4ade80;
-            --bg-color: #fff9fd;
-            --text-color: #333;
-            --card-bg: white;
-            --header-bg: white;
-            --footer-bg: #2d1b69;
-            --footer-text: white;
-            --border-color: #e0e0e0;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --input-bg: white;
-            --modal-bg: white;
-            --section-title-color: #2d1b69;
-        }
-        
-        /* Modo oscuro */
-        body.dark-mode {
-            --primary: #c44569;
-            --secondary: #9c88ff;
-            --dark: #1a1a2e;
-            --light: #2d2d44;
-            --accent: #ff9e6d;
-            --success: #4ade80;
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --card-bg: #1e1e2e;
-            --header-bg: #1a1a2e;
-            --footer-bg: #0f0f1a;
-            --footer-text: #cccccc;
-            --border-color: #444444;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --input-bg: #2d2d44;
-            --modal-bg: #1e1e2e;
-            --section-title-color: #9c88ff;
         }
         
         * {
@@ -56,11 +24,10 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #fff9fd;
+            color: #333;
             line-height: 1.6;
             overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .container {
@@ -71,8 +38,8 @@
         }
         
         header {
-            background-color: var(--header-bg);
-            box-shadow: 0 2px 15px var(--shadow-color);
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -84,12 +51,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-        }
-        
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
         
         .logo {
@@ -111,37 +72,10 @@
             transition: color 0.5s ease;
         }
         
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .theme-toggle {
-            background-color: transparent;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        
-        .theme-toggle:hover {
-            background-color: var(--secondary);
-            color: white;
-            transform: rotate(30deg);
-        }
-        
         .cart-icon {
             position: relative;
             font-size: 1.8rem;
-            color: var(--text-color);
+            color: var(--dark);
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -177,10 +111,6 @@
             animation: fadeInUp 1s ease forwards;
         }
         
-        body.dark-mode .hero {
-            background: linear-gradient(135deg, #c44569 0%, #6c5ce7 100%);
-        }
-        
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -198,10 +128,6 @@
             animation: fadeInUp 1s ease 0.3s forwards;
         }
         
-        body.dark-mode .hero h2 {
-            color: #ffffff;
-        }
-        
         .hero p {
             font-size: 1.3rem;
             max-width: 700px;
@@ -210,10 +136,6 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 1s ease 0.5s forwards;
-        }
-        
-        body.dark-mode .hero p {
-            color: #e0e0e0;
         }
         
         .customizer-container {
@@ -229,10 +151,10 @@
         }
         
         .customizer-options {
-            background-color: var(--card-bg);
+            background-color: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-bottom: 30px;
             transform: translateY(20px);
             opacity: 0;
@@ -246,48 +168,10 @@
         
         .section-title {
             font-size: 1.5rem;
-            color: var(--section-title-color);
+            color: var(--dark);
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        body.dark-mode .section-title {
-            color: var(--secondary);
-        }
-        
-        .view-btn {
-            background-color: var(--primary);
-            color: var(--dark);
-            border: none;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 3px 8px rgba(248, 181, 208, 0.3);
-        }
-        
-        .view-btn:hover {
-            background-color: var(--secondary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
-        }
-        
-        body.dark-mode .view-btn {
-            color: #1a1a2e;
-        }
-        
-        body.dark-mode .view-btn:hover {
-            color: white;
         }
         
         .option-group {
@@ -314,7 +198,7 @@
             display: block;
             margin-bottom: 12px;
             font-weight: 600;
-            color: var(--text-color);
+            color: #555;
             font-size: 1.1rem;
         }
         
@@ -332,23 +216,21 @@
         }
         
         .option-card {
-            border: 2px solid var(--border-color);
+            border: 2px solid #e0e0e0;
             border-radius: 16px;
-            background-color: var(--card-bg);
+            background-color: white;
             cursor: pointer;
             transition: all 0.4s ease;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transform: scale(1);
-            height: 250px;
-            position: relative;
         }
         
         .option-card:hover {
             border-color: var(--primary);
             transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 25px var(--shadow-color);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
         }
         
         .option-card.active {
@@ -358,28 +240,12 @@
             transform: translateY(-5px);
         }
         
-        body.dark-mode .option-card.active {
-            background-color: rgba(156, 136, 255, 0.1);
-        }
-        
-        /* IMAGENES QUE OCUPAN TODO EL ESPACIO */
-        .option-image-container {
-            height: 200px;
-            width: 100%;
-            background-color: #f9f9f9;
-            position: relative;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-        
-        body.dark-mode .option-image-container {
-            background-color: #2d2d44;
-        }
-        
         .option-image {
+            height: 150px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
+            background-color: #f9f9f9;
             transition: all 0.3s ease;
         }
         
@@ -391,46 +257,9 @@
             padding: 15px;
             text-align: center;
             font-weight: 500;
-            color: var(--text-color);
+            color: #444;
             font-size: 1.05rem;
-            background-color: var(--card-bg);
-            flex-shrink: 0;
-        }
-        
-        /* BOTÓN DE ZOOM SUPERPUESTO */
-        .zoom-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: var(--dark);
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            z-index: 5;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .zoom-btn:hover {
             background-color: white;
-            transform: scale(1.1);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        body.dark-mode .zoom-btn {
-            background-color: rgba(30, 30, 46, 0.9);
-            color: white;
-        }
-        
-        body.dark-mode .zoom-btn:hover {
-            background-color: var(--secondary);
         }
         
         .color-options {
@@ -440,7 +269,7 @@
         }
         
         .color-card {
-            border: 2px solid var(--border-color);
+            border: 2px solid #e0e0e0;
             border-radius: 16px;
             cursor: pointer;
             transition: all 0.4s ease;
@@ -448,14 +277,12 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
-            height: 220px;
-            position: relative;
         }
         
         .color-card:hover {
             border-color: var(--primary);
             transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 25px var(--shadow-color);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
         }
         
         .color-card.active {
@@ -464,28 +291,12 @@
             transform: translateY(-5px);
         }
         
-        body.dark-mode .color-card.active {
-            box-shadow: 0 0 0 3px rgba(156, 136, 255, 0.3);
-        }
-        
-        /* IMAGENES DE COLOR QUE OCUPAN TODO EL ESPACIO */
-        .color-preview-container {
-            height: 160px;
-            width: 100%;
-            background-color: #f9f9f9;
-            position: relative;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-        
-        body.dark-mode .color-preview-container {
-            background-color: #2d2d44;
-        }
-        
         .color-preview {
+            height: 120px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
+            background-color: #f9f9f9;
             transition: all 0.3s ease;
         }
         
@@ -497,21 +308,18 @@
             padding: 12px;
             text-align: center;
             font-weight: 500;
-            color: var(--text-color);
-            background-color: var(--card-bg);
-            flex-shrink: 0;
+            color: #444;
+            background-color: white;
         }
         
         input[type="text"], select, textarea {
             width: 100%;
             padding: 15px 20px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e0e0e0;
             border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
-            background-color: var(--input-bg);
-            color: var(--text-color);
         }
         
         input[type="text"]:focus, select:focus, textarea:focus {
@@ -520,17 +328,11 @@
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
         
-        body.dark-mode input[type="text"]:focus,
-        body.dark-mode select:focus,
-        body.dark-mode textarea:focus {
-            box-shadow: 0 0 0 3px rgba(156, 136, 255, 0.2);
-        }
-        
         .summary-section {
-            background-color: var(--card-bg);
+            background-color: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-top: 20px;
             transform: translateY(30px);
             opacity: 0;
@@ -544,22 +346,18 @@
         
         .summary-title {
             font-size: 1.4rem;
-            color: var(--section-title-color);
+            color: var(--dark);
             margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        body.dark-mode .summary-title {
-            color: var(--secondary);
-        }
-        
         .summary-item {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #f0f0f0;
             transition: all 0.3s ease;
         }
         
@@ -570,21 +368,13 @@
             border-radius: 8px;
         }
         
-        body.dark-mode .summary-item:hover {
-            background-color: rgba(196, 69, 105, 0.1);
-        }
-        
         .summary-label {
             color: #666;
         }
         
-        body.dark-mode .summary-label {
-            color: #aaaaaa;
-        }
-        
         .summary-value {
             font-weight: 500;
-            color: var(--text-color);
+            color: var(--dark);
         }
         
         .summary-total {
@@ -593,8 +383,8 @@
             padding: 20px 0;
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text-color);
-            border-top: 2px solid var(--border-color);
+            color: var(--dark);
+            border-top: 2px solid #eee;
             margin-top: 15px;
         }
         
@@ -628,376 +418,6 @@
             box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         }
         
-        body.dark-mode .add-to-cart-btn {
-            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
-        }
-        
-        body.dark-mode .add-to-cart-btn:hover {
-            background-color: #2d2d44;
-            box-shadow: 0 10px 25px rgba(156, 136, 255, 0.4);
-        }
-        
-        /* Modal para imagen ampliada */
-        .zoom-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .zoom-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .zoom-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .zoom-image {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-        
-        .close-zoom {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            background-color: transparent;
-            color: white;
-            border: none;
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-zoom:hover {
-            color: var(--primary);
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: rotate(90deg);
-        }
-        
-        .zoom-title {
-            color: white;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            text-align: center;
-            max-width: 600px;
-        }
-        
-        body.dark-mode .zoom-title {
-            color: var(--light);
-        }
-        
-        /* Modal de vista previa de imágenes con carrusel */
-        .preview-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 2001;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .preview-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .preview-content {
-            background-color: var(--modal-bg);
-            width: 90%;
-            max-width: 900px;
-            border-radius: 20px;
-            overflow: hidden;
-            transform: translateY(30px) scale(0.95);
-            opacity: 0;
-            transition: all 0.4s ease;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-modal.active .preview-content {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-        
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            background-color: var(--dark);
-            color: white;
-        }
-        
-        .close-preview {
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-preview:hover {
-            color: var(--primary);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .preview-body {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        /* CARRUSEL CORREGIDO */
-        .carousel-container {
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-        }
-        
-        .carousel-slide {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
-        
-        .carousel-item {
-            min-width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            position: relative;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .carousel-image-container {
-            position: relative;
-            width: 100%;
-            height: 400px; /* ALTURA FIJA PARA EL CARRUSEL */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            border-radius: 10px 10px 0 0;
-        }
-        
-        body.dark-mode .carousel-image-container {
-            background-color: #2d2d44;
-        }
-        
-        .carousel-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Mantener proporciones */
-            padding: 10px;
-        }
-        
-        .carousel-item-content {
-            width: 100%;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border-radius: 0 0 10px 10px;
-            text-align: center;
-        }
-        
-        .carousel-item-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--section-title-color);
-            margin-bottom: 10px;
-        }
-        
-        body.dark-mode .carousel-item-title {
-            color: var(--secondary);
-        }
-        
-        /* Descripción que aparece al hacer click - CORREGIDA */
-        .image-description-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 25px;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-        }
-        
-        body.dark-mode .image-description-overlay {
-            background-color: rgba(30, 30, 46, 0.95);
-            color: #e0e0e0;
-        }
-        
-        .carousel-item.active-description .image-description-overlay {
-            transform: translateY(0);
-        }
-        
-        .description-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        body.dark-mode .description-title {
-            color: var(--secondary);
-        }
-        
-        .description-text {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            max-height: 70%;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        .description-text::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .description-text::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        body.dark-mode .description-text::-webkit-scrollbar-track {
-            background: #2d2d44;
-        }
-        
-        .description-text::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        
-        .carousel-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 25px;
-            gap: 15px;
-        }
-        
-        .carousel-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
-        }
-        
-        .carousel-btn:hover {
-            background-color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
-        }
-        
-        body.dark-mode .carousel-btn {
-            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
-        }
-        
-        body.dark-mode .carousel-btn:hover {
-            box-shadow: 0 8px 20px rgba(156, 136, 255, 0.4);
-        }
-        
-        .carousel-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .carousel-dots {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .carousel-dot {
-            background-color: #555;
-        }
-        
-        .carousel-dot.active {
-            background-color: var(--secondary);
-            transform: scale(1.2);
-        }
-        
-        .carousel-counter {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            font-weight: 500;
-            margin-top: 10px;
-        }
-        
         .cart-modal {
             display: none;
             position: fixed;
@@ -1018,7 +438,7 @@
         }
         
         .cart-content {
-            background-color: var(--modal-bg);
+            background-color: white;
             width: 90%;
             max-width: 800px;
             border-radius: 20px;
@@ -1042,14 +462,6 @@
             margin-bottom: 25px;
         }
         
-        .cart-header h2 {
-            color: var(--section-title-color);
-        }
-        
-        body.dark-mode .cart-header h2 {
-            color: var(--secondary);
-        }
-        
         .close-cart {
             font-size: 1.8rem;
             color: #777;
@@ -1065,16 +477,7 @@
         
         .close-cart:hover {
             color: var(--dark);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode .close-cart {
-            color: #aaaaaa;
-        }
-        
-        body.dark-mode .close-cart:hover {
-            color: var(--light);
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: #f5f5f5;
         }
         
         .cart-items {
@@ -1085,19 +488,15 @@
             display: flex;
             align-items: center;
             padding: 20px 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #eee;
             transition: all 0.3s ease;
         }
         
         .cart-item:hover {
-            background-color: rgba(248, 181, 208, 0.05);
+            background-color: #f9f9f9;
             padding-left: 10px;
             padding-right: 10px;
             border-radius: 10px;
-        }
-        
-        body.dark-mode .cart-item:hover {
-            background-color: rgba(196, 69, 105, 0.1);
         }
         
         .cart-item-preview {
@@ -1111,20 +510,12 @@
             flex-shrink: 0;
         }
         
-        body.dark-mode .cart-item-preview {
-            background-color: #c44569;
-        }
-        
         .cart-item-preview img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             padding: 5px;
             background-color: white;
-        }
-        
-        body.dark-mode .cart-item-preview img {
-            background-color: #2d2d44;
         }
         
         .cart-item-details {
@@ -1140,10 +531,6 @@
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 5px;
-        }
-        
-        body.dark-mode .cart-item-options {
-            color: #aaaaaa;
         }
         
         .cart-item-price {
@@ -1174,13 +561,13 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 20px;
-            border-top: 2px solid var(--border-color);
+            border-top: 2px solid #eee;
         }
         
         .cart-total {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-color);
+            color: var(--dark);
         }
         
         .cart-total span {
@@ -1225,7 +612,7 @@
         }
         
         .payment-content {
-            background-color: var(--modal-bg);
+            background-color: white;
             width: 90%;
             max-width: 600px;
             border-radius: 20px;
@@ -1240,18 +627,6 @@
             opacity: 1;
         }
         
-        .payment-content h2 {
-            color: var(--section-title-color);
-        }
-        
-        body.dark-mode .payment-content h2 {
-            color: var(--secondary);
-        }
-        
-        .payment-content p {
-            color: var(--text-color);
-        }
-        
         .payment-methods {
             display: flex;
             justify-content: center;
@@ -1262,7 +637,7 @@
         .payment-method {
             width: 80px;
             height: 50px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -1277,19 +652,10 @@
             transition: all 0.3s ease;
         }
         
-        body.dark-mode .payment-method i {
-            color: #aaaaaa;
-        }
-        
         .payment-method:hover, .payment-method.active {
             border-color: var(--secondary);
             background-color: rgba(124, 58, 237, 0.05);
             transform: translateY(-5px);
-        }
-        
-        body.dark-mode .payment-method:hover,
-        body.dark-mode .payment-method.active {
-            background-color: rgba(156, 136, 255, 0.1);
         }
         
         .payment-form {
@@ -1354,8 +720,8 @@
         }
         
         footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
+            background-color: var(--dark);
+            color: white;
             padding: 60px 0 30px;
             text-align: center;
             margin-top: 60px;
@@ -1423,48 +789,6 @@
             .options-grid, .color-options {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
-            
-            .zoom-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .zoom-title {
-                font-size: 1.2rem;
-                margin-top: 15px;
-            }
-            
-            .close-zoom {
-                top: -40px;
-                font-size: 2rem;
-            }
-            
-            .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            
-            .image-description-overlay {
-                padding: 15px;
-            }
-            
-            .description-title {
-                font-size: 1.1rem;
-            }
-            
-            .description-text {
-                font-size: 0.95rem;
-            }
-            
-            .carousel-image-container {
-                height: 300px;
-            }
-            
-            .carousel-item-title {
-                font-size: 1.1rem;
-            }
         }
         
         .image-placeholder {
@@ -1476,11 +800,6 @@
             background-color: #f0f0f0;
             color: #888;
             font-size: 0.9rem;
-        }
-        
-        body.dark-mode .image-placeholder {
-            background-color: #2d2d44;
-            color: #aaaaaa;
         }
         
         /* Efecto de partículas para el fondo */
@@ -1499,10 +818,6 @@
             background-color: rgba(248, 181, 208, 0.3);
             border-radius: 50%;
             animation: float 15s infinite linear;
-        }
-        
-        body.dark-mode .particle {
-            background-color: rgba(196, 69, 105, 0.3);
         }
         
         @keyframes float {
@@ -1541,10 +856,6 @@
             opacity: 0;
         }
         
-        body.dark-mode .glow-effect::after {
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-        }
-        
         .glow-effect:hover::after {
             transform: rotate(30deg) translateX(100%);
             opacity: 1;
@@ -1567,10 +878,6 @@
             animation: loading 1.5s infinite;
         }
         
-        body.dark-mode .image-loading::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        }
-        
         @keyframes loading {
             0% {
                 left: -100%;
@@ -1578,44 +885,6 @@
             100% {
                 left: 100%;
             }
-        }
-        
-        /* Estilos para la descripción emergente en carrusel */
-        .description-toggle {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 10;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .description-toggle:hover {
-            background-color: var(--dark);
-            transform: scale(1.1);
-        }
-        
-        body.dark-mode .description-toggle:hover {
-            background-color: #2d2d44;
-        }
-        
-        .description-toggle i {
-            transition: transform 0.3s ease;
-        }
-        
-        .carousel-item.active-description .description-toggle i {
-            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -1627,21 +896,13 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="header-left">
-                    <div class="logo" id="logo">
-                        <i class="fas fa-birthday-cake"></i>
-                        <h1>SweetCakes</h1>
-                    </div>
+                <div class="logo" id="logo">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h1>SweetCakes</h1>
                 </div>
-                
-                <div class="header-right">
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <div class="cart-icon" id="cartIcon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
                 </div>
             </div>
         </div>
@@ -1655,48 +916,6 @@
         </div>
     </section>
 
-    <!-- Modal para imagen ampliada -->
-    <div class="zoom-modal" id="zoomModal">
-        <div class="zoom-content">
-            <button class="close-zoom" id="closeZoom">&times;</button>
-            <img id="zoomImage" src="" alt="Imagen ampliada" class="zoom-image">
-            <h3 class="zoom-title" id="zoomTitle"></h3>
-        </div>
-    </div>
-
-    <!-- Modal de vista previa de imágenes con carrusel -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-content">
-            <div class="preview-header">
-                <h3 id="previewTitle">Vista previa</h3>
-                <div class="close-preview" id="closePreview">&times;</div>
-            </div>
-            <div class="preview-body">
-                <div class="carousel-container" id="carouselContainer">
-                    <div class="carousel-slide" id="carouselSlide">
-                        <!-- Los elementos del carrusel se añadirán dinámicamente -->
-                    </div>
-                </div>
-                
-                <div class="carousel-nav">
-                    <button class="carousel-btn" id="prevBtn" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <div class="carousel-dots" id="carouselDots">
-                        <!-- Los puntos del carrusel se añadirán dinámicamente -->
-                    </div>
-                    
-                    <button class="carousel-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <div class="carousel-counter" id="carouselCounter">1 / 4</div>
-            </div>
-        </div>
-    </div>
-
     <!-- Customizer Section -->
     <div class="container">
         <div class="customizer-container" id="customizerContainer">
@@ -1706,47 +925,22 @@
                 
                 <!-- Form Selection -->
                 <div class="option-group" id="shapeGroup">
-                    <div class="section-title">
-                        <span>Forma del pastel</span>
-                        <button class="view-btn" data-section="shape" id="viewShapeBtn">
-                            <i class="fas fa-eye"></i> Ver todas
-                        </button>
-                    </div>
+                    <label class="option-label">Forma del pastel</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="shape" data-value="round">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeRedondo.jpg" data-title="Pastel Redondo1">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeRedondo.jpg" alt="Pastel redondo2" class="option-image" onerror="handleImageError(this, 'Redondo')">
-                            </div>
+                            <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Redondo</div>';">
                             <div class="option-name">Redondo</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="square">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeCuadrado.jpg" data-title="Pastel Cuadrado">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image" onerror="handleImageError(this, 'Cuadrado')">
-                            </div>
+                            <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Cuadrado</div>';">
                             <div class="option-name">Cuadrado</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="heart">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeCorazon.jpg" data-title="Pastel Corazón">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image" onerror="handleImageError(this, 'Corazón')">
-                            </div>
+                            <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Corazón</div>';">
                             <div class="option-name">Corazón</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="star">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeEstrella.jpg" data-title="Pastel Estrella">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="handleImageError(this, 'Estrella')">
-                            </div>
+                            <img src="cackeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
                             <div class="option-name">Estrella</div>
                         </div>
                     </div>
@@ -1754,65 +948,30 @@
                 
                 <!-- Color Selection -->
                 <div class="option-group" id="colorGroup">
-                    <div class="section-title">
-                        <span>Color principal</span>
-                        <button class="view-btn" data-section="color" id="viewColorBtn">
-                            <i class="fas fa-eye"></i> Ver todas
-                        </button>
-                    </div>
+                    <label class="option-label">Color principal</label>
                     <div class="color-options">
                         <div class="color-card" data-option="color" data-value="rosa">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="merengueRosa.jpg" data-title="Merengue Rosa">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="handleColorImageError(this, 'Rosa', '#ffcce6')">
-                            </div>
+                            <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffcce6;\'>Rosa</div>';">
                             <div class="color-name">Rosa</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="verde">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="merengueVerde.jpg" data-title="Merengue Verde">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview" onerror="handleColorImageError(this, 'Verde', '#c2f0c2')">
-                            </div>
+                            <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2f0c2;\'>Verde</div>';">
                             <div class="color-name">Verde</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="azul">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="merengueAzul.jpg" data-title="Merengue Azul">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview" onerror="handleColorImageError(this, 'Azul', '#c2e6ff')">
-                            </div>
+                            <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2e6ff;\'>Azul</div>';">
                             <div class="color-name">Azul</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="morado">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="merengueMorado.jpg" data-title="Merengue Morado">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview" onerror="handleColorImageError(this, 'Morado', '#e6ccff')">
-                            </div>
+                            <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#e6ccff;\'>Morado</div>';">
                             <div class="color-name">Morado</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="naranja">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="merengueNaranja.jpg" data-title="Merengue Naranja">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview" onerror="handleColorImageError(this, 'Naranja', '#ffd9cc')">
-                            </div>
+                            <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffd9cc;\'>Naranja</div>';">
                             <div class="color-name">Naranja</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="amarillo">
-                            <div class="color-preview-container">
-                                <button class="zoom-btn" data-image="" data-title="Merengue Amarillo">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <div style="background-color: #fff5cc; height: 100%;"></div>
-                            </div>
+                            <div class="color-preview" style="background-color: #fff5cc;"></div>
                             <div class="color-name">Amarillo</div>
                         </div>
                     </div>
@@ -1820,65 +979,30 @@
                 
                 <!-- Flavor Selection -->
                 <div class="option-group" id="flavorGroup">
-                    <div class="section-title">
-                        <span>Sabor</span>
-                        <button class="view-btn" data-section="flavor" id="viewFlavorBtn">
-                            <i class="fas fa-eye"></i> Ver todas
-                        </button>
-                    </div>
+                    <label class="option-label">Sabor</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="flavor" data-value="chocolate">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeChocolate.jpg" data-title="Pastel de Chocolate">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image" onerror="handleImageError(this, 'Chocolate')">
-                            </div>
+                            <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="vainilla">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeVainilla.jpg" data-title="Pastel de Vainilla">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image" onerror="handleImageError(this, 'Vainilla')">
-                            </div>
+                            <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Vainilla</div>';">
                             <div class="option-name">Vainilla</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="fresa">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="" data-title="Pastel de Fresa">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <div style="background-color: #ffcce6; height: 100%;"></div>
-                            </div>
+                            <div class="option-image" style="background-color: #ffcce6;"></div>
                             <div class="option-name">Fresa</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="limon">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeLimon.jpg" data-title="Pastel de Limón">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image" onerror="handleImageError(this, 'Limón')">
-                            </div>
+                            <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Limón</div>';">
                             <div class="option-name">Limón</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="redvelvet">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="" data-title="Pastel Red Velvet">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <div style="background-color: #cc3333; height: 100%;"></div>
-                            </div>
+                            <div class="option-image" style="background-color: #cc3333;"></div>
                             <div class="option-name">Red Velvet</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="cafe">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeCafe.jpg" data-title="Pastel de Café">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image" onerror="handleImageError(this, 'Café')">
-                            </div>
+                            <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Café</div>';">
                             <div class="option-name">Café</div>
                         </div>
                     </div>
@@ -1886,38 +1010,18 @@
                 
                 <!-- Size Selection -->
                 <div class="option-group" id="sizeGroup">
-                    <div class="section-title">
-                        <span>Tamaño</span>
-                        <button class="view-btn" data-section="size" id="viewSizeBtn">
-                            <i class="fas fa-eye"></i> Ver todas
-                        </button>
-                    </div>
+                    <label class="option-label">Tamaño</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="size" data-value="small">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakePequeño.jpg" data-title="Pastel Pequeño (8 porciones)">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image" onerror="handleImageError(this, 'Pequeño')">
-                            </div>
+                            <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Pequeño</div>';">
                             <div class="option-name">Pequeño (8 porciones)</div>
                         </div>
                         <div class="option-card" data-option="size" data-value="medium">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeMediano.jpg" data-title="Pastel Mediano (12 porciones)">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image" onerror="handleImageError(this, 'Mediano')">
-                            </div>
+                            <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Mediano</div>';">
                             <div class="option-name">Mediano (12 porciones)</div>
                         </div>
                         <div class="option-card" data-option="size" data-value="large">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeGrande.jpg" data-title="Pastel Grande (20 porciones)">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image" onerror="handleImageError(this, 'Grande')">
-                            </div>
+                            <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Grande</div>';">
                             <div class="option-name">Grande (20 porciones)</div>
                         </div>
                     </div>
@@ -1925,47 +1029,22 @@
                 
                 <!-- Dough Type Selection -->
                 <div class="option-group" id="doughGroup">
-                    <div class="section-title">
-                        <span>Tipo de masa</span>
-                        <button class="view-btn" data-section="dough" id="viewDoughBtn">
-                            <i class="fas fa-eye"></i> Ver todas
-                        </button>
-                    </div>
+                    <label class="option-label">Tipo de masa</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="dough" data-value="normal">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeVainilla.jpg" data-title="Masa Normal">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image" onerror="handleImageError(this, 'Normal')">
-                            </div>
+                            <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Normal</div>';">
                             <div class="option-name">Normal</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="chocolate">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="cakeChocolate.jpg" data-title="Masa de Chocolate">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image" onerror="handleImageError(this, 'Chocolate')">
-                            </div>
+                            <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="integral">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="" data-title="Masa Integral">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <div style="background-color: #f5e6c8; height: 100%;"></div>
-                            </div>
+                            <div class="option-image" style="background-color: #f5e6c8;"></div>
                             <div class="option-name">Integral</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="almendra">
-                            <div class="option-image-container">
-                                <button class="zoom-btn" data-image="" data-title="Masa de Almendra">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <div style="background-color: #f0d9c2; height: 100%;"></div>
-                            </div>
+                            <div class="option-image" style="background-color: #f0d9c2;"></div>
                             <div class="option-name">Almendra</div>
                         </div>
                     </div>
@@ -2162,14 +1241,6 @@
         // Cart data
         let cart = [];
         
-        // Carrusel data
-        let currentSlide = 0;
-        let totalSlides = 0;
-        let currentSection = '';
-        
-        // Modo oscuro
-        let darkMode = false;
-        
         // Price multipliers based on size
         const sizePrices = {
             small: 0.8,
@@ -2224,64 +1295,7 @@
             round: 'cakeRedondo.jpg',
             square: 'cakeCuadrado.jpg',
             heart: 'cakeCorazon.jpg',
-            star: 'cakeEstrella.jpg'
-        };
-
-        // Image preview data for each section
-        const previewData = {
-            shape: {
-                title: 'Formas de pasteles disponibles',
-                description: 'Selecciona la forma que más te guste para tu pastel personalizado. Cada forma tiene un estilo único que se adapta a diferentes ocasiones.',
-                items: [
-                    { src: 'cakeRedondo.jpg', title: 'Pastel Redondo3', desc: 'Forma clásica y elegante, perfecta para cualquier ocasión. Ideal para bodas, cumpleaños y celebraciones formales.' },
-                    { src: 'cakeCuadrado.jpg', title: 'Pastel Cuadrado', desc: 'Forma moderna que permite porciones uniformes y presentación contemporánea. Excelente para eventos corporativos.' },
-                    { src: 'cakeCorazon.jpg', title: 'Pastel Corazón', desc: 'Ideal para celebraciones de amor, aniversarios y San Valentín. Simboliza afecto y cariño.' },
-                    { src: 'cakeEstrella.jpg', title: 'Pastel Estrella', desc: 'Perfecto para fiestas temáticas, cumpleaños infantiles y eventos especiales. Añade un toque mágico a tu celebración.' }
-                ]
-            },
-            color: {
-                title: 'Colores de merengue disponibles',
-                description: 'Elige el color que más te guste para decorar tu pastel. Todos nuestros colores son naturales y comestibles.',
-                items: [
-                    { src: 'merengueRosa.jpg', title: 'Merengue Rosa', desc: 'Color suave y romántico, ideal para baby showers y celebraciones de primavera. Representa dulzura y ternura.' },
-                    { src: 'merengueVerde.jpg', title: 'Merengue Verde', desc: 'Color fresco y natural, perfecto para celebraciones al aire libre y temáticas de naturaleza. Simboliza esperanza y renovación.' },
-                    { src: 'merengueAzul.jpg', title: 'Merengue Azul', desc: 'Color tranquilo y sereno, excelente para baby showers de niño y celebraciones marinas. Representa calma y confianza.' },
-                    { src: 'merengueMorado.jpg', title: 'Merengue Morado', desc: 'Color real y místico, ideal para cumpleaños y celebraciones de fantasía. Simboliza creatividad y sabiduría.' },
-                    { src: 'merengueNaranja.jpg', title: 'Merengue Naranja', desc: 'Color vibrante y energético, perfecto para fiestas de otoño y celebraciones divertidas. Representa entusiasmo y alegría.' },
-                    { src: '', title: 'Merengue Amarillo', desc: 'Color brillante y alegre, ideal para celebraciones soleadas y festivas. Simboliza optimismo y felicidad.' }
-                ]
-            },
-            flavor: {
-                title: 'Sabores de pasteles disponibles',
-                description: 'Nuestros pasteles están hechos con ingredientes de la más alta calidad. Cada sabor ofrece una experiencia única.',
-                items: [
-                    { src: 'cakeChocolate.jpg', title: 'Pastel de Chocolate', desc: 'Delicioso y cremoso pastel de chocolate, perfecto para los amantes del cacao. Hecho con chocolate belga de primera calidad.' },
-                    { src: 'cakeVainilla.jpg', title: 'Pastel de Vainilla', desc: 'Clásico y versátil, ideal para combinar con cualquier relleno o decoración. Sabor suave y aromático.' },
-                    { src: '', title: 'Pastel de Fresa', desc: 'Sabor frutal y refrescante, con trozos de fresa natural en la masa. Perfecto para celebraciones de primavera y verano.' },
-                    { src: 'cakeLimon.jpg', title: 'Pastel de Limón', desc: 'Sabor cítrico y refrescante, perfecto para celebraciones de primavera y verano. Con un toque de ralladura de limón fresco.' },
-                    { src: '', title: 'Pastel Red Velvet', desc: 'Elegante y distintivo, con su característico color rojo y sabor suave a cacao. Acompañado de nuestro frosting de queso crema.' },
-                    { src: 'cakeCafe.jpg', title: 'Pastel de Café', desc: 'Intenso y aromático, ideal para acompañar con una buena taza de café. Hecho con granos de café recién molidos.' }
-                ]
-            },
-            size: {
-                title: 'Tamaños de pasteles disponibles',
-                description: 'Elige el tamaño perfecto según el número de invitados. Todos nuestros tamaños mantienen la misma calidad y sabor.',
-                items: [
-                    { src: 'cakePequeño.jpg', title: 'Pastel Pequeño (8 porciones)', desc: 'Ideal para reuniones íntimas, cenas románticas o celebraciones pequeñas. Perfecto para 6-8 personas.' },
-                    { src: 'cakeMediano.jpg', title: 'Pastel Mediano (12 porciones)', desc: 'Perfecto para reuniones familiares, cumpleaños pequeños o celebraciones con amigos. Adecuado para 10-12 personas.' },
-                    { src: 'cakeGrande.jpg', title: 'Pastel Grande (20 porciones)', desc: 'Excelente para fiestas grandes, eventos especiales o celebraciones con muchos invitados. Suficiente para 18-20 personas.' }
-                ]
-            },
-            dough: {
-                title: 'Tipos de masa disponibles',
-                description: 'Selecciona el tipo de masa que prefieras para tu pastel. Cada una ofrece una textura y sabor diferente.',
-                items: [
-                    { src: 'cakeVainilla.jpg', title: 'Masa Normal', desc: 'Masa tradicional esponjosa y ligera, perfecta para cualquier ocasión. Hecha con harina de trigo de primera calidad.' },
-                    { src: 'cakeChocolate.jpg', title: 'Masa de Chocolate', desc: 'Masa rica en cacao, con textura húmeda y sabor intenso a chocolate. Ideal para los más chocolateros.' },
-                    { src: '', title: 'Masa Integral', desc: 'Opción más saludable con harina integral, ideal para quienes prefieren alternativas más nutritivas. Con un sabor ligeramente a nuez.' },
-                    { src: '', title: 'Masa de Almendra', desc: 'Masa sin gluten hecha con harina de almendra, con textura densa y sabor a nuez. Perfecta para personas con restricciones dietéticas.' }
-                ]
-            }
+            star: 'cackeEstrella.jpg'
         };
 
         // DOM Elements
@@ -2300,27 +1314,8 @@
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
         const logo = document.getElementById('logo');
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        // Zoom modal elements
-        const zoomModal = document.getElementById('zoomModal');
-        const closeZoom = document.getElementById('closeZoom');
-        const zoomImage = document.getElementById('zoomImage');
-        const zoomTitle = document.getElementById('zoomTitle');
-        
-        // Preview modal elements
-        const previewModal = document.getElementById('previewModal');
-        const closePreview = document.getElementById('closePreview');
-        const previewTitle = document.getElementById('previewTitle');
-        const carouselSlide = document.getElementById('carouselSlide');
-        const carouselDots = document.getElementById('carouselDots');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const carouselCounter = document.getElementById('carouselCounter');
-        
-        // View buttons
-        const viewButtons = document.querySelectorAll('.view-btn');
+        const logoText = logo.querySelector('h1');
+        const logoIcon = logo.querySelector('i');
         
         // Summary elements
         const summaryShape = document.getElementById('summaryShape');
@@ -2345,64 +1340,6 @@
         const footer = document.getElementById('footer');
         const optionGroups = document.querySelectorAll('.option-group');
 
-        // Función para manejar errores de imagen - CORREGIDA
-        function handleImageError(img, name) {
-            const container = img.parentElement;
-            const zoomBtn = container.querySelector('.zoom-btn');
-            const imageUrl = zoomBtn ? zoomBtn.getAttribute('data-image') : '';
-            const title = zoomBtn ? zoomBtn.getAttribute('data-title') : name;
-            
-            // Reemplazar la imagen con un placeholder pero mantener el botón
-            img.style.display = 'none';
-            
-            const placeholder = document.createElement('div');
-            placeholder.className = 'image-placeholder';
-            placeholder.style.height = '100%';
-            placeholder.style.width = '100%';
-            placeholder.style.display = 'flex';
-            placeholder.style.alignItems = 'center';
-            placeholder.style.justifyContent = 'center';
-            placeholder.style.backgroundColor = '#f0f0f0';
-            placeholder.style.color = '#888';
-            placeholder.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">
-                        <i class="fas fa-birthday-cake"></i>
-                    </div>
-                    <div style="font-size: 1.2rem; font-weight: bold;">${name}</div>
-                </div>
-            ';
-            
-            container.appendChild(placeholder);
-            
-            // Actualizar el botón de zoom para que muestre el placeholder
-            if (zoomBtn) {
-                zoomBtn.setAttribute('data-image', '');
-                zoomBtn.setAttribute('data-title', title);
-            }
-        }
-
-        // Función para manejar errores de imagen de color
-        function handleColorImageError(img, name, color) {
-            const container = img.parentElement;
-            const zoomBtn = container.querySelector('.zoom-btn');
-            
-            // Reemplazar la imagen con un color sólido pero mantener el botón
-            img.style.display = 'none';
-            
-            const colorDiv = document.createElement('div');
-            colorDiv.style.backgroundColor = color;
-            colorDiv.style.height = '100%';
-            colorDiv.style.width = '100%';
-            
-            container.appendChild(colorDiv);
-            
-            // Actualizar el botón de zoom
-            if (zoomBtn) {
-                zoomBtn.setAttribute('data-image', '');
-            }
-        }
-
         // Generate random color
         function getRandomColor() {
             const colors = [
@@ -2416,9 +1353,6 @@
         // Change logo color
         function changeLogoColor() {
             const randomColor = getRandomColor();
-            const logoText = document.querySelector('.logo h1');
-            const logoIcon = document.querySelector('.logo i');
-            
             logoText.style.color = randomColor;
             logoIcon.style.color = randomColor;
             
@@ -2427,57 +1361,6 @@
             setTimeout(() => {
                 logo.style.transform = 'scale(1)';
             }, 300);
-        }
-
-        // Toggle dark mode
-        function toggleDarkMode() {
-            darkMode = !darkMode;
-            
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-                themeIcon.className = 'fas fa-sun';
-                themeToggle.setAttribute('title', 'Cambiar a modo claro');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                themeIcon.className = 'fas fa-moon';
-                themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-            
-            // Update particles for dark mode
-            updateParticles();
-        }
-
-        // Check for saved dark mode preference
-        function checkDarkModePreference() {
-            const savedMode = localStorage.getItem('darkMode');
-            
-            if (savedMode === 'enabled') {
-                darkMode = true;
-                document.body.classList.add('dark-mode');
-                themeIcon.className = 'fas fa-sun';
-                themeToggle.setAttribute('title', 'Cambiar a modo claro');
-            } else {
-                darkMode = false;
-                document.body.classList.remove('dark-mode');
-                themeIcon.className = 'fas fa-moon';
-                themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
-            }
-            
-            updateParticles();
-        }
-
-        // Update particles for dark mode
-        function updateParticles() {
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach(particle => {
-                if (darkMode) {
-                    particle.style.backgroundColor = 'rgba(196, 69, 105, 0.3)';
-                } else {
-                    particle.style.backgroundColor = 'rgba(248, 181, 208, 0.3)';
-                }
-            });
         }
 
         // Create particles background
@@ -2499,9 +1382,7 @@
                 particle.style.top = `${Math.random() * 100}%`;
                 
                 // Random color with opacity
-                const colors = darkMode 
-                    ? ['#c44569', '#9c88ff', '#ff9e6d', '#6c5ce7'] 
-                    : ['#f8b5d0', '#d9c2ff', '#ff9e6d', '#7c3aed'];
+                const colors = ['#f8b5d0', '#d9c2ff', '#ff9e6d', '#7c3aed'];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.backgroundColor = color;
                 particle.style.opacity = Math.random() * 0.4 + 0.1;
@@ -2595,268 +1476,6 @@
                     card.classList.remove('active');
                 }
             });
-        }
-
-        // Show zoom modal - CORREGIDA
-        function showZoomModal(imageSrc, title) {
-            zoomTitle.textContent = title;
-            
-            if (imageSrc) {
-                zoomImage.src = imageSrc;
-                zoomImage.alt = title;
-                zoomImage.style.display = 'block';
-            } else {
-                // Si no hay imagen, mostrar un placeholder
-                zoomImage.style.display = 'none';
-                
-                // Crear un placeholder
-                const placeholder = document.createElement('div');
-                placeholder.style.width = '400px';
-                placeholder.style.height = '300px';
-                placeholder.style.display = 'flex';
-                placeholder.style.flexDirection = 'column';
-                placeholder.style.alignItems = 'center';
-                placeholder.style.justifyContent = 'center';
-                placeholder.style.backgroundColor = darkMode ? '#2d2d44' : '#f5f5f5';
-                placeholder.style.borderRadius = '10px';
-                placeholder.style.color = darkMode ? '#aaaaaa' : '#666';
-                placeholder.innerHTML = `
-                    <div style="font-size: 3rem; margin-bottom: 15px;">
-                        <i class="fas fa-birthday-cake"></i>
-                    </div>
-                    <div style="font-size: 1.5rem; font-weight: bold;">${title}</div>
-                `;
-                
-                // Insertar el placeholder antes de la imagen
-                zoomImage.parentNode.insertBefore(placeholder, zoomImage);
-                
-                // Guardar referencia al placeholder para eliminarlo después
-                zoomModal.placeholder = placeholder;
-            }
-            
-            zoomModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close zoom modal - CORREGIDA
-        function closeZoomModal() {
-            zoomModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Eliminar el placeholder si existe
-            if (zoomModal.placeholder) {
-                zoomModal.placeholder.remove();
-                delete zoomModal.placeholder;
-            }
-            
-            // Restaurar la imagen
-            zoomImage.style.display = 'block';
-        }
-
-        // Create carousel item - CORREGIDA
-        function createCarouselItem(item, index) {
-            const carouselItem = document.createElement('div');
-            carouselItem.className = 'carousel-item';
-            carouselItem.setAttribute('data-index', index);
-            
-            let imageContent = '';
-            
-            if (item.src) {
-                imageContent = `
-                    <div class="carousel-image-container">
-                        <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'><i class=\"fas fa-birthday-cake\" style=\"font-size:3rem; margin-bottom:15px;\"></i><div style=\"font-weight:bold;\">${item.title}</div></div>
-                        <button class="description-toggle" data-index="${index}">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                        <div class="image-description-overlay">
-                            <h4 class="description-title">${item.title}</h4>
-                            <p class="description-text">${item.desc}</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item-content">
-                        <h4 class="carousel-item-title">${item.title}</h4>
-                    </div>
-                `;
-            } else {
-                // Colores específicos para placeholders según la categoría
-                let placeholderColor = '#f5f5f5';
-                let placeholderTextColor = '#666';
-                
-                if (currentSection === 'color') {
-                    // Asignar colores específicos para los placeholders de colores
-                    const colorMap = {
-                        'Rosa': '#ffcce6',
-                        'Verde': '#c2f0c2',
-                        'Azul': '#c2e6ff',
-                        'Morado': '#e6ccff',
-                        'Naranja': '#ffd9cc',
-                        'Amarillo': '#fff5cc'
-                    };
-                    
-                    if (colorMap[item.title.split(' ')[1]]) {
-                        placeholderColor = colorMap[item.title.split(' ')[1]];
-                        placeholderTextColor = '#333';
-                    }
-                }
-                
-                imageContent = `
-                    <div class="carousel-image-container">
-                        <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px 10px 0 0; color:${placeholderTextColor};">
-                            <div style="font-size: 3rem; margin-bottom: 15px;">
-                                <i class="fas fa-birthday-cake"></i>
-                            </div>
-                            <div style="font-size: 1.2rem; font-weight: bold;">${item.title}</div>
-                        </div>
-                        <button class="description-toggle" data-index="${index}">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                        <div class="image-description-overlay">
-                            <h4 class="description-title">${item.title}</h4>
-                            <p class="description-text">${item.desc}</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item-content">
-                        <h4 class="carousel-item-title">${item.title}</h4>
-                    </div>
-                `;
-            }
-            
-            carouselItem.innerHTML = imageContent;
-            return carouselItem;
-        }
-
-        // Toggle description visibility
-        function toggleDescription(index) {
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            const clickedItem = carouselItems[index];
-            
-            // Si ya está activo, lo desactivamos
-            if (clickedItem.classList.contains('active-description')) {
-                clickedItem.classList.remove('active-description');
-            } else {
-                // Desactivamos cualquier otra descripción activa
-                carouselItems.forEach(item => {
-                    item.classList.remove('active-description');
-                });
-                // Activamos la descripción del item clickeado
-                clickedItem.classList.add('active-description');
-            }
-        }
-
-        // Show preview with carrusel
-        function showPreview(section) {
-            const sectionData = previewData[section];
-            
-            if (!sectionData) return;
-            
-            currentSection = section;
-            currentSlide = 0;
-            totalSlides = sectionData.items.length;
-            
-            // Update title
-            previewTitle.textContent = sectionData.title;
-            
-            // Clear carousel
-            carouselSlide.innerHTML = '';
-            carouselDots.innerHTML = '';
-            
-            // Create carousel items
-            sectionData.items.forEach((item, index) => {
-                const carouselItem = createCarouselItem(item, index);
-                carouselSlide.appendChild(carouselItem);
-                
-                // Create dot
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot';
-                if (index === 0) dot.classList.add('active');
-                dot.setAttribute('data-index', index);
-                dot.addEventListener('click', () => goToSlide(index));
-                carouselDots.appendChild(dot);
-            });
-            
-            // Update carousel counter
-            updateCarouselCounter();
-            
-            // Update button states
-            updateCarouselButtons();
-            
-            // Position carousel to first slide
-            carouselSlide.style.transform = `translateX(0)`;
-            
-            // Show modal
-            previewModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Go to specific slide
-        function goToSlide(index) {
-            if (index < 0 || index >= totalSlides) return;
-            
-            currentSlide = index;
-            carouselSlide.style.transform = `translateX(-${index * 100}%)`;
-            
-            // Remove any active descriptions when changing slides
-            document.querySelectorAll('.carousel-item').forEach(item => {
-                item.classList.remove('active-description');
-            });
-            
-            // Update active dot
-            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            // Update carousel counter
-            updateCarouselCounter();
-            
-            // Update button states
-            updateCarouselButtons();
-        }
-
-        // Next slide
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                goToSlide(currentSlide + 1);
-            }
-        }
-
-        // Previous slide
-        function prevSlide() {
-            if (currentSlide > 0) {
-                goToSlide(currentSlide - 1);
-            }
-        }
-
-        // Update carousel counter
-        function updateCarouselCounter() {
-            carouselCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-        }
-
-        // Update carousel buttons state
-        function updateCarouselButtons() {
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === totalSlides - 1;
-            
-            if (prevBtn.disabled) {
-                prevBtn.style.backgroundColor = '#ccc';
-            } else {
-                prevBtn.style.backgroundColor = 'var(--secondary)';
-            }
-            
-            if (nextBtn.disabled) {
-                nextBtn.style.backgroundColor = '#ccc';
-            } else {
-                nextBtn.style.backgroundColor = 'var(--secondary)';
-            }
-        }
-
-        // Close preview modal
-        function closePreviewModal() {
-            previewModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
         }
 
         // Add cake to cart
@@ -2997,9 +1616,7 @@
 
         // Create confetti effect
         function createConfetti() {
-            const colors = darkMode 
-                ? ['#c44569', '#9c88ff', '#FFD166', '#06D6A0', '#6c5ce7', '#EF476F'] 
-                : ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F'];
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#7C3AED'];
             
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
@@ -3033,12 +1650,9 @@
 
         // Initialize event listeners
         function initEventListeners() {
-            // Option cards - SOLO SELECCIONAN
+            // Option cards
             optionCards.forEach(card => {
-                card.addEventListener('click', (e) => {
-                    // Evitar que se active si se hace clic en el botón de zoom
-                    if (e.target.closest('.zoom-btn')) return;
-                    
+                card.addEventListener('click', () => {
                     const option = card.getAttribute('data-option');
                     const value = card.getAttribute('data-value');
                     
@@ -3063,12 +1677,9 @@
                 });
             });
             
-            // Color cards - SOLO SELECCIONAN
+            // Color cards
             colorCards.forEach(card => {
-                card.addEventListener('click', (e) => {
-                    // Evitar que se active si se hace clic en el botón de zoom
-                    if (e.target.closest('.zoom-btn')) return;
-                    
+                card.addEventListener('click', () => {
                     const value = card.getAttribute('data-value');
                     
                     currentCake.color = value;
@@ -3080,18 +1691,6 @@
                     updateCakeSummary();
                     updateActiveOptions();
                 });
-            });
-            
-            // Zoom buttons - MANEJADOR CORREGIDO
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.zoom-btn')) {
-                    const button = e.target.closest('.zoom-btn');
-                    e.stopPropagation(); // Evita que se active la selección de la tarjeta
-                    
-                    const imageSrc = button.getAttribute('data-image');
-                    const title = button.getAttribute('data-title');
-                    showZoomModal(imageSrc, title);
-                }
             });
             
             // Custom text input
@@ -3107,67 +1706,6 @@
             
             // Add to cart button
             addToCartBtn.addEventListener('click', addCakeToCart);
-            
-            // Close zoom button
-            closeZoom.addEventListener('click', closeZoomModal);
-            
-            // View buttons - para abrir el carrusel
-            viewButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const section = button.getAttribute('data-section');
-                    showPreview(section);
-                });
-            });
-            
-            // Toggle dark mode
-            themeToggle.addEventListener('click', toggleDarkMode);
-            
-            // Carousel navigation
-            prevBtn.addEventListener('click', prevSlide);
-            nextBtn.addEventListener('click', nextSlide);
-            
-            // Close preview button
-            closePreview.addEventListener('click', closePreviewModal);
-            
-            // Keyboard navigation for modals
-            document.addEventListener('keydown', (e) => {
-                if (zoomModal.classList.contains('active') && e.key === 'Escape') {
-                    closeZoomModal();
-                }
-                if (previewModal.classList.contains('active')) {
-                    if (e.key === 'ArrowLeft') {
-                        prevSlide();
-                    } else if (e.key === 'ArrowRight') {
-                        nextSlide();
-                    } else if (e.key === 'Escape') {
-                        closePreviewModal();
-                    }
-                }
-            });
-            
-            // Close modals when clicking outside
-            zoomModal.addEventListener('click', (e) => {
-                if (e.target === zoomModal) {
-                    closeZoomModal();
-                }
-            });
-            
-            previewModal.addEventListener('click', (e) => {
-                if (e.target === previewModal) {
-                    closePreviewModal();
-                }
-            });
-            
-            // Event delegation para botones de descripción en el carrusel
-            document.addEventListener('click', function(e) {
-                // Check if a description toggle button was clicked
-                if (e.target.closest('.description-toggle')) {
-                    const toggleBtn = e.target.closest('.description-toggle');
-                    const index = parseInt(toggleBtn.getAttribute('data-index'));
-                    toggleDescription(index);
-                }
-            });
             
             // Cart icon
             cartIcon.addEventListener('click', () => {
@@ -3244,7 +1782,6 @@
             updateCakeSummary();
             updateActiveOptions();
             updateCartDisplay();
-            checkDarkModePreference();
             createParticles();
             initEventListeners();
             
@@ -3254,13 +1791,6 @@
 
         // Start the application
         document.addEventListener('DOMContentLoaded', init);
-        
-        // Expose removeFromCart function globally for use in onclick attributes
-        window.removeFromCart = removeFromCart;
-        
-        // Exponer las funciones de manejo de errores de imagen globalmente
-        window.handleImageError = handleImageError;
-        window.handleColorImageError = handleColorImageError;
     </script>
 </body>
 </html>
