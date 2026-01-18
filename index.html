@@ -27,6 +27,7 @@
             background-color: #fff9fd;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -42,6 +43,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: all 0.3s ease;
         }
         
         .header-content {
@@ -55,17 +57,19 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.5s ease;
         }
         
         .logo i {
             color: var(--secondary);
             font-size: 2.2rem;
+            transition: color 0.5s ease;
         }
         
         .logo h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 2.2rem;
-            color: var(--dark);
+            transition: color 0.5s ease;
         }
         
         .cart-icon {
@@ -73,6 +77,11 @@
             font-size: 1.8rem;
             color: var(--dark);
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1);
         }
         
         .cart-count {
@@ -93,36 +102,68 @@
         
         .hero {
             background: linear-gradient(135deg, #f8b5d0 0%, #d9c2ff 100%);
-            padding: 60px 0;
+            padding: 100px 0;
             text-align: center;
             border-radius: 0 0 40px 40px;
             margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--dark);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 700px;
-            margin: 0 auto 25px;
+            margin: 0 auto 30px;
             color: #4a4a4a;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
         
         .customizer-container {
             margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .customizer-container.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .customizer-options {
             background-color: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-bottom: 30px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        
+        .customizer-options.visible {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .section-title {
@@ -134,132 +175,179 @@
         }
         
         .option-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
         }
+        
+        .option-group.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .option-group:nth-child(1) { transition-delay: 0.1s; }
+        .option-group:nth-child(2) { transition-delay: 0.2s; }
+        .option-group:nth-child(3) { transition-delay: 0.3s; }
+        .option-group:nth-child(4) { transition-delay: 0.4s; }
+        .option-group:nth-child(5) { transition-delay: 0.5s; }
+        .option-group:nth-child(6) { transition-delay: 0.6s; }
+        .option-group:nth-child(7) { transition-delay: 0.7s; }
         
         .option-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 600;
             color: #555;
+            font-size: 1.1rem;
         }
         
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
         }
         
         @media (max-width: 768px) {
             .options-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
             }
         }
         
         .option-card {
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 16px;
             background-color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transform: scale(1);
         }
         
         .option-card:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
         }
         
         .option-card.active {
             border-color: var(--secondary);
             background-color: rgba(124, 58, 237, 0.05);
-            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.1);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.15);
+            transform: translateY(-5px);
         }
         
         .option-image {
-            height: 120px;
+            height: 150px;
             width: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid #f0f0f0;
+            object-fit: contain;
+            padding: 10px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover .option-image {
+            transform: scale(1.05);
         }
         
         .option-name {
-            padding: 12px;
+            padding: 15px;
             text-align: center;
             font-weight: 500;
             color: #444;
+            font-size: 1.05rem;
+            background-color: white;
         }
         
         .color-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
         }
         
         .color-card {
-            width: 140px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transform: scale(1);
         }
         
         .color-card:hover {
             border-color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
         }
         
         .color-card.active {
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+            transform: translateY(-5px);
         }
         
         .color-preview {
-            height: 80px;
+            height: 120px;
             width: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        
+        .color-card:hover .color-preview {
+            transform: scale(1.05);
         }
         
         .color-name {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             font-weight: 500;
             color: #444;
+            background-color: white;
         }
         
         input[type="text"], select, textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px 20px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
         }
         
         input[type="text"]:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
         
         .summary-section {
             background-color: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-top: 20px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        .summary-section.visible {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .summary-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--dark);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -268,8 +356,16 @@
         .summary-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .summary-item:hover {
+            background-color: rgba(248, 181, 208, 0.05);
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 8px;
         }
         
         .summary-label {
@@ -284,12 +380,12 @@
         .summary-total {
             display: flex;
             justify-content: space-between;
-            padding: 15px 0;
-            font-size: 1.2rem;
+            padding: 20px 0;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--dark);
             border-top: 2px solid #eee;
-            margin-top: 10px;
+            margin-top: 15px;
         }
         
         .total-price {
@@ -300,12 +396,12 @@
             background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 16px 40px;
+            padding: 18px 40px;
             font-size: 1.1rem;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -313,12 +409,13 @@
             margin-top: 30px;
             width: 100%;
             box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+            transform: translateY(0);
         }
         
         .add-to-cart-btn:hover {
             background-color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         }
         
         .cart-modal {
@@ -332,6 +429,12 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .cart-modal.active {
+            opacity: 1;
         }
         
         .cart-content {
@@ -342,6 +445,14 @@
             padding: 30px;
             max-height: 80vh;
             overflow-y: auto;
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .cart-modal.active .cart-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
         }
         
         .cart-header {
@@ -355,11 +466,18 @@
             font-size: 1.8rem;
             color: #777;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         .close-cart:hover {
             color: var(--dark);
+            background-color: #f5f5f5;
         }
         
         .cart-items {
@@ -371,6 +489,14 @@
             align-items: center;
             padding: 20px 0;
             border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item:hover {
+            background-color: #f9f9f9;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
         }
         
         .cart-item-preview {
@@ -381,12 +507,15 @@
             margin-right: 20px;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
         
         .cart-item-preview img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 5px;
+            background-color: white;
         }
         
         .cart-item-details {
@@ -413,11 +542,18 @@
             color: #ff6b6b;
             cursor: pointer;
             font-size: 1.2rem;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         .remove-item:hover {
             color: #ff3b3b;
+            background-color: rgba(255, 107, 107, 0.1);
         }
         
         .cart-footer {
@@ -453,6 +589,7 @@
         .checkout-btn:hover {
             background-color: #ff8a4d;
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 158, 109, 0.3);
         }
         
         .payment-modal {
@@ -466,6 +603,12 @@
             z-index: 1001;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .payment-modal.active {
+            opacity: 1;
         }
         
         .payment-content {
@@ -474,6 +617,14 @@
             max-width: 600px;
             border-radius: 20px;
             padding: 30px;
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .payment-modal.active .payment-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
         }
         
         .payment-methods {
@@ -498,11 +649,13 @@
         .payment-method i {
             font-size: 2rem;
             color: #555;
+            transition: all 0.3s ease;
         }
         
         .payment-method:hover, .payment-method.active {
             border-color: var(--secondary);
             background-color: rgba(124, 58, 237, 0.05);
+            transform: translateY(-5px);
         }
         
         .payment-form {
@@ -531,10 +684,16 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .complete-order-btn:hover {
             background-color: #22c55e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
         }
         
         .notification {
@@ -563,9 +722,17 @@
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 40px 0;
+            padding: 60px 0 30px;
             text-align: center;
             margin-top: 60px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        footer.visible {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .footer-content {
@@ -573,12 +740,25 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 30px;
+            margin-bottom: 40px;
         }
         
         .footer-section {
             flex: 1;
             min-width: 250px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
         }
+        
+        footer.visible .footer-section {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        footer.visible .footer-section:nth-child(1) { transition-delay: 0.1s; }
+        footer.visible .footer-section:nth-child(2) { transition-delay: 0.2s; }
+        footer.visible .footer-section:nth-child(3) { transition-delay: 0.3s; }
         
         .footer-section h3 {
             font-size: 1.3rem;
@@ -588,7 +768,11 @@
         
         @media (max-width: 768px) {
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .hero {
+                padding: 70px 0;
             }
             
             .form-row {
@@ -600,6 +784,10 @@
                 flex-direction: column;
                 gap: 20px;
                 align-items: flex-start;
+            }
+            
+            .options-grid, .color-options {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
         }
         
@@ -613,14 +801,102 @@
             color: #888;
             font-size: 0.9rem;
         }
+        
+        /* Efecto de partículas para el fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(248, 181, 208, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Efecto de brillo en los botones */
+        .glow-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(30deg);
+            transition: transform 0.6s;
+            opacity: 0;
+        }
+        
+        .glow-effect:hover::after {
+            transform: rotate(30deg) translateX(100%);
+            opacity: 1;
+        }
+        
+        /* Animación de carga para imágenes */
+        .image-loading {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <div class="logo" id="logo">
                     <i class="fas fa-birthday-cake"></i>
                     <h1>SweetCakes</h1>
                 </div>
@@ -642,13 +918,13 @@
 
     <!-- Customizer Section -->
     <div class="container">
-        <div class="customizer-container">
+        <div class="customizer-container" id="customizerContainer">
             <!-- Options Panel -->
-            <div class="customizer-options">
+            <div class="customizer-options" id="customizerOptions">
                 <h3 class="section-title">Personaliza tu cake</h3>
                 
                 <!-- Form Selection -->
-                <div class="option-group">
+                <div class="option-group" id="shapeGroup">
                     <label class="option-label">Forma del pastel</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="shape" data-value="round">
@@ -664,16 +940,16 @@
                             <div class="option-name">Corazón</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="star">
-                            <img src="cakeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
+                            <img src="cackeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
                             <div class="option-name">Estrella</div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Color Selection -->
-                <div class="option-group">
+                <div class="option-group" id="colorGroup">
                     <label class="option-label">Color principal</label>
-                    <div class="options-grid">
+                    <div class="color-options">
                         <div class="color-card" data-option="color" data-value="rosa">
                             <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffcce6;\'>Rosa</div>';">
                             <div class="color-name">Rosa</div>
@@ -702,7 +978,7 @@
                 </div>
                 
                 <!-- Flavor Selection -->
-                <div class="option-group">
+                <div class="option-group" id="flavorGroup">
                     <label class="option-label">Sabor</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="flavor" data-value="chocolate">
@@ -733,7 +1009,7 @@
                 </div>
                 
                 <!-- Size Selection -->
-                <div class="option-group">
+                <div class="option-group" id="sizeGroup">
                     <label class="option-label">Tamaño</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="size" data-value="small">
@@ -752,7 +1028,7 @@
                 </div>
                 
                 <!-- Dough Type Selection -->
-                <div class="option-group">
+                <div class="option-group" id="doughGroup">
                     <label class="option-label">Tipo de masa</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="dough" data-value="normal">
@@ -775,20 +1051,20 @@
                 </div>
                 
                 <!-- Customization -->
-                <div class="option-group">
+                <div class="option-group" id="customGroup">
                     <label class="option-label">Personalización (texto)</label>
                     <input type="text" id="customText" placeholder="Ej: Feliz Cumpleaños María">
                 </div>
                 
                 <!-- Additional Details -->
-                <div class="option-group">
+                <div class="option-group" id="detailsGroup">
                     <label class="option-label">Detalles adicionales</label>
                     <textarea id="additionalDetails" rows="3" placeholder="Alguna decoración especial, alergias, etc."></textarea>
                 </div>
             </div>
             
             <!-- Summary Section -->
-            <div class="summary-section">
+            <div class="summary-section" id="summarySection">
                 <h3 class="summary-title">
                     <i class="fas fa-receipt"></i> Resumen de tu pedido
                 </h3>
@@ -828,7 +1104,7 @@
                     <div class="total-price" id="summaryPrice">$25.00</div>
                 </div>
                 
-                <button class="add-to-cart-btn" id="addToCartBtn">
+                <button class="add-to-cart-btn glow-effect" id="addToCartBtn">
                     <i class="fas fa-cart-plus"></i> Agregar al Carrito
                 </button>
             </div>
@@ -850,7 +1126,7 @@
             
             <div class="cart-footer">
                 <div class="cart-total">Total: <span id="cartTotalPrice">$0.00</span></div>
-                <button class="checkout-btn" id="checkoutBtn">Proceder al Pago</button>
+                <button class="checkout-btn glow-effect" id="checkoutBtn">Proceder al Pago</button>
             </div>
         </div>
     </div>
@@ -906,7 +1182,7 @@
                     </div>
                 </div>
                 
-                <button class="complete-order-btn" id="completeOrderBtn">
+                <button class="complete-order-btn glow-effect" id="completeOrderBtn">
                     <i class="fas fa-check-circle"></i> Completar Pedido
                 </button>
             </div>
@@ -920,7 +1196,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -1037,6 +1313,9 @@
         const completeOrderBtn = document.getElementById('completeOrderBtn');
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
+        const logo = document.getElementById('logo');
+        const logoText = logo.querySelector('h1');
+        const logoIcon = logo.querySelector('i');
         
         // Summary elements
         const summaryShape = document.getElementById('summaryShape');
@@ -1053,6 +1332,109 @@
         const customTextInput = document.getElementById('customText');
         const additionalDetailsInput = document.getElementById('additionalDetails');
         const paymentMethods = document.querySelectorAll('.payment-method');
+        
+        // Animation elements
+        const customizerContainer = document.getElementById('customizerContainer');
+        const customizerOptions = document.getElementById('customizerOptions');
+        const summarySection = document.getElementById('summarySection');
+        const footer = document.getElementById('footer');
+        const optionGroups = document.querySelectorAll('.option-group');
+
+        // Generate random color
+        function getRandomColor() {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F',
+                '#7C3AED', '#F8B5D0', '#FF9E6D', '#4ADE80', '#3A86FF', '#FB5607',
+                '#8338EC', '#FF006E', '#FFBE0B', '#3A86FF', '#FF5D8F', '#00BBF9'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Change logo color
+        function changeLogoColor() {
+            const randomColor = getRandomColor();
+            logoText.style.color = randomColor;
+            logoIcon.style.color = randomColor;
+            
+            // Add animation effect
+            logo.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                logo.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Create particles background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random color with opacity
+                const colors = ['#f8b5d0', '#d9c2ff', '#ff9e6d', '#7c3aed'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                particle.style.opacity = Math.random() * 0.4 + 0.1;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Add visible class to elements in viewport
+        function checkVisibility() {
+            // Check customizer container
+            if (isInViewport(customizerContainer)) {
+                customizerContainer.classList.add('visible');
+            }
+            
+            // Check customizer options
+            if (isInViewport(customizerOptions)) {
+                customizerOptions.classList.add('visible');
+            }
+            
+            // Check summary section
+            if (isInViewport(summarySection)) {
+                summarySection.classList.add('visible');
+            }
+            
+            // Check footer
+            if (isInViewport(footer)) {
+                footer.classList.add('visible');
+            }
+            
+            // Check option groups
+            optionGroups.forEach(group => {
+                if (isInViewport(group)) {
+                    group.classList.add('visible');
+                }
+            });
+        }
 
         // Update cake summary
         function updateCakeSummary() {
@@ -1108,6 +1490,12 @@
             cart.push(cakeItem);
             updateCartDisplay();
             showNotification('Pastel agregado al carrito');
+            
+            // Animate cart icon
+            cartIcon.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
         }
 
         // Remove item from cart
@@ -1203,8 +1591,15 @@
             updateCartDisplay();
             
             // Close modals
-            paymentModal.style.display = 'none';
-            cartModal.style.display = 'none';
+            paymentModal.classList.remove('active');
+            setTimeout(() => {
+                paymentModal.style.display = 'none';
+            }, 300);
+            
+            cartModal.classList.remove('active');
+            setTimeout(() => {
+                cartModal.style.display = 'none';
+            }, 300);
             
             // Reset form
             document.getElementById('cardName').value = '';
@@ -1214,6 +1609,43 @@
             
             // Reset payment method selection
             paymentMethods.forEach(method => method.classList.remove('active'));
+            
+            // Show confetti effect
+            createConfetti();
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#7C3AED'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '9999';
+                confetti.style.opacity = '0.8';
+                
+                document.body.appendChild(confetti);
+                
+                // Animation
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 10}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                // Remove confetti after animation
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
         }
 
         // Initialize event listeners
@@ -1237,6 +1669,9 @@
                         currentCake.doughName = doughNames[value];
                     }
                     
+                    // Change logo color on selection
+                    changeLogoColor();
+                    
                     updateCakeSummary();
                     updateActiveOptions();
                 });
@@ -1249,6 +1684,10 @@
                     
                     currentCake.color = value;
                     currentCake.colorName = colorNames[value];
+                    
+                    // Change logo color on selection
+                    changeLogoColor();
+                    
                     updateCakeSummary();
                     updateActiveOptions();
                 });
@@ -1271,22 +1710,37 @@
             // Cart icon
             cartIcon.addEventListener('click', () => {
                 cartModal.style.display = 'flex';
+                setTimeout(() => {
+                    cartModal.classList.add('active');
+                }, 10);
             });
             
             // Close cart
             closeCart.addEventListener('click', () => {
-                cartModal.style.display = 'none';
+                cartModal.classList.remove('active');
+                setTimeout(() => {
+                    cartModal.style.display = 'none';
+                }, 300);
             });
             
             // Checkout button
             checkoutBtn.addEventListener('click', () => {
-                cartModal.style.display = 'none';
-                paymentModal.style.display = 'flex';
+                cartModal.classList.remove('active');
+                setTimeout(() => {
+                    cartModal.style.display = 'none';
+                    paymentModal.style.display = 'flex';
+                    setTimeout(() => {
+                        paymentModal.classList.add('active');
+                    }, 10);
+                }, 300);
             });
             
             // Close payment modal
             closePayment.addEventListener('click', () => {
-                paymentModal.style.display = 'none';
+                paymentModal.classList.remove('active');
+                setTimeout(() => {
+                    paymentModal.style.display = 'none';
+                }, 300);
             });
             
             // Payment methods
@@ -1303,13 +1757,24 @@
             // Close modals when clicking outside
             window.addEventListener('click', (e) => {
                 if (e.target === cartModal) {
-                    cartModal.style.display = 'none';
+                    cartModal.classList.remove('active');
+                    setTimeout(() => {
+                        cartModal.style.display = 'none';
+                    }, 300);
                 }
                 
                 if (e.target === paymentModal) {
-                    paymentModal.style.display = 'none';
+                    paymentModal.classList.remove('active');
+                    setTimeout(() => {
+                        paymentModal.style.display = 'none';
+                    }, 300);
                 }
             });
+            
+            // Scroll event for animations
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('load', checkVisibility);
+            window.addEventListener('resize', checkVisibility);
         }
 
         // Initialize the page
@@ -1317,7 +1782,11 @@
             updateCakeSummary();
             updateActiveOptions();
             updateCartDisplay();
+            createParticles();
             initEventListeners();
+            
+            // Initial check for visibility
+            setTimeout(checkVisibility, 100);
         }
 
         // Start the application
