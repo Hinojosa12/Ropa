@@ -225,6 +225,7 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
+            position: relative;
         }
         
         .option-card:hover {
@@ -240,8 +241,15 @@
             transform: translateY(-5px);
         }
         
-        .option-image {
+        .image-container {
+            position: relative;
             height: 150px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .option-image {
+            height: 100%;
             width: 100%;
             object-fit: contain;
             padding: 10px;
@@ -277,6 +285,7 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
+            position: relative;
         }
         
         .color-card:hover {
@@ -800,6 +809,7 @@
             background-color: #f0f0f0;
             color: #888;
             font-size: 0.9rem;
+            position: relative;
         }
         
         /* Efecto de partículas para el fondo */
@@ -861,6 +871,120 @@
             opacity: 1;
         }
         
+        /* Botón de zoom */
+        .zoom-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            background-color: rgba(124, 58, 237, 0.8);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-card.active .zoom-btn,
+        .color-card.active .zoom-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .zoom-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        /* Modal de zoom de imagen */
+        .image-zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-zoom-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .image-zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+        
+        .image-zoom-modal.active .image-zoom-content {
+            transform: scale(1);
+        }
+        
+        .zoomed-image {
+            max-width: 100%;
+            max-height: 85vh;
+            display: block;
+            object-fit: contain;
+        }
+        
+        .zoomed-placeholder {
+            width: 600px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            color: #888;
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+        
+        .close-zoom {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .close-zoom:hover {
+            background-color: white;
+            transform: scale(1.1);
+        }
+        
         /* Animación de carga para imágenes */
         .image-loading {
             position: relative;
@@ -891,6 +1015,16 @@
 <body>
     <!-- Partículas de fondo -->
     <div class="particles" id="particles"></div>
+    
+    <!-- Modal de zoom de imagen -->
+    <div class="image-zoom-modal" id="imageZoomModal">
+        <div class="image-zoom-content">
+            <button class="close-zoom" id="closeZoom">&times;</button>
+            <div id="zoomedImageContainer">
+                <!-- Imagen ampliada se mostrará aquí -->
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header>
@@ -928,19 +1062,31 @@
                     <label class="option-label">Forma del pastel</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="shape" data-value="round">
-                            <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Redondo</div>';">
+                            <div class="image-container">
+                                <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image">
+                                <div class="zoom-btn" data-target="round"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Redondo</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="square">
-                            <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Cuadrado</div>';">
+                            <div class="image-container">
+                                <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image">
+                                <div class="zoom-btn" data-target="square"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Cuadrado</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="heart">
-                            <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Corazón</div>';">
+                            <div class="image-container">
+                                <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image">
+                                <div class="zoom-btn" data-target="heart"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Corazón</div>
                         </div>
                         <div class="option-card" data-option="shape" data-value="star">
-                            <img src="cackeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
+                            <div class="image-container">
+                                <img src="cackeEstrella.jpg" alt="Pastel estrella" class="option-image">
+                                <div class="zoom-btn" data-target="star"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Estrella</div>
                         </div>
                     </div>
@@ -951,27 +1097,44 @@
                     <label class="option-label">Color principal</label>
                     <div class="color-options">
                         <div class="color-card" data-option="color" data-value="rosa">
-                            <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffcce6;\'>Rosa</div>';">
+                            <div class="image-container">
+                                <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview">
+                                <div class="zoom-btn" data-target="rosa"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Rosa</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="verde">
-                            <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2f0c2;\'>Verde</div>';">
+                            <div class="image-container">
+                                <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview">
+                                <div class="zoom-btn" data-target="verde"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Verde</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="azul">
-                            <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2e6ff;\'>Azul</div>';">
+                            <div class="image-container">
+                                <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview">
+                                <div class="zoom-btn" data-target="azul"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Azul</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="morado">
-                            <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#e6ccff;\'>Morado</div>';">
+                            <div class="image-container">
+                                <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview">
+                                <div class="zoom-btn" data-target="morado"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Morado</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="naranja">
-                            <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffd9cc;\'>Naranja</div>';">
+                            <div class="image-container">
+                                <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview">
+                                <div class="zoom-btn" data-target="naranja"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Naranja</div>
                         </div>
                         <div class="color-card" data-option="color" data-value="amarillo">
-                            <div class="color-preview" style="background-color: #fff5cc;"></div>
+                            <div class="image-container" style="background-color: #fff5cc;">
+                                <div class="zoom-btn" data-target="amarillo"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="color-name">Amarillo</div>
                         </div>
                     </div>
@@ -982,27 +1145,43 @@
                     <label class="option-label">Sabor</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="flavor" data-value="chocolate">
-                            <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
+                            <div class="image-container">
+                                <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image">
+                                <div class="zoom-btn" data-target="chocolate"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Chocolate</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="vainilla">
-                            <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Vainilla</div>';">
+                            <div class="image-container">
+                                <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image">
+                                <div class="zoom-btn" data-target="vainilla"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Vainilla</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="fresa">
-                            <div class="option-image" style="background-color: #ffcce6;"></div>
+                            <div class="image-container" style="background-color: #ffcce6;">
+                                <div class="zoom-btn" data-target="fresa"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Fresa</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="limon">
-                            <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Limón</div>';">
+                            <div class="image-container">
+                                <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image">
+                                <div class="zoom-btn" data-target="limon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Limón</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="redvelvet">
-                            <div class="option-image" style="background-color: #cc3333;"></div>
+                            <div class="image-container" style="background-color: #cc3333;">
+                                <div class="zoom-btn" data-target="redvelvet"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Red Velvet</div>
                         </div>
                         <div class="option-card" data-option="flavor" data-value="cafe">
-                            <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Café</div>';">
+                            <div class="image-container">
+                                <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image">
+                                <div class="zoom-btn" data-target="cafe"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Café</div>
                         </div>
                     </div>
@@ -1013,15 +1192,24 @@
                     <label class="option-label">Tamaño</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="size" data-value="small">
-                            <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Pequeño</div>';">
+                            <div class="image-container">
+                                <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image">
+                                <div class="zoom-btn" data-target="small"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Pequeño (8 porciones)</div>
                         </div>
                         <div class="option-card" data-option="size" data-value="medium">
-                            <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Mediano</div>';">
+                            <div class="image-container">
+                                <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image">
+                                <div class="zoom-btn" data-target="medium"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Mediano (12 porciones)</div>
                         </div>
                         <div class="option-card" data-option="size" data-value="large">
-                            <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Grande</div>';">
+                            <div class="image-container">
+                                <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image">
+                                <div class="zoom-btn" data-target="large"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Grande (20 porciones)</div>
                         </div>
                     </div>
@@ -1032,19 +1220,29 @@
                     <label class="option-label">Tipo de masa</label>
                     <div class="options-grid">
                         <div class="option-card" data-option="dough" data-value="normal">
-                            <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Normal</div>';">
+                            <div class="image-container">
+                                <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image">
+                                <div class="zoom-btn" data-target="normal"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Normal</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="chocolate">
-                            <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
+                            <div class="image-container">
+                                <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image">
+                                <div class="zoom-btn" data-target="chocolate-dough"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Chocolate</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="integral">
-                            <div class="option-image" style="background-color: #f5e6c8;"></div>
+                            <div class="image-container" style="background-color: #f5e6c8;">
+                                <div class="zoom-btn" data-target="integral"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Integral</div>
                         </div>
                         <div class="option-card" data-option="dough" data-value="almendra">
-                            <div class="option-image" style="background-color: #f0d9c2;"></div>
+                            <div class="image-container" style="background-color: #f0d9c2;">
+                                <div class="zoom-btn" data-target="almendra"><i class="fas fa-search-plus"></i></div>
+                            </div>
                             <div class="option-name">Almendra</div>
                         </div>
                     </div>
@@ -1316,6 +1514,11 @@
         const logo = document.getElementById('logo');
         const logoText = logo.querySelector('h1');
         const logoIcon = logo.querySelector('i');
+        
+        // Zoom elements
+        const imageZoomModal = document.getElementById('imageZoomModal');
+        const closeZoom = document.getElementById('closeZoom');
+        const zoomedImageContainer = document.getElementById('zoomedImageContainer');
         
         // Summary elements
         const summaryShape = document.getElementById('summaryShape');
@@ -1648,6 +1851,80 @@
             }
         }
 
+        // Handle image zoom functionality
+        function setupImageZoom() {
+            // Get all zoom buttons
+            const zoomButtons = document.querySelectorAll('.zoom-btn');
+            
+            zoomButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card selection when clicking zoom
+                    
+                    const target = this.getAttribute('data-target');
+                    const card = this.closest('.option-card, .color-card');
+                    const imageContainer = card.querySelector('.image-container');
+                    
+                    // Find image or placeholder
+                    let imageElement = imageContainer.querySelector('img');
+                    let placeholderElement = imageContainer.querySelector('.image-placeholder');
+                    
+                    // Clear previous content
+                    zoomedImageContainer.innerHTML = '';
+                    
+                    // Create zoomed content
+                    if (imageElement && imageElement.src && !imageElement.src.includes('undefined')) {
+                        // If there's a valid image
+                        const img = document.createElement('img');
+                        img.src = imageElement.src;
+                        img.alt = imageElement.alt || 'Imagen ampliada';
+                        img.className = 'zoomed-image';
+                        zoomedImageContainer.appendChild(img);
+                    } else if (placeholderElement) {
+                        // If there's a placeholder (background color)
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'zoomed-placeholder';
+                        
+                        // Get background color or text
+                        const bgColor = imageContainer.style.backgroundColor || '#f0f0f0';
+                        const cardText = card.querySelector('.option-name, .color-name').textContent;
+                        
+                        placeholder.style.backgroundColor = bgColor;
+                        placeholder.textContent = cardText;
+                        zoomedImageContainer.appendChild(placeholder);
+                    } else {
+                        // Fallback
+                        const fallback = document.createElement('div');
+                        fallback.className = 'zoomed-placeholder';
+                        fallback.textContent = 'Imagen no disponible';
+                        fallback.style.backgroundColor = '#f0f0f0';
+                        zoomedImageContainer.appendChild(fallback);
+                    }
+                    
+                    // Show zoom modal
+                    imageZoomModal.classList.add('active');
+                });
+            });
+            
+            // Close zoom modal
+            closeZoom.addEventListener('click', () => {
+                imageZoomModal.classList.remove('active');
+            });
+            
+            // Close zoom modal when clicking outside
+            imageZoomModal.addEventListener('click', (e) => {
+                if (e.target === imageZoomModal) {
+                    imageZoomModal.classList.remove('active');
+                }
+            });
+            
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && imageZoomModal.classList.contains('active')) {
+                    imageZoomModal.classList.remove('active');
+                }
+            });
+        }
+
         // Initialize event listeners
         function initEventListeners() {
             // Option cards
@@ -1775,6 +2052,9 @@
             window.addEventListener('scroll', checkVisibility);
             window.addEventListener('load', checkVisibility);
             window.addEventListener('resize', checkVisibility);
+            
+            // Setup image zoom functionality
+            setupImageZoom();
         }
 
         // Initialize the page
@@ -1784,6 +2064,46 @@
             updateCartDisplay();
             createParticles();
             initEventListeners();
+            
+            // Handle image loading errors
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    const container = this.closest('.image-container');
+                    if (container && !container.querySelector('.image-placeholder')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'image-placeholder';
+                        
+                        // Get text from the card
+                        const card = container.closest('.option-card, .color-card');
+                        const cardText = card.querySelector('.option-name, .color-name').textContent;
+                        placeholder.textContent = cardText;
+                        
+                        // Set background color if it's a color card
+                        if (card.classList.contains('color-card')) {
+                            const color = card.getAttribute('data-value');
+                            const colorMap = {
+                                'rosa': '#ffcce6',
+                                'verde': '#c2f0c2',
+                                'azul': '#c2e6ff',
+                                'morado': '#e6ccff',
+                                'naranja': '#ffd9cc',
+                                'amarillo': '#fff5cc'
+                            };
+                            if (colorMap[color]) {
+                                placeholder.style.backgroundColor = colorMap[color];
+                            }
+                        }
+                        
+                        container.appendChild(placeholder);
+                        
+                        // Ensure zoom button stays on top
+                        const zoomBtn = container.querySelector('.zoom-btn');
+                        if (zoomBtn) {
+                            container.appendChild(zoomBtn);
+                        }
+                    }
+                });
+            });
             
             // Initial check for visibility
             setTimeout(checkVisibility, 100);
