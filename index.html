@@ -243,17 +243,16 @@
         
         .image-container {
             position: relative;
-            height: 150px;
+            height: 170px;
             width: 100%;
             overflow: hidden;
+            flex-grow: 1;
         }
         
         .option-image {
-            height: 100%;
             width: 100%;
-            object-fit: contain;
-            padding: 10px;
-            background-color: #f9f9f9;
+            height: 100%;
+            object-fit: cover;
             transition: all 0.3s ease;
         }
         
@@ -268,6 +267,11 @@
             color: #444;
             font-size: 1.05rem;
             background-color: white;
+            border-top: 1px solid #f0f0f0;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .color-options {
@@ -303,9 +307,7 @@
         .color-preview {
             height: 120px;
             width: 100%;
-            object-fit: contain;
-            padding: 10px;
-            background-color: #f9f9f9;
+            object-fit: cover;
             transition: all 0.3s ease;
         }
         
@@ -319,6 +321,7 @@
             font-weight: 500;
             color: #444;
             background-color: white;
+            border-top: 1px solid #f0f0f0;
         }
         
         input[type="text"], select, textarea {
@@ -876,9 +879,9 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 32px;
-            height: 32px;
-            background-color: rgba(124, 58, 237, 0.8);
+            width: 36px;
+            height: 36px;
+            background-color: rgba(124, 58, 237, 0.9);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -889,13 +892,13 @@
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 1rem;
             border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .option-card.active .zoom-btn,
-        .color-card.active .zoom-btn {
+        .option-card:hover .zoom-btn,
+        .color-card:hover .zoom-btn {
             opacity: 1;
             transform: scale(1);
         }
@@ -903,6 +906,32 @@
         .zoom-btn:hover {
             background-color: var(--secondary);
             transform: scale(1.1);
+        }
+        
+        /* Check mark para selección de forma */
+        .check-mark {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-card.active .check-mark {
+            opacity: 1;
+            transform: scale(1);
         }
         
         /* Modal de zoom de imagen */
@@ -913,7 +942,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.92);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -931,26 +960,38 @@
             max-height: 90%;
             position: relative;
             background-color: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             transform: scale(0.9);
             transition: transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .image-zoom-modal.active .image-zoom-content {
             transform: scale(1);
         }
         
+        .zoomed-image-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
         .zoomed-image {
             max-width: 100%;
-            max-height: 85vh;
+            max-height: 65vh;
             display: block;
             object-fit: contain;
+            border-radius: 8px;
         }
         
         .zoomed-placeholder {
-            width: 600px;
-            height: 400px;
+            width: 500px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -958,6 +999,7 @@
             color: #888;
             font-size: 1.2rem;
             padding: 20px;
+            border-radius: 8px;
         }
         
         .close-zoom {
@@ -983,6 +1025,24 @@
         .close-zoom:hover {
             background-color: white;
             transform: scale(1.1);
+        }
+        
+        .zoom-description {
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid #eee;
+        }
+        
+        .zoom-description h4 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .zoom-description p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         
         /* Animación de carga para imágenes */
@@ -1020,8 +1080,12 @@
     <div class="image-zoom-modal" id="imageZoomModal">
         <div class="image-zoom-content">
             <button class="close-zoom" id="closeZoom">&times;</button>
-            <div id="zoomedImageContainer">
+            <div class="zoomed-image-container" id="zoomedImageContainer">
                 <!-- Imagen ampliada se mostrará aquí -->
+            </div>
+            <div class="zoom-description" id="zoomDescription">
+                <h4 id="zoomTitle">Título del producto</h4>
+                <p id="zoomDesc">Descripción del producto...</p>
             </div>
         </div>
     </div>
@@ -1064,6 +1128,7 @@
                         <div class="option-card" data-option="shape" data-value="round">
                             <div class="image-container">
                                 <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image">
+                                <div class="check-mark"><i class="fas fa-check"></i></div>
                                 <div class="zoom-btn" data-target="round"><i class="fas fa-search-plus"></i></div>
                             </div>
                             <div class="option-name">Redondo</div>
@@ -1071,6 +1136,7 @@
                         <div class="option-card" data-option="shape" data-value="square">
                             <div class="image-container">
                                 <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image">
+                                <div class="check-mark"><i class="fas fa-check"></i></div>
                                 <div class="zoom-btn" data-target="square"><i class="fas fa-search-plus"></i></div>
                             </div>
                             <div class="option-name">Cuadrado</div>
@@ -1078,6 +1144,7 @@
                         <div class="option-card" data-option="shape" data-value="heart">
                             <div class="image-container">
                                 <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image">
+                                <div class="check-mark"><i class="fas fa-check"></i></div>
                                 <div class="zoom-btn" data-target="heart"><i class="fas fa-search-plus"></i></div>
                             </div>
                             <div class="option-name">Corazón</div>
@@ -1085,6 +1152,7 @@
                         <div class="option-card" data-option="shape" data-value="star">
                             <div class="image-container">
                                 <img src="cackeEstrella.jpg" alt="Pastel estrella" class="option-image">
+                                <div class="check-mark"><i class="fas fa-check"></i></div>
                                 <div class="zoom-btn" data-target="star"><i class="fas fa-search-plus"></i></div>
                             </div>
                             <div class="option-name">Estrella</div>
@@ -1496,6 +1564,111 @@
             star: 'cackeEstrella.jpg'
         };
 
+        // Product descriptions for zoom modal
+        const productDescriptions = {
+            // Formas
+            'round': {
+                title: 'Pastel Redondo',
+                description: 'La forma clásica y elegante perfecta para cualquier celebración. Nuestro pastel redondo es el favorito para cumpleaños y eventos especiales. Disponible en varios tamaños para adaptarse a tu reunión.'
+            },
+            'square': {
+                title: 'Pastel Cuadrado',
+                description: 'Un diseño moderno y único que se destaca en cualquier mesa. Perfecto para ocasiones contemporáneas y celebraciones de aniversario. Cada porción es uniforme y fácil de servir.'
+            },
+            'heart': {
+                title: 'Pastel en Forma de Corazón',
+                description: 'El símbolo perfecto del amor y la pasión. Ideal para San Valentín, aniversarios y propuestas. Un detalle romántico que derretirá corazones junto con su delicioso sabor.'
+            },
+            'star': {
+                title: 'Pastel en Forma de Estrella',
+                description: 'Para que tu pequeño se sienta como una superestrella en su cumpleaños. También perfecto para celebraciones de logros y eventos especiales donde quieres brillar.'
+            },
+            
+            // Colores
+            'rosa': {
+                title: 'Merengue Rosa',
+                description: 'Un tono suave y romántico perfecto para celebraciones de niñas, baby showers o simplemente para agregar un toque de dulzura a tu pastel. El color rosa simboliza ternura y amor.'
+            },
+            'verde': {
+                title: 'Merengue Verde',
+                description: 'Color fresco y natural que evoca la primavera y la renovación. Ideal para celebraciones ecológicas, de primavera o simplemente para quienes aman los tonos naturales.'
+            },
+            'azul': {
+                title: 'Merengue Azul',
+                description: 'Un azul sereno que trae calma y elegancia a tu celebración. Perfecto para baby showers de niño, celebraciones marinas o para quienes buscan un look sofisticado.'
+            },
+            'morado': {
+                title: 'Merengue Morado',
+                description: 'Color real y místico que agrega un toque de magia a tu pastel. Ideal para celebraciones de fantasía, cumpleaños temáticos o simplemente para los amantes del púrpura.'
+            },
+            'naranja': {
+                title: 'Merengue Naranja',
+                description: 'Un color vibrante y energético que evoca alegría y creatividad. Perfecto para fiestas de otoño, celebraciones de Halloween o para agregar un toque de diversión.'
+            },
+            'amarillo': {
+                title: 'Merengue Amarillo',
+                description: 'El color del sol y la felicidad. Este tono brillante iluminará cualquier celebración, perfecto para fiestas de verano, eventos soleados o para alegrar el día de alguien especial.'
+            },
+            
+            // Sabores
+            'chocolate': {
+                title: 'Sabor Chocolate',
+                description: 'Nuestro chocolate belga premium crea un pastel rico y decadente que satisface los antojos más dulces. Perfecto para los amantes del chocolate de todas las edades.'
+            },
+            'vainilla': {
+                title: 'Sabor Vainilla',
+                description: 'Un clásico atemporal con notas suaves y aromáticas de vainilla de Madagascar. Versátil y delicioso, complementa perfectamente cualquier relleno o decoración.'
+            },
+            'fresa': {
+                title: 'Sabor Fresa',
+                description: 'El dulce y jugoso sabor de fresas frescas en cada bocado. Un favorito para celebraciones de primavera y verano, o simplemente para quienes aman las frutas frescas.'
+            },
+            'limon': {
+                title: 'Sabor Limón',
+                description: 'Refrescante y ligeramente ácido, este pastel es perfecto para celebraciones de verano o como postre ligero después de una comida abundante.'
+            },
+            'redvelvet': {
+                title: 'Sabor Red Velvet',
+                description: 'Un elegante equilibrio entre chocolate y vainilla con un distintivo color rojo. Suave, húmedo y tradicionalmente acompañado de frosting de queso crema.'
+            },
+            'cafe': {
+                title: 'Sabor Café',
+                description: 'Para los amantes del café, este pastel ofrece un sabor robusto y aromático que combina perfectamente con rellenos de crema de café o chocolate.'
+            },
+            
+            // Tamaños
+            'small': {
+                title: 'Tamaño Pequeño (8 porciones)',
+                description: 'Perfecto para celebraciones íntimas, cenas románticas o pequeños grupos familiares. Cada porción es generosa para satisfacer a tus invitados.'
+            },
+            'medium': {
+                title: 'Tamaño Mediano (12 porciones)',
+                description: 'El tamaño más popular para cumpleaños y reuniones familiares. Suficiente para una celebración moderada sin dejar sobras excesivas.'
+            },
+            'large': {
+                title: 'Tamaño Grande (20 porciones)',
+                description: 'Ideal para fiestas grandes, eventos corporativos o celebraciones especiales. Asegura que todos tus invitados disfruten de una deliciosa porción.'
+            },
+            
+            // Masas
+            'normal': {
+                title: 'Masa Normal',
+                description: 'Nuestra masa clásica, esponjosa y ligera, hecha con los ingredientes más finos. La base perfecta para cualquier sabor y decoración.'
+            },
+            'chocolate-dough': {
+                title: 'Masa de Chocolate',
+                description: 'Una masa rica en cacao que intensifica el sabor chocolateado de tu pastel. Perfecta para los verdaderos amantes del chocolate.'
+            },
+            'integral': {
+                title: 'Masa Integral',
+                description: 'Una opción más saludable con harina integral que agrega un sabor a nuez y una textura interesante. Perfecta para quienes buscan una alternativa más nutritiva.'
+            },
+            'almendra': {
+                title: 'Masa de Almendra',
+                description: 'Deliciosamente húmeda con el sabor distintivo de las almendras molidas. Una opción gourmet que eleva cualquier pastel a un nuevo nivel.'
+            }
+        };
+
         // DOM Elements
         const addToCartBtn = document.getElementById('addToCartBtn');
         const cartIcon = document.getElementById('cartIcon');
@@ -1519,6 +1692,8 @@
         const imageZoomModal = document.getElementById('imageZoomModal');
         const closeZoom = document.getElementById('closeZoom');
         const zoomedImageContainer = document.getElementById('zoomedImageContainer');
+        const zoomTitle = document.getElementById('zoomTitle');
+        const zoomDesc = document.getElementById('zoomDesc');
         
         // Summary elements
         const summaryShape = document.getElementById('summaryShape');
@@ -1657,7 +1832,7 @@
 
         // Update option card active state
         function updateActiveOptions() {
-            // Update option cards
+            // Update option cards (including shape cards with check marks)
             optionCards.forEach(card => {
                 const option = card.getAttribute('data-option');
                 const value = card.getAttribute('data-value');
@@ -1900,6 +2075,15 @@
                         zoomedImageContainer.appendChild(fallback);
                     }
                     
+                    // Update description in zoom modal
+                    const description = productDescriptions[target] || {
+                        title: card.querySelector('.option-name, .color-name').textContent,
+                        description: 'Un delicioso pastel personalizado hecho con ingredientes de la más alta calidad. Perfecto para cualquier celebración especial.'
+                    };
+                    
+                    zoomTitle.textContent = description.title;
+                    zoomDesc.textContent = description.description;
+                    
                     // Show zoom modal
                     imageZoomModal.classList.add('active');
                 });
@@ -1927,17 +2111,27 @@
 
         // Initialize event listeners
         function initEventListeners() {
-            // Option cards
+            // Option cards (including shape cards)
             optionCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const option = card.getAttribute('data-option');
                     const value = card.getAttribute('data-value');
+                    
+                    // For shape cards, remove active class from all shape cards first
+                    if (option === 'shape') {
+                        const shapeCards = document.querySelectorAll('.option-card[data-option="shape"]');
+                        shapeCards.forEach(shapeCard => {
+                            shapeCard.classList.remove('active');
+                        });
+                    }
                     
                     currentCake[option] = value;
                     
                     // Update names based on selected value
                     if (option === 'shape') {
                         currentCake.shapeName = shapeNames[value];
+                        // Add active class to clicked shape card
+                        card.classList.add('active');
                     } else if (option === 'flavor') {
                         currentCake.flavorName = flavorNames[value];
                     } else if (option === 'size') {
@@ -2100,6 +2294,12 @@
                         const zoomBtn = container.querySelector('.zoom-btn');
                         if (zoomBtn) {
                             container.appendChild(zoomBtn);
+                        }
+                        
+                        // Ensure check mark stays on top (for shape cards)
+                        const checkMark = container.querySelector('.check-mark');
+                        if (checkMark) {
+                            container.appendChild(checkMark);
                         }
                     }
                 });
