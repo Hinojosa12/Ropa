@@ -14,6 +14,36 @@
             --light: #fef7ff;
             --accent: #ff9e6d;
             --success: #4ade80;
+            --bg-color: #fff9fd;
+            --text-color: #333;
+            --card-bg: white;
+            --header-bg: white;
+            --footer-bg: #2d1b69;
+            --footer-text: white;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --input-bg: white;
+            --modal-bg: white;
+        }
+        
+        /* Modo oscuro */
+        body.dark-mode {
+            --primary: #c44569;
+            --secondary: #9c88ff;
+            --dark: #1a1a2e;
+            --light: #2d2d44;
+            --accent: #ff9e6d;
+            --success: #4ade80;
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e2e;
+            --header-bg: #1a1a2e;
+            --footer-bg: #0f0f1a;
+            --footer-text: #cccccc;
+            --border-color: #444444;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --input-bg: #2d2d44;
+            --modal-bg: #1e1e2e;
         }
         
         * {
@@ -24,10 +54,11 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #fff9fd;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .container {
@@ -38,8 +69,8 @@
         }
         
         header {
-            background-color: white;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 15px var(--shadow-color);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -51,6 +82,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .logo {
@@ -72,10 +109,37 @@
             transition: color 0.5s ease;
         }
         
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .theme-toggle {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: rotate(30deg);
+        }
+        
         .cart-icon {
             position: relative;
             font-size: 1.8rem;
-            color: var(--dark);
+            color: var(--text-color);
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -111,6 +175,10 @@
             animation: fadeInUp 1s ease forwards;
         }
         
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #c44569 0%, #6c5ce7 100%);
+        }
+        
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -138,6 +206,10 @@
             animation: fadeInUp 1s ease 0.5s forwards;
         }
         
+        body.dark-mode .hero p {
+            color: #e0e0e0;
+        }
+        
         .customizer-container {
             margin-bottom: 60px;
             opacity: 0;
@@ -151,10 +223,10 @@
         }
         
         .customizer-options {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px var(--shadow-color);
             margin-bottom: 30px;
             transform: translateY(20px);
             opacity: 0;
@@ -224,7 +296,7 @@
             display: block;
             margin-bottom: 12px;
             font-weight: 600;
-            color: #555;
+            color: var(--text-color);
             font-size: 1.1rem;
         }
         
@@ -242,9 +314,9 @@
         }
         
         .option-card {
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-color);
             border-radius: 16px;
-            background-color: white;
+            background-color: var(--card-bg);
             cursor: pointer;
             transition: all 0.4s ease;
             overflow: hidden;
@@ -256,7 +328,7 @@
         .option-card:hover {
             border-color: var(--primary);
             transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 25px var(--shadow-color);
         }
         
         .option-card.active {
@@ -264,6 +336,10 @@
             background-color: rgba(124, 58, 237, 0.05);
             box-shadow: 0 10px 20px rgba(124, 58, 237, 0.15);
             transform: translateY(-5px);
+        }
+        
+        body.dark-mode .option-card.active {
+            background-color: rgba(156, 136, 255, 0.1);
         }
         
         .option-image {
@@ -275,6 +351,10 @@
             transition: all 0.3s ease;
         }
         
+        body.dark-mode .option-image {
+            background-color: #2d2d44;
+        }
+        
         .option-card:hover .option-image {
             transform: scale(1.05);
         }
@@ -283,9 +363,9 @@
             padding: 15px;
             text-align: center;
             font-weight: 500;
-            color: #444;
+            color: var(--text-color);
             font-size: 1.05rem;
-            background-color: white;
+            background-color: var(--card-bg);
         }
         
         .color-options {
@@ -295,7 +375,7 @@
         }
         
         .color-card {
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-color);
             border-radius: 16px;
             cursor: pointer;
             transition: all 0.4s ease;
@@ -308,7 +388,7 @@
         .color-card:hover {
             border-color: var(--primary);
             transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 25px var(--shadow-color);
         }
         
         .color-card.active {
@@ -326,6 +406,10 @@
             transition: all 0.3s ease;
         }
         
+        body.dark-mode .color-preview {
+            background-color: #2d2d44;
+        }
+        
         .color-card:hover .color-preview {
             transform: scale(1.05);
         }
@@ -334,18 +418,20 @@
             padding: 12px;
             text-align: center;
             font-weight: 500;
-            color: #444;
-            background-color: white;
+            color: var(--text-color);
+            background-color: var(--card-bg);
         }
         
         input[type="text"], select, textarea {
             width: 100%;
             padding: 15px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
+            background-color: var(--input-bg);
+            color: var(--text-color);
         }
         
         input[type="text"]:focus, select:focus, textarea:focus {
@@ -354,11 +440,17 @@
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
         
+        body.dark-mode input[type="text"]:focus,
+        body.dark-mode select:focus,
+        body.dark-mode textarea:focus {
+            box-shadow: 0 0 0 3px rgba(156, 136, 255, 0.2);
+        }
+        
         .summary-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px var(--shadow-color);
             margin-top: 20px;
             transform: translateY(30px);
             opacity: 0;
@@ -383,7 +475,7 @@
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
         
@@ -394,13 +486,21 @@
             border-radius: 8px;
         }
         
+        body.dark-mode .summary-item:hover {
+            background-color: rgba(196, 69, 105, 0.1);
+        }
+        
         .summary-label {
             color: #666;
         }
         
+        body.dark-mode .summary-label {
+            color: #aaaaaa;
+        }
+        
         .summary-value {
             font-weight: 500;
-            color: var(--dark);
+            color: var(--text-color);
         }
         
         .summary-total {
@@ -409,8 +509,8 @@
             padding: 20px 0;
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--dark);
-            border-top: 2px solid #eee;
+            color: var(--text-color);
+            border-top: 2px solid var(--border-color);
             margin-top: 15px;
         }
         
@@ -444,6 +544,14 @@
             box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         }
         
+        body.dark-mode .add-to-cart-btn {
+            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
+        }
+        
+        body.dark-mode .add-to-cart-btn:hover {
+            box-shadow: 0 10px 25px rgba(156, 136, 255, 0.4);
+        }
+        
         /* Modal de vista previa de imágenes con carrusel */
         .preview-modal {
             display: none;
@@ -466,7 +574,7 @@
         }
         
         .preview-content {
-            background-color: white;
+            background-color: var(--modal-bg);
             width: 90%;
             max-width: 900px;
             border-radius: 20px;
@@ -521,13 +629,13 @@
             overflow-y: auto;
         }
         
-        /* Carrusel */
+        /* Carrusel - NUEVA VERSIÓN */
         .carousel-container {
             width: 100%;
             position: relative;
             overflow: hidden;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
         
         .carousel-slide {
@@ -542,31 +650,96 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+        
+        .carousel-image-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 10px;
+            max-height: 60vh;
         }
         
         .carousel-image {
             max-width: 100%;
-            max-height: 50vh;
+            max-height: 60vh;
             object-fit: contain;
             border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
         
-        .carousel-title {
-            font-size: 1.5rem;
+        .carousel-image-container:hover .carousel-image {
+            transform: scale(1.02);
+        }
+        
+        /* Descripción que aparece al hacer click */
+        .image-description-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 25px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .image-description-overlay {
+            background-color: rgba(30, 30, 46, 0.95);
+            color: #e0e0e0;
+        }
+        
+        .carousel-item.active-description .image-description-overlay {
+            transform: translateY(0);
+        }
+        
+        .description-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: var(--dark);
-            margin-bottom: 10px;
-            text-align: center;
         }
         
-        .carousel-description {
-            text-align: center;
-            color: #555;
-            font-size: 1.1rem;
+        body.dark-mode .description-title {
+            color: #ffffff;
+        }
+        
+        .description-text {
+            font-size: 1.05rem;
             line-height: 1.6;
-            max-width: 80%;
-            margin: 0 auto;
+            max-height: 70%;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .description-text::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .description-text::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        body.dark-mode .description-text::-webkit-scrollbar-track {
+            background: #2d2d44;
+        }
+        
+        .description-text::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
         
         .carousel-nav {
@@ -599,6 +772,14 @@
             box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
         }
         
+        body.dark-mode .carousel-btn {
+            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
+        }
+        
+        body.dark-mode .carousel-btn:hover {
+            box-shadow: 0 8px 20px rgba(156, 136, 255, 0.4);
+        }
+        
         .carousel-btn:disabled {
             background-color: #ccc;
             cursor: not-allowed;
@@ -620,6 +801,10 @@
             transition: all 0.3s ease;
         }
         
+        body.dark-mode .carousel-dot {
+            background-color: #555;
+        }
+        
         .carousel-dot.active {
             background-color: var(--secondary);
             transform: scale(1.2);
@@ -627,7 +812,7 @@
         
         .carousel-counter {
             font-size: 1.1rem;
-            color: var(--dark);
+            color: var(--text-color);
             font-weight: 500;
             margin-top: 10px;
         }
@@ -652,7 +837,7 @@
         }
         
         .cart-content {
-            background-color: white;
+            background-color: var(--modal-bg);
             width: 90%;
             max-width: 800px;
             border-radius: 20px;
@@ -691,7 +876,16 @@
         
         .close-cart:hover {
             color: var(--dark);
-            background-color: #f5f5f5;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .close-cart {
+            color: #aaaaaa;
+        }
+        
+        body.dark-mode .close-cart:hover {
+            color: var(--light);
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .cart-items {
@@ -702,15 +896,19 @@
             display: flex;
             align-items: center;
             padding: 20px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
         
         .cart-item:hover {
-            background-color: #f9f9f9;
+            background-color: rgba(248, 181, 208, 0.05);
             padding-left: 10px;
             padding-right: 10px;
             border-radius: 10px;
+        }
+        
+        body.dark-mode .cart-item:hover {
+            background-color: rgba(196, 69, 105, 0.1);
         }
         
         .cart-item-preview {
@@ -724,12 +922,20 @@
             flex-shrink: 0;
         }
         
+        body.dark-mode .cart-item-preview {
+            background-color: #c44569;
+        }
+        
         .cart-item-preview img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             padding: 5px;
             background-color: white;
+        }
+        
+        body.dark-mode .cart-item-preview img {
+            background-color: #2d2d44;
         }
         
         .cart-item-details {
@@ -745,6 +951,10 @@
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 5px;
+        }
+        
+        body.dark-mode .cart-item-options {
+            color: #aaaaaa;
         }
         
         .cart-item-price {
@@ -775,13 +985,13 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 20px;
-            border-top: 2px solid #eee;
+            border-top: 2px solid var(--border-color);
         }
         
         .cart-total {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--text-color);
         }
         
         .cart-total span {
@@ -826,7 +1036,7 @@
         }
         
         .payment-content {
-            background-color: white;
+            background-color: var(--modal-bg);
             width: 90%;
             max-width: 600px;
             border-radius: 20px;
@@ -851,7 +1061,7 @@
         .payment-method {
             width: 80px;
             height: 50px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -866,10 +1076,19 @@
             transition: all 0.3s ease;
         }
         
+        body.dark-mode .payment-method i {
+            color: #aaaaaa;
+        }
+        
         .payment-method:hover, .payment-method.active {
             border-color: var(--secondary);
             background-color: rgba(124, 58, 237, 0.05);
             transform: translateY(-5px);
+        }
+        
+        body.dark-mode .payment-method:hover,
+        body.dark-mode .payment-method.active {
+            background-color: rgba(156, 136, 255, 0.1);
         }
         
         .payment-form {
@@ -934,8 +1153,8 @@
         }
         
         footer {
-            background-color: var(--dark);
-            color: white;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
             padding: 60px 0 30px;
             text-align: center;
             margin-top: 60px;
@@ -1010,13 +1229,16 @@
                 font-size: 1rem;
             }
             
-            .carousel-title {
-                font-size: 1.3rem;
+            .image-description-overlay {
+                padding: 15px;
             }
             
-            .carousel-description {
-                font-size: 1rem;
-                max-width: 90%;
+            .description-title {
+                font-size: 1.1rem;
+            }
+            
+            .description-text {
+                font-size: 0.95rem;
             }
         }
         
@@ -1029,6 +1251,11 @@
             background-color: #f0f0f0;
             color: #888;
             font-size: 0.9rem;
+        }
+        
+        body.dark-mode .image-placeholder {
+            background-color: #2d2d44;
+            color: #aaaaaa;
         }
         
         /* Efecto de partículas para el fondo */
@@ -1047,6 +1274,10 @@
             background-color: rgba(248, 181, 208, 0.3);
             border-radius: 50%;
             animation: float 15s infinite linear;
+        }
+        
+        body.dark-mode .particle {
+            background-color: rgba(196, 69, 105, 0.3);
         }
         
         @keyframes float {
@@ -1090,6 +1321,10 @@
             opacity: 1;
         }
         
+        body.dark-mode .glow-effect::after {
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+        
         /* Animación de carga para imágenes */
         .image-loading {
             position: relative;
@@ -1107,6 +1342,10 @@
             animation: loading 1.5s infinite;
         }
         
+        body.dark-mode .image-loading::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
         @keyframes loading {
             0% {
                 left: -100%;
@@ -1114,6 +1353,40 @@
             100% {
                 left: 100%;
             }
+        }
+        
+        /* Estilos para la descripción emergente */
+        .description-toggle {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .description-toggle:hover {
+            background-color: var(--dark);
+            transform: scale(1.1);
+        }
+        
+        .description-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-item.active-description .description-toggle i {
+            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -1125,13 +1398,21 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo" id="logo">
-                    <i class="fas fa-birthday-cake"></i>
-                    <h1>SweetCakes</h1>
+                <div class="header-left">
+                    <div class="logo" id="logo">
+                        <i class="fas fa-birthday-cake"></i>
+                        <h1>SweetCakes</h1>
+                    </div>
                 </div>
-                <div class="cart-icon" id="cartIcon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cartCount">0</span>
+                
+                <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1533,6 +1814,9 @@
         let totalSlides = 0;
         let currentSection = '';
         
+        // Modo oscuro
+        let darkMode = false;
+        
         // Price multipliers based on size
         const sizePrices = {
             small: 0.8,
@@ -1665,6 +1949,8 @@
         const logo = document.getElementById('logo');
         const logoText = logo.querySelector('h1');
         const logoIcon = logo.querySelector('i');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
         
         // Preview modal elements
         const previewModal = document.getElementById('previewModal');
@@ -1725,6 +2011,57 @@
             }, 300);
         }
 
+        // Toggle dark mode
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.setAttribute('title', 'Cambiar a modo claro');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            // Update particles for dark mode
+            updateParticles();
+        }
+
+        // Check for saved dark mode preference
+        function checkDarkModePreference() {
+            const savedMode = localStorage.getItem('darkMode');
+            
+            if (savedMode === 'enabled') {
+                darkMode = true;
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.setAttribute('title', 'Cambiar a modo claro');
+            } else {
+                darkMode = false;
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
+            }
+            
+            updateParticles();
+        }
+
+        // Update particles for dark mode
+        function updateParticles() {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                if (darkMode) {
+                    particle.style.backgroundColor = 'rgba(196, 69, 105, 0.3)';
+                } else {
+                    particle.style.backgroundColor = 'rgba(248, 181, 208, 0.3)';
+                }
+            });
+        }
+
         // Create particles background
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -1744,7 +2081,9 @@
                 particle.style.top = `${Math.random() * 100}%`;
                 
                 // Random color with opacity
-                const colors = ['#f8b5d0', '#d9c2ff', '#ff9e6d', '#7c3aed'];
+                const colors = darkMode 
+                    ? ['#c44569', '#9c88ff', '#ff9e6d', '#6c5ce7'] 
+                    : ['#f8b5d0', '#d9c2ff', '#ff9e6d', '#7c3aed'];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.backgroundColor = color;
                 particle.style.opacity = Math.random() * 0.4 + 0.1;
@@ -1840,18 +2179,27 @@
             });
         }
 
-        // Create carousel item
+        // Create carousel item - NUEVA VERSIÓN
         function createCarouselItem(item, index) {
             const carouselItem = document.createElement('div');
             carouselItem.className = 'carousel-item';
             carouselItem.setAttribute('data-index', index);
             
-            // Si no hay imagen, crear un placeholder
+            // Contenedor de imagen con botón para mostrar descripción
+            let imageContent = '';
+            
             if (item.src) {
-                carouselItem.innerHTML = `
-                    <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:300px; display:flex; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'>Imagen no disponible</div>';">
-                    <h4 class="carousel-title">${item.title}</h4>
-                    <p class="carousel-description">${item.desc}</p>
+                imageContent = `
+                    <div class="carousel-image-container">
+                        <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:300px; display:flex; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'>Imagen no disponible</div>';">
+                        <button class="description-toggle" data-index="${index}">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <div class="image-description-overlay">
+                            <h4 class="description-title">${item.title}</h4>
+                            <p class="description-text">${item.desc}</p>
+                        </div>
+                    </div>
                 `;
             } else {
                 // Colores específicos para placeholders según la categoría
@@ -1875,19 +2223,45 @@
                     }
                 }
                 
-                carouselItem.innerHTML = `
-                    <div style="width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px; color:${placeholderTextColor};">
-                        <div style="font-size: 3rem; margin-bottom: 15px;">
-                            <i class="fas fa-birthday-cake"></i>
+                imageContent = `
+                    <div class="carousel-image-container">
+                        <div style="width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px; color:${placeholderTextColor};">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <div style="font-size: 1.2rem; font-weight: bold;">${item.title}</div>
                         </div>
-                        <div style="font-size: 1.2rem; font-weight: bold;">${item.title}</div>
+                        <button class="description-toggle" data-index="${index}">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <div class="image-description-overlay">
+                            <h4 class="description-title">${item.title}</h4>
+                            <p class="description-text">${item.desc}</p>
+                        </div>
                     </div>
-                    <h4 class="carousel-title">${item.title}</h4>
-                    <p class="carousel-description">${item.desc}</p>
                 `;
             }
             
+            carouselItem.innerHTML = imageContent;
             return carouselItem;
+        }
+
+        // Toggle description visibility
+        function toggleDescription(index) {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const clickedItem = carouselItems[index];
+            
+            // Si ya está activo, lo desactivamos
+            if (clickedItem.classList.contains('active-description')) {
+                clickedItem.classList.remove('active-description');
+            } else {
+                // Desactivamos cualquier otra descripción activa
+                carouselItems.forEach(item => {
+                    item.classList.remove('active-description');
+                });
+                // Activamos la descripción del item clickeado
+                clickedItem.classList.add('active-description');
+            }
         }
 
         // Show preview with carousel
@@ -1941,6 +2315,11 @@
             
             currentSlide = index;
             carouselSlide.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Remove any active descriptions when changing slides
+            document.querySelectorAll('.carousel-item').forEach(item => {
+                item.classList.remove('active-description');
+            });
             
             // Update active dot
             document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
@@ -2139,7 +2518,9 @@
 
         // Create confetti effect
         function createConfetti() {
-            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#7C3AED'];
+            const colors = darkMode 
+                ? ['#c44569', '#9c88ff', '#FFD166', '#06D6A0', '#6c5ce7', '#EF476F'] 
+                : ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F'];
             
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
@@ -2245,6 +2626,9 @@
             // Close preview button
             closePreview.addEventListener('click', closePreviewModal);
             
+            // Toggle dark mode
+            themeToggle.addEventListener('click', toggleDarkMode);
+            
             // Keyboard navigation for carousel
             document.addEventListener('keydown', (e) => {
                 if (previewModal.classList.contains('active')) {
@@ -2340,6 +2724,7 @@
             updateCakeSummary();
             updateActiveOptions();
             updateCartDisplay();
+            checkDarkModePreference();
             createParticles();
             initEventListeners();
             
@@ -2349,6 +2734,30 @@
 
         // Start the application
         document.addEventListener('DOMContentLoaded', init);
+        
+        // Expose removeFromCart function globally for use in onclick attributes
+        window.removeFromCart = removeFromCart;
+        
+        // Event delegation for description toggles in carousel
+        document.addEventListener('click', function(e) {
+            // Check if a description toggle button was clicked
+            if (e.target.closest('.description-toggle')) {
+                const toggleBtn = e.target.closest('.description-toggle');
+                const index = parseInt(toggleBtn.getAttribute('data-index'));
+                toggleDescription(index);
+            }
+            
+            // Check if a carousel image container was clicked (to close description when clicking outside)
+            if (e.target.closest('.carousel-image-container') && !e.target.closest('.description-toggle')) {
+                const container = e.target.closest('.carousel-image-container');
+                const carouselItem = container.parentElement;
+                
+                // If description is active, toggle it off
+                if (carouselItem.classList.contains('active-description')) {
+                    carouselItem.classList.remove('active-description');
+                }
+            }
+        });
     </script>
 </body>
 </html>
