@@ -444,7 +444,7 @@
             box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         }
         
-        /* Modal de vista previa de imágenes */
+        /* Modal de vista previa de imágenes con carrusel */
         .preview-modal {
             display: none;
             position: fixed;
@@ -468,7 +468,7 @@
         .preview-content {
             background-color: white;
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
             border-radius: 20px;
             overflow: hidden;
             transform: translateY(30px) scale(0.95);
@@ -521,20 +521,115 @@
             overflow-y: auto;
         }
         
-        .preview-image {
+        /* Carrusel */
+        .carousel-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-image {
             max-width: 100%;
-            max-height: 60vh;
+            max-height: 50vh;
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .preview-description {
+        .carousel-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .carousel-description {
             text-align: center;
             color: #555;
             font-size: 1.1rem;
             line-height: 1.6;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 25px;
+            gap: 15px;
+        }
+        
+        .carousel-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+        }
+        
+        .carousel-btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+        }
+        
+        .carousel-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background-color: var(--secondary);
+            transform: scale(1.2);
+        }
+        
+        .carousel-counter {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
+            margin-top: 10px;
         }
         
         .cart-modal {
@@ -908,6 +1003,21 @@
             .options-grid, .color-options {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .carousel-title {
+                font-size: 1.3rem;
+            }
+            
+            .carousel-description {
+                font-size: 1rem;
+                max-width: 90%;
+            }
         }
         
         .image-placeholder {
@@ -1035,7 +1145,7 @@
         </div>
     </section>
 
-    <!-- Modal de vista previa de imágenes -->
+    <!-- Modal de vista previa de imágenes con carrusel -->
     <div class="preview-modal" id="previewModal">
         <div class="preview-content">
             <div class="preview-header">
@@ -1043,8 +1153,27 @@
                 <div class="close-preview" id="closePreview">&times;</div>
             </div>
             <div class="preview-body">
-                <img id="previewImage" src="" alt="Vista previa" class="preview-image">
-                <div class="preview-description" id="previewDescription"></div>
+                <div class="carousel-container" id="carouselContainer">
+                    <div class="carousel-slide" id="carouselSlide">
+                        <!-- Los elementos del carrusel se añadirán dinámicamente -->
+                    </div>
+                </div>
+                
+                <div class="carousel-nav">
+                    <button class="carousel-btn" id="prevBtn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="carousel-dots" id="carouselDots">
+                        <!-- Los puntos del carrusel se añadirán dinámicamente -->
+                    </div>
+                    
+                    <button class="carousel-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="carousel-counter" id="carouselCounter">1 / 4</div>
             </div>
         </div>
     </div>
@@ -1061,7 +1190,7 @@
                     <div class="section-title">
                         <span>Forma del pastel</span>
                         <button class="view-btn" data-section="shape" id="viewShapeBtn">
-                            <i class="fas fa-eye"></i> Ver
+                            <i class="fas fa-eye"></i> Ver todas
                         </button>
                     </div>
                     <div class="options-grid">
@@ -1089,7 +1218,7 @@
                     <div class="section-title">
                         <span>Color principal</span>
                         <button class="view-btn" data-section="color" id="viewColorBtn">
-                            <i class="fas fa-eye"></i> Ver
+                            <i class="fas fa-eye"></i> Ver todas
                         </button>
                     </div>
                     <div class="color-options">
@@ -1125,7 +1254,7 @@
                     <div class="section-title">
                         <span>Sabor</span>
                         <button class="view-btn" data-section="flavor" id="viewFlavorBtn">
-                            <i class="fas fa-eye"></i> Ver
+                            <i class="fas fa-eye"></i> Ver todas
                         </button>
                     </div>
                     <div class="options-grid">
@@ -1161,7 +1290,7 @@
                     <div class="section-title">
                         <span>Tamaño</span>
                         <button class="view-btn" data-section="size" id="viewSizeBtn">
-                            <i class="fas fa-eye"></i> Ver
+                            <i class="fas fa-eye"></i> Ver todas
                         </button>
                     </div>
                     <div class="options-grid">
@@ -1185,7 +1314,7 @@
                     <div class="section-title">
                         <span>Tipo de masa</span>
                         <button class="view-btn" data-section="dough" id="viewDoughBtn">
-                            <i class="fas fa-eye"></i> Ver
+                            <i class="fas fa-eye"></i> Ver todas
                         </button>
                     </div>
                     <div class="options-grid">
@@ -1399,6 +1528,11 @@
         // Cart data
         let cart = [];
         
+        // Carrusel data
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let currentSection = '';
+        
         // Price multipliers based on size
         const sizePrices = {
             small: 0.8,
@@ -1461,54 +1595,54 @@
             shape: {
                 title: 'Formas de pasteles disponibles',
                 description: 'Selecciona la forma que más te guste para tu pastel personalizado. Cada forma tiene un estilo único que se adapta a diferentes ocasiones.',
-                images: [
-                    { src: 'cakeRedondo.jpg', title: 'Pastel Redondo', desc: 'Forma clásica y elegante, perfecta para cualquier ocasión.' },
-                    { src: 'cakeCuadrado.jpg', title: 'Pastel Cuadrado', desc: 'Forma moderna que permite porciones uniformes y presentación contemporánea.' },
-                    { src: 'cakeCorazon.jpg', title: 'Pastel Corazón', desc: 'Ideal para celebraciones de amor, aniversarios y San Valentín.' },
-                    { src: 'cakeEstrella.jpg', title: 'Pastel Estrella', desc: 'Perfecto para fiestas temáticas, cumpleaños infantiles y eventos especiales.' }
+                items: [
+                    { src: 'cakeRedondo.jpg', title: 'Pastel Redondo', desc: 'Forma clásica y elegante, perfecta para cualquier ocasión. Ideal para bodas, cumpleaños y celebraciones formales.' },
+                    { src: 'cakeCuadrado.jpg', title: 'Pastel Cuadrado', desc: 'Forma moderna que permite porciones uniformes y presentación contemporánea. Excelente para eventos corporativos.' },
+                    { src: 'cakeCorazon.jpg', title: 'Pastel Corazón', desc: 'Ideal para celebraciones de amor, aniversarios y San Valentín. Simboliza afecto y cariño.' },
+                    { src: 'cakeEstrella.jpg', title: 'Pastel Estrella', desc: 'Perfecto para fiestas temáticas, cumpleaños infantiles y eventos especiales. Añade un toque mágico a tu celebración.' }
                 ]
             },
             color: {
                 title: 'Colores de merengue disponibles',
                 description: 'Elige el color que más te guste para decorar tu pastel. Todos nuestros colores son naturales y comestibles.',
-                images: [
-                    { src: 'merengueRosa.jpg', title: 'Merengue Rosa', desc: 'Color suave y romántico, ideal para baby showers y celebraciones de primavera.' },
-                    { src: 'merengueVerde.jpg', title: 'Merengue Verde', desc: 'Color fresco y natural, perfecto para celebraciones al aire libre y temáticas de naturaleza.' },
-                    { src: 'merengueAzul.jpg', title: 'Merengue Azul', desc: 'Color tranquilo y sereno, excelente para baby showers de niño y celebraciones marinas.' },
-                    { src: 'merengueMorado.jpg', title: 'Merengue Morado', desc: 'Color real y místico, ideal para cumpleaños y celebraciones de fantasía.' },
-                    { src: 'merengueNaranja.jpg', title: 'Merengue Naranja', desc: 'Color vibrante y energético, perfecto para fiestas de otoño y celebraciones divertidas.' },
-                    { src: '', title: 'Merengue Amarillo', desc: 'Color brillante y alegre, ideal para celebraciones soleadas y festivas.' }
+                items: [
+                    { src: 'merengueRosa.jpg', title: 'Merengue Rosa', desc: 'Color suave y romántico, ideal para baby showers y celebraciones de primavera. Representa dulzura y ternura.' },
+                    { src: 'merengueVerde.jpg', title: 'Merengue Verde', desc: 'Color fresco y natural, perfecto para celebraciones al aire libre y temáticas de naturaleza. Simboliza esperanza y renovación.' },
+                    { src: 'merengueAzul.jpg', title: 'Merengue Azul', desc: 'Color tranquilo y sereno, excelente para baby showers de niño y celebraciones marinas. Representa calma y confianza.' },
+                    { src: 'merengueMorado.jpg', title: 'Merengue Morado', desc: 'Color real y místico, ideal para cumpleaños y celebraciones de fantasía. Simboliza creatividad y sabiduría.' },
+                    { src: 'merengueNaranja.jpg', title: 'Merengue Naranja', desc: 'Color vibrante y energético, perfecto para fiestas de otoño y celebraciones divertidas. Representa entusiasmo y alegría.' },
+                    { src: '', title: 'Merengue Amarillo', desc: 'Color brillante y alegre, ideal para celebraciones soleadas y festivas. Simboliza optimismo y felicidad.' }
                 ]
             },
             flavor: {
                 title: 'Sabores de pasteles disponibles',
                 description: 'Nuestros pasteles están hechos con ingredientes de la más alta calidad. Cada sabor ofrece una experiencia única.',
-                images: [
-                    { src: 'cakeChocolate.jpg', title: 'Pastel de Chocolate', desc: 'Delicioso y cremoso pastel de chocolate, perfecto para los amantes del cacao.' },
-                    { src: 'cakeVainilla.jpg', title: 'Pastel de Vainilla', desc: 'Clásico y versátil, ideal para combinar con cualquier relleno o decoración.' },
-                    { src: '', title: 'Pastel de Fresa', desc: 'Sabor frutal y refrescante, con trozos de fresa natural en la masa.' },
-                    { src: 'cakeLimon.jpg', title: 'Pastel de Limón', desc: 'Sabor cítrico y refrescante, perfecto para celebraciones de primavera y verano.' },
-                    { src: '', title: 'Pastel Red Velvet', desc: 'Elegante y distintivo, con su característico color rojo y sabor suave a cacao.' },
-                    { src: 'cakeCafe.jpg', title: 'Pastel de Café', desc: 'Intenso y aromático, ideal para acompañar con una buena taza de café.' }
+                items: [
+                    { src: 'cakeChocolate.jpg', title: 'Pastel de Chocolate', desc: 'Delicioso y cremoso pastel de chocolate, perfecto para los amantes del cacao. Hecho con chocolate belga de primera calidad.' },
+                    { src: 'cakeVainilla.jpg', title: 'Pastel de Vainilla', desc: 'Clásico y versátil, ideal para combinar con cualquier relleno o decoración. Sabor suave y aromático.' },
+                    { src: '', title: 'Pastel de Fresa', desc: 'Sabor frutal y refrescante, con trozos de fresa natural en la masa. Perfecto para celebraciones de primavera y verano.' },
+                    { src: 'cakeLimon.jpg', title: 'Pastel de Limón', desc: 'Sabor cítrico y refrescante, perfecto para celebraciones de primavera y verano. Con un toque de ralladura de limón fresco.' },
+                    { src: '', title: 'Pastel Red Velvet', desc: 'Elegante y distintivo, con su característico color rojo y sabor suave a cacao. Acompañado de nuestro frosting de queso crema.' },
+                    { src: 'cakeCafe.jpg', title: 'Pastel de Café', desc: 'Intenso y aromático, ideal para acompañar con una buena taza de café. Hecho con granos de café recién molidos.' }
                 ]
             },
             size: {
                 title: 'Tamaños de pasteles disponibles',
                 description: 'Elige el tamaño perfecto según el número de invitados. Todos nuestros tamaños mantienen la misma calidad y sabor.',
-                images: [
-                    { src: 'cakePequeño.jpg', title: 'Pastel Pequeño (8 porciones)', desc: 'Ideal para reuniones íntimas, cenas románticas o celebraciones pequeñas.' },
-                    { src: 'cakeMediano.jpg', title: 'Pastel Mediano (12 porciones)', desc: 'Perfecto para reuniones familiares, cumpleaños pequeños o celebraciones con amigos.' },
-                    { src: 'cakeGrande.jpg', title: 'Pastel Grande (20 porciones)', desc: 'Excelente para fiestas grandes, eventos especiales o celebraciones con muchos invitados.' }
+                items: [
+                    { src: 'cakePequeño.jpg', title: 'Pastel Pequeño (8 porciones)', desc: 'Ideal para reuniones íntimas, cenas románticas o celebraciones pequeñas. Perfecto para 6-8 personas.' },
+                    { src: 'cakeMediano.jpg', title: 'Pastel Mediano (12 porciones)', desc: 'Perfecto para reuniones familiares, cumpleaños pequeños o celebraciones con amigos. Adecuado para 10-12 personas.' },
+                    { src: 'cakeGrande.jpg', title: 'Pastel Grande (20 porciones)', desc: 'Excelente para fiestas grandes, eventos especiales o celebraciones con muchos invitados. Suficiente para 18-20 personas.' }
                 ]
             },
             dough: {
                 title: 'Tipos de masa disponibles',
                 description: 'Selecciona el tipo de masa que prefieras para tu pastel. Cada una ofrece una textura y sabor diferente.',
-                images: [
-                    { src: 'cakeVainilla.jpg', title: 'Masa Normal', desc: 'Masa tradicional esponjosa y ligera, perfecta para cualquier ocasión.' },
-                    { src: 'cakeChocolate.jpg', title: 'Masa de Chocolate', desc: 'Masa rica en cacao, con textura húmeda y sabor intenso a chocolate.' },
-                    { src: '', title: 'Masa Integral', desc: 'Opción más saludable con harina integral, ideal para quienes prefieren alternativas más nutritivas.' },
-                    { src: '', title: 'Masa de Almendra', desc: 'Masa sin gluten hecha con harina de almendra, con textura densa y sabor a nuez.' }
+                items: [
+                    { src: 'cakeVainilla.jpg', title: 'Masa Normal', desc: 'Masa tradicional esponjosa y ligera, perfecta para cualquier ocasión. Hecha con harina de trigo de primera calidad.' },
+                    { src: 'cakeChocolate.jpg', title: 'Masa de Chocolate', desc: 'Masa rica en cacao, con textura húmeda y sabor intenso a chocolate. Ideal para los más chocolateros.' },
+                    { src: '', title: 'Masa Integral', desc: 'Opción más saludable con harina integral, ideal para quienes prefieren alternativas más nutritivas. Con un sabor ligeramente a nuez.' },
+                    { src: '', title: 'Masa de Almendra', desc: 'Masa sin gluten hecha con harina de almendra, con textura densa y sabor a nuez. Perfecta para personas con restricciones dietéticas.' }
                 ]
             }
         };
@@ -1536,8 +1670,11 @@
         const previewModal = document.getElementById('previewModal');
         const closePreview = document.getElementById('closePreview');
         const previewTitle = document.getElementById('previewTitle');
-        const previewImage = document.getElementById('previewImage');
-        const previewDescription = document.getElementById('previewDescription');
+        const carouselSlide = document.getElementById('carouselSlide');
+        const carouselDots = document.getElementById('carouselDots');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const carouselCounter = document.getElementById('carouselCounter');
         
         // View buttons
         const viewButtons = document.querySelectorAll('.view-btn');
@@ -1703,38 +1840,159 @@
             });
         }
 
-        // Show preview modal
+        // Create carousel item
+        function createCarouselItem(item, index) {
+            const carouselItem = document.createElement('div');
+            carouselItem.className = 'carousel-item';
+            carouselItem.setAttribute('data-index', index);
+            
+            // Si no hay imagen, crear un placeholder
+            if (item.src) {
+                carouselItem.innerHTML = `
+                    <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:300px; display:flex; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'>Imagen no disponible</div>';">
+                    <h4 class="carousel-title">${item.title}</h4>
+                    <p class="carousel-description">${item.desc}</p>
+                `;
+            } else {
+                // Colores específicos para placeholders según la categoría
+                let placeholderColor = '#f5f5f5';
+                let placeholderTextColor = '#666';
+                
+                if (currentSection === 'color') {
+                    // Asignar colores específicos para los placeholders de colores
+                    const colorMap = {
+                        'Rosa': '#ffcce6',
+                        'Verde': '#c2f0c2',
+                        'Azul': '#c2e6ff',
+                        'Morado': '#e6ccff',
+                        'Naranja': '#ffd9cc',
+                        'Amarillo': '#fff5cc'
+                    };
+                    
+                    if (colorMap[item.title.split(' ')[1]]) {
+                        placeholderColor = colorMap[item.title.split(' ')[1]];
+                        placeholderTextColor = '#333';
+                    }
+                }
+                
+                carouselItem.innerHTML = `
+                    <div style="width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px; color:${placeholderTextColor};">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div style="font-size: 1.2rem; font-weight: bold;">${item.title}</div>
+                    </div>
+                    <h4 class="carousel-title">${item.title}</h4>
+                    <p class="carousel-description">${item.desc}</p>
+                `;
+            }
+            
+            return carouselItem;
+        }
+
+        // Show preview with carousel
         function showPreview(section) {
             const sectionData = previewData[section];
             
             if (!sectionData) return;
             
+            currentSection = section;
+            currentSlide = 0;
+            totalSlides = sectionData.items.length;
+            
+            // Update title
             previewTitle.textContent = sectionData.title;
-            previewDescription.textContent = sectionData.description;
             
-            // Clear previous images
-            previewImage.src = '';
-            previewImage.alt = sectionData.title;
+            // Clear carousel
+            carouselSlide.innerHTML = '';
+            carouselDots.innerHTML = '';
             
-            // Try to load the first image for the section
-            if (sectionData.images.length > 0) {
-                const firstImage = sectionData.images[0];
-                if (firstImage.src) {
-                    previewImage.src = firstImage.src;
-                    previewImage.alt = firstImage.title;
-                    previewImage.onerror = function() {
-                        this.style.display = 'none';
-                        previewDescription.textContent = `Imagen no disponible. ${sectionData.description}`;
-                    };
-                } else {
-                    previewImage.style.display = 'none';
-                    previewDescription.textContent = `${firstImage.title}: ${firstImage.desc}. ${sectionData.description}`;
-                }
-            }
+            // Create carousel items
+            sectionData.items.forEach((item, index) => {
+                const carouselItem = createCarouselItem(item, index);
+                carouselSlide.appendChild(carouselItem);
+                
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (index === 0) dot.classList.add('active');
+                dot.setAttribute('data-index', index);
+                dot.addEventListener('click', () => goToSlide(index));
+                carouselDots.appendChild(dot);
+            });
+            
+            // Update carousel counter
+            updateCarouselCounter();
+            
+            // Update button states
+            updateCarouselButtons();
+            
+            // Position carousel to first slide
+            carouselSlide.style.transform = `translateX(0)`;
             
             // Show modal
             previewModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            
+            currentSlide = index;
+            carouselSlide.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update active dot
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            // Update carousel counter
+            updateCarouselCounter();
+            
+            // Update button states
+            updateCarouselButtons();
+        }
+
+        // Next slide
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+
+        // Previous slide
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        // Update carousel counter
+        function updateCarouselCounter() {
+            carouselCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        // Update carousel buttons state
+        function updateCarouselButtons() {
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            if (prevBtn.disabled) {
+                prevBtn.style.backgroundColor = '#ccc';
+            } else {
+                prevBtn.style.backgroundColor = 'var(--secondary)';
+            }
+            
+            if (nextBtn.disabled) {
+                nextBtn.style.backgroundColor = '#ccc';
+            } else {
+                nextBtn.style.backgroundColor = 'var(--secondary)';
+            }
         }
 
         // Close preview modal
@@ -1980,8 +2238,25 @@
                 });
             });
             
+            // Carousel navigation
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
             // Close preview button
             closePreview.addEventListener('click', closePreviewModal);
+            
+            // Keyboard navigation for carousel
+            document.addEventListener('keydown', (e) => {
+                if (previewModal.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        nextSlide();
+                    } else if (e.key === 'Escape') {
+                        closePreviewModal();
+                    }
+                }
+            });
             
             // Close preview when clicking outside
             previewModal.addEventListener('click', (e) => {
