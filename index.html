@@ -789,7 +789,7 @@
             overflow-y: auto;
         }
         
-        /* Carrusel */
+        /* CARRUSEL CORREGIDO */
         .carousel-container {
             width: 100%;
             position: relative;
@@ -809,34 +809,55 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
+            padding: 0;
+            margin: 0;
         }
         
         .carousel-image-container {
             position: relative;
             width: 100%;
+            height: 400px; /* ALTURA FIJA PARA EL CARRUSEL */
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            border-radius: 10px;
-            max-height: 60vh;
+            background-color: #f9f9f9;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        body.dark-mode .carousel-image-container {
+            background-color: #2d2d44;
         }
         
         .carousel-image {
             max-width: 100%;
-            max-height: 60vh;
-            object-fit: contain;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+            max-height: 100%;
+            object-fit: contain; /* Mantener proporciones */
+            padding: 10px;
         }
         
-        .carousel-image-container:hover .carousel-image {
-            transform: scale(1.02);
+        .carousel-item-content {
+            width: 100%;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 0 0 10px 10px;
+            text-align: center;
         }
         
-        /* Descripción que aparece al hacer click */
+        .carousel-item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--section-title-color);
+            margin-bottom: 10px;
+        }
+        
+        body.dark-mode .carousel-item-title {
+            color: var(--secondary);
+        }
+        
+        /* Descripción que aparece al hacer click - CORREGIDA */
         .image-description-overlay {
             position: absolute;
             bottom: 0;
@@ -853,6 +874,7 @@
             justify-content: center;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
         }
         
         body.dark-mode .image-description-overlay {
@@ -1434,6 +1456,14 @@
             
             .description-text {
                 font-size: 0.95rem;
+            }
+            
+            .carousel-image-container {
+                height: 300px;
+            }
+            
+            .carousel-item-title {
+                font-size: 1.1rem;
             }
         }
         
@@ -2623,19 +2653,18 @@
             zoomImage.style.display = 'block';
         }
 
-        // Create carousel item
+        // Create carousel item - CORREGIDA
         function createCarouselItem(item, index) {
             const carouselItem = document.createElement('div');
             carouselItem.className = 'carousel-item';
             carouselItem.setAttribute('data-index', index);
             
-            // Contenedor de imagen con botón para mostrar descripción
             let imageContent = '';
             
             if (item.src) {
                 imageContent = `
                     <div class="carousel-image-container">
-                        <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'><i class="fas fa-birthday-cake" style="font-size:3rem; margin-bottom:15px;"></i><div style="font-weight:bold;">${item.title}</div></div>';">
+                        <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'><i class=\"fas fa-birthday-cake\" style=\"font-size:3rem; margin-bottom:15px;\"></i><div style=\"font-weight:bold;\">${item.title}</div></div>';">
                         <button class="description-toggle" data-index="${index}">
                             <i class="fas fa-chevron-up"></i>
                         </button>
@@ -2643,6 +2672,9 @@
                             <h4 class="description-title">${item.title}</h4>
                             <p class="description-text">${item.desc}</p>
                         </div>
+                    </div>
+                    <div class="carousel-item-content">
+                        <h4 class="carousel-item-title">${item.title}</h4>
                     </div>
                 `;
             } else {
@@ -2669,7 +2701,7 @@
                 
                 imageContent = `
                     <div class="carousel-image-container">
-                        <div style="width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px; color:${placeholderTextColor};">
+                        <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px 10px 0 0; color:${placeholderTextColor};">
                             <div style="font-size: 3rem; margin-bottom: 15px;">
                                 <i class="fas fa-birthday-cake"></i>
                             </div>
@@ -2682,6 +2714,9 @@
                             <h4 class="description-title">${item.title}</h4>
                             <p class="description-text">${item.desc}</p>
                         </div>
+                    </div>
+                    <div class="carousel-item-content">
+                        <h4 class="carousel-item-title">${item.title}</h4>
                     </div>
                 `;
             }
