@@ -341,7 +341,8 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
-            height: 250px; /* Altura fija para las tarjetas */
+            height: 250px;
+            position: relative;
         }
         
         .option-card:hover {
@@ -363,13 +364,13 @@
         
         /* IMAGENES QUE OCUPAN TODO EL ESPACIO */
         .option-image {
-            height: 200px; /* Ocupa la mayor parte de la tarjeta */
+            height: 200px;
             width: 100%;
-            object-fit: cover; /* Cambiado de contain a cover para llenar el espacio */
-            padding: 0; /* Eliminado padding */
+            object-fit: cover;
+            padding: 0;
             background-color: #f9f9f9;
             transition: all 0.3s ease;
-            flex-grow: 1; /* Permite que la imagen crezca */
+            flex-grow: 1;
         }
         
         body.dark-mode .option-image {
@@ -387,7 +388,43 @@
             color: var(--text-color);
             font-size: 1.05rem;
             background-color: var(--card-bg);
-            flex-shrink: 0; /* Mantiene el tamaño fijo del nombre */
+            flex-shrink: 0;
+        }
+        
+        /* BOTÓN DE ZOOM SUPERPUESTO */
+        .zoom-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            z-index: 5;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .zoom-btn:hover {
+            background-color: white;
+            transform: scale(1.1);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .zoom-btn {
+            background-color: rgba(30, 30, 46, 0.9);
+            color: white;
+        }
+        
+        body.dark-mode .zoom-btn:hover {
+            background-color: var(--secondary);
         }
         
         .color-options {
@@ -405,7 +442,8 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
-            height: 220px; /* Altura fija para las tarjetas de color */
+            height: 220px;
+            position: relative;
         }
         
         .color-card:hover {
@@ -426,13 +464,13 @@
         
         /* IMAGENES DE COLOR QUE OCUPAN TODO EL ESPACIO */
         .color-preview {
-            height: 160px; /* Ocupa la mayor parte de la tarjeta */
+            height: 160px;
             width: 100%;
-            object-fit: cover; /* Cambiado de contain a cover para llenar el espacio */
-            padding: 0; /* Eliminado padding */
+            object-fit: cover;
+            padding: 0;
             background-color: #f9f9f9;
             transition: all 0.3s ease;
-            flex-grow: 1; /* Permite que la imagen crezca */
+            flex-grow: 1;
         }
         
         body.dark-mode .color-preview {
@@ -449,7 +487,7 @@
             font-weight: 500;
             color: var(--text-color);
             background-color: var(--card-bg);
-            flex-shrink: 0; /* Mantiene el tamaño fijo del nombre */
+            flex-shrink: 0;
         }
         
         input[type="text"], select, textarea {
@@ -587,15 +625,15 @@
             box-shadow: 0 10px 25px rgba(156, 136, 255, 0.4);
         }
         
-        /* Modal de vista previa de imágenes con carrusel */
-        .preview-modal {
+        /* Modal para imagen ampliada - NUEVO */
+        .zoom-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -603,253 +641,63 @@
             transition: opacity 0.3s ease;
         }
         
-        .preview-modal.active {
+        .zoom-modal.active {
             display: flex;
             opacity: 1;
         }
         
-        .preview-content {
-            background-color: var(--modal-bg);
-            width: 90%;
-            max-width: 900px;
-            border-radius: 20px;
-            overflow: hidden;
-            transform: translateY(30px) scale(0.95);
-            opacity: 0;
-            transition: all 0.4s ease;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-modal.active .preview-content {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-        
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            background-color: var(--dark);
-            color: white;
-        }
-        
-        .close-preview {
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-preview:hover {
-            color: var(--primary);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .preview-body {
-            padding: 30px;
+        .zoom-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex: 1;
-            overflow-y: auto;
         }
         
-        /* Carrusel */
-        .carousel-container {
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-        }
-        
-        .carousel-slide {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
-        
-        .carousel-item {
-            min-width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .carousel-image-container {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 10px;
-            max-height: 60vh;
-        }
-        
-        .carousel-image {
+        .zoom-image {
             max-width: 100%;
-            max-height: 60vh;
-            object-fit: contain; /* Mantenemos contain para el carrusel */
+            max-height: 80vh;
+            object-fit: contain;
             border-radius: 10px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
         
-        .carousel-image-container:hover .carousel-image {
-            transform: scale(1.02);
-        }
-        
-        /* Descripción que aparece al hacer click */
-        .image-description-overlay {
+        .close-zoom {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            top: -50px;
             right: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 25px;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark-mode .image-description-overlay {
-            background-color: rgba(30, 30, 46, 0.95);
-            color: #e0e0e0;
-        }
-        
-        .carousel-item.active-description .image-description-overlay {
-            transform: translateY(0);
-        }
-        
-        .description-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        body.dark-mode .description-title {
-            color: var(--secondary);
-        }
-        
-        .description-text {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            max-height: 70%;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        .description-text::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .description-text::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        body.dark-mode .description-text::-webkit-scrollbar-track {
-            background: #2d2d44;
-        }
-        
-        .description-text::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        
-        .carousel-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 25px;
-            gap: 15px;
-        }
-        
-        .carousel-btn {
-            background-color: var(--secondary);
+            background-color: transparent;
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            font-size: 2.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
-        }
-        
-        .carousel-btn:hover {
-            background-color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
-        }
-        
-        body.dark-mode .carousel-btn {
-            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
-        }
-        
-        body.dark-mode .carousel-btn:hover {
-            box-shadow: 0 8px 20px rgba(156, 136, 255, 0.4);
-        }
-        
-        .carousel-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .carousel-dots {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
             border-radius: 50%;
-            background-color: #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
         
-        body.dark-mode .carousel-dot {
-            background-color: #555;
+        .close-zoom:hover {
+            color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
         }
         
-        .carousel-dot.active {
-            background-color: var(--secondary);
-            transform: scale(1.2);
+        .zoom-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 600px;
         }
         
-        .carousel-counter {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            font-weight: 500;
-            margin-top: 10px;
+        body.dark-mode .zoom-title {
+            color: var(--light);
         }
         
         .cart-modal {
@@ -1278,22 +1126,20 @@
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
             
-            .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+            .zoom-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
             }
             
-            .image-description-overlay {
-                padding: 15px;
+            .zoom-title {
+                font-size: 1.2rem;
+                margin-top: 15px;
             }
             
-            .description-title {
-                font-size: 1.1rem;
-            }
-            
-            .description-text {
-                font-size: 0.95rem;
+            .close-zoom {
+                top: -40px;
+                font-size: 2rem;
             }
         }
         
@@ -1409,44 +1255,6 @@
                 left: 100%;
             }
         }
-        
-        /* Estilos para la descripción emergente */
-        .description-toggle {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 10;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .description-toggle:hover {
-            background-color: var(--dark);
-            transform: scale(1.1);
-        }
-        
-        body.dark-mode .description-toggle:hover {
-            background-color: #2d2d44;
-        }
-        
-        .description-toggle i {
-            transition: transform 0.3s ease;
-        }
-        
-        .carousel-item.active-description .description-toggle i {
-            transform: rotate(180deg);
-        }
     </style>
 </head>
 <body>
@@ -1485,36 +1293,12 @@
         </div>
     </section>
 
-    <!-- Modal de vista previa de imágenes con carrusel -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-content">
-            <div class="preview-header">
-                <h3 id="previewTitle">Vista previa</h3>
-                <div class="close-preview" id="closePreview">&times;</div>
-            </div>
-            <div class="preview-body">
-                <div class="carousel-container" id="carouselContainer">
-                    <div class="carousel-slide" id="carouselSlide">
-                        <!-- Los elementos del carrusel se añadirán dinámicamente -->
-                    </div>
-                </div>
-                
-                <div class="carousel-nav">
-                    <button class="carousel-btn" id="prevBtn" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <div class="carousel-dots" id="carouselDots">
-                        <!-- Los puntos del carrusel se añadirán dinámicamente -->
-                    </div>
-                    
-                    <button class="carousel-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <div class="carousel-counter" id="carouselCounter">1 / 4</div>
-            </div>
+    <!-- Modal para imagen ampliada -->
+    <div class="zoom-modal" id="zoomModal">
+        <div class="zoom-content">
+            <button class="close-zoom" id="closeZoom">&times;</button>
+            <img id="zoomImage" src="" alt="Imagen ampliada" class="zoom-image">
+            <h3 class="zoom-title" id="zoomTitle"></h3>
         </div>
     </div>
 
@@ -1534,19 +1318,31 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="shape" data-value="round" data-index="0">
+                        <div class="option-card" data-option="shape" data-value="round">
+                            <button class="zoom-btn" data-image="cakeRedondo.jpg" data-title="Pastel Redondo">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Redondo</div>';">
                             <div class="option-name">Redondo</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="square" data-index="1">
+                        <div class="option-card" data-option="shape" data-value="square">
+                            <button class="zoom-btn" data-image="cakeCuadrado.jpg" data-title="Pastel Cuadrado">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Cuadrado</div>';">
                             <div class="option-name">Cuadrado</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="heart" data-index="2">
+                        <div class="option-card" data-option="shape" data-value="heart">
+                            <button class="zoom-btn" data-image="cakeCorazon.jpg" data-title="Pastel Corazón">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Corazón</div>';">
                             <div class="option-name">Corazón</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="star" data-index="3">
+                        <div class="option-card" data-option="shape" data-value="star">
+                            <button class="zoom-btn" data-image="cakeEstrella.jpg" data-title="Pastel Estrella">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
                             <div class="option-name">Estrella</div>
                         </div>
@@ -1562,27 +1358,45 @@
                         </button>
                     </div>
                     <div class="color-options">
-                        <div class="color-card" data-option="color" data-value="rosa" data-index="0">
+                        <div class="color-card" data-option="color" data-value="rosa">
+                            <button class="zoom-btn" data-image="merengueRosa.jpg" data-title="Merengue Rosa">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffcce6;\'>Rosa</div>';">
                             <div class="color-name">Rosa</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="verde" data-index="1">
+                        <div class="color-card" data-option="color" data-value="verde">
+                            <button class="zoom-btn" data-image="merengueVerde.jpg" data-title="Merengue Verde">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2f0c2;\'>Verde</div>';">
                             <div class="color-name">Verde</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="azul" data-index="2">
+                        <div class="color-card" data-option="color" data-value="azul">
+                            <button class="zoom-btn" data-image="merengueAzul.jpg" data-title="Merengue Azul">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2e6ff;\'>Azul</div>';">
                             <div class="color-name">Azul</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="morado" data-index="3">
+                        <div class="color-card" data-option="color" data-value="morado">
+                            <button class="zoom-btn" data-image="merengueMorado.jpg" data-title="Merengue Morado">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#e6ccff;\'>Morado</div>';">
                             <div class="color-name">Morado</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="naranja" data-index="4">
+                        <div class="color-card" data-option="color" data-value="naranja">
+                            <button class="zoom-btn" data-image="merengueNaranja.jpg" data-title="Merengue Naranja">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffd9cc;\'>Naranja</div>';">
                             <div class="color-name">Naranja</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="amarillo" data-index="5">
+                        <div class="color-card" data-option="color" data-value="amarillo">
+                            <button class="zoom-btn" data-image="" data-title="Merengue Amarillo">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <div class="color-preview" style="background-color: #fff5cc; height: 100%;"></div>
                             <div class="color-name">Amarillo</div>
                         </div>
@@ -1598,27 +1412,45 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="flavor" data-value="chocolate" data-index="0">
+                        <div class="option-card" data-option="flavor" data-value="chocolate">
+                            <button class="zoom-btn" data-image="cakeChocolate.jpg" data-title="Pastel de Chocolate">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="vainilla" data-index="1">
+                        <div class="option-card" data-option="flavor" data-value="vainilla">
+                            <button class="zoom-btn" data-image="cakeVainilla.jpg" data-title="Pastel de Vainilla">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Vainilla</div>';">
                             <div class="option-name">Vainilla</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="fresa" data-index="2">
+                        <div class="option-card" data-option="flavor" data-value="fresa">
+                            <button class="zoom-btn" data-image="" data-title="Pastel de Fresa">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <div class="option-image" style="background-color: #ffcce6;"></div>
                             <div class="option-name">Fresa</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="limon" data-index="3">
+                        <div class="option-card" data-option="flavor" data-value="limon">
+                            <button class="zoom-btn" data-image="cakeLimon.jpg" data-title="Pastel de Limón">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Limón</div>';">
                             <div class="option-name">Limón</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="redvelvet" data-index="4">
+                        <div class="option-card" data-option="flavor" data-value="redvelvet">
+                            <button class="zoom-btn" data-image="" data-title="Pastel Red Velvet">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <div class="option-image" style="background-color: #cc3333;"></div>
                             <div class="option-name">Red Velvet</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="cafe" data-index="5">
+                        <div class="option-card" data-option="flavor" data-value="cafe">
+                            <button class="zoom-btn" data-image="cakeCafe.jpg" data-title="Pastel de Café">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Café</div>';">
                             <div class="option-name">Café</div>
                         </div>
@@ -1634,15 +1466,24 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="size" data-value="small" data-index="0">
+                        <div class="option-card" data-option="size" data-value="small">
+                            <button class="zoom-btn" data-image="cakePequeño.jpg" data-title="Pastel Pequeño (8 porciones)">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Pequeño</div>';">
                             <div class="option-name">Pequeño (8 porciones)</div>
                         </div>
-                        <div class="option-card" data-option="size" data-value="medium" data-index="1">
+                        <div class="option-card" data-option="size" data-value="medium">
+                            <button class="zoom-btn" data-image="cakeMediano.jpg" data-title="Pastel Mediano (12 porciones)">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Mediano</div>';">
                             <div class="option-name">Mediano (12 porciones)</div>
                         </div>
-                        <div class="option-card" data-option="size" data-value="large" data-index="2">
+                        <div class="option-card" data-option="size" data-value="large">
+                            <button class="zoom-btn" data-image="cakeGrande.jpg" data-title="Pastel Grande (20 porciones)">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Grande</div>';">
                             <div class="option-name">Grande (20 porciones)</div>
                         </div>
@@ -1658,19 +1499,31 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="dough" data-value="normal" data-index="0">
+                        <div class="option-card" data-option="dough" data-value="normal">
+                            <button class="zoom-btn" data-image="cakeVainilla.jpg" data-title="Masa Normal">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Normal</div>';">
                             <div class="option-name">Normal</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="chocolate" data-index="1">
+                        <div class="option-card" data-option="dough" data-value="chocolate">
+                            <button class="zoom-btn" data-image="cakeChocolate.jpg" data-title="Masa de Chocolate">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="integral" data-index="2">
+                        <div class="option-card" data-option="dough" data-value="integral">
+                            <button class="zoom-btn" data-image="" data-title="Masa Integral">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <div class="option-image" style="background-color: #f5e6c8;"></div>
                             <div class="option-name">Integral</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="almendra" data-index="3">
+                        <div class="option-card" data-option="dough" data-value="almendra">
+                            <button class="zoom-btn" data-image="" data-title="Masa de Almendra">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
                             <div class="option-image" style="background-color: #f0d9c2;"></div>
                             <div class="option-name">Almendra</div>
                         </div>
@@ -1868,11 +1721,6 @@
         // Cart data
         let cart = [];
         
-        // Carrusel data
-        let currentSlide = 0;
-        let totalSlides = 0;
-        let currentSection = '';
-        
         // Modo oscuro
         let darkMode = false;
         
@@ -1933,63 +1781,6 @@
             star: 'cakeEstrella.jpg'
         };
 
-        // Image preview data for each section
-        const previewData = {
-            shape: {
-                title: 'Formas de pasteles disponibles',
-                description: 'Selecciona la forma que más te guste para tu pastel personalizado. Cada forma tiene un estilo único que se adapta a diferentes ocasiones.',
-                items: [
-                    { src: 'cakeRedondo.jpg', title: 'Pastel Redondo', desc: 'Forma clásica y elegante, perfecta para cualquier ocasión. Ideal para bodas, cumpleaños y celebraciones formales.' },
-                    { src: 'cakeCuadrado.jpg', title: 'Pastel Cuadrado', desc: 'Forma moderna que permite porciones uniformes y presentación contemporánea. Excelente para eventos corporativos.' },
-                    { src: 'cakeCorazon.jpg', title: 'Pastel Corazón', desc: 'Ideal para celebraciones de amor, aniversarios y San Valentín. Simboliza afecto y cariño.' },
-                    { src: 'cakeEstrella.jpg', title: 'Pastel Estrella', desc: 'Perfecto para fiestas temáticas, cumpleaños infantiles y eventos especiales. Añade un toque mágico a tu celebración.' }
-                ]
-            },
-            color: {
-                title: 'Colores de merengue disponibles',
-                description: 'Elige el color que más te guste para decorar tu pastel. Todos nuestros colores son naturales y comestibles.',
-                items: [
-                    { src: 'merengueRosa.jpg', title: 'Merengue Rosa', desc: 'Color suave y romántico, ideal para baby showers y celebraciones de primavera. Representa dulzura y ternura.' },
-                    { src: 'merengueVerde.jpg', title: 'Merengue Verde', desc: 'Color fresco y natural, perfecto para celebraciones al aire libre y temáticas de naturaleza. Simboliza esperanza y renovación.' },
-                    { src: 'merengueAzul.jpg', title: 'Merengue Azul', desc: 'Color tranquilo y sereno, excelente para baby showers de niño y celebraciones marinas. Representa calma y confianza.' },
-                    { src: 'merengueMorado.jpg', title: 'Merengue Morado', desc: 'Color real y místico, ideal para cumpleaños y celebraciones de fantasía. Simboliza creatividad y sabiduría.' },
-                    { src: 'merengueNaranja.jpg', title: 'Merengue Naranja', desc: 'Color vibrante y energético, perfecto para fiestas de otoño y celebraciones divertidas. Representa entusiasmo y alegría.' },
-                    { src: '', title: 'Merengue Amarillo', desc: 'Color brillante y alegre, ideal para celebraciones soleadas y festivas. Simboliza optimismo y felicidad.' }
-                ]
-            },
-            flavor: {
-                title: 'Sabores de pasteles disponibles',
-                description: 'Nuestros pasteles están hechos con ingredientes de la más alta calidad. Cada sabor ofrece una experiencia única.',
-                items: [
-                    { src: 'cakeChocolate.jpg', title: 'Pastel de Chocolate', desc: 'Delicioso y cremoso pastel de chocolate, perfecto para los amantes del cacao. Hecho con chocolate belga de primera calidad.' },
-                    { src: 'cakeVainilla.jpg', title: 'Pastel de Vainilla', desc: 'Clásico y versátil, ideal para combinar con cualquier relleno o decoración. Sabor suave y aromático.' },
-                    { src: '', title: 'Pastel de Fresa', desc: 'Sabor frutal y refrescante, con trozos de fresa natural en la masa. Perfecto para celebraciones de primavera y verano.' },
-                    { src: 'cakeLimon.jpg', title: 'Pastel de Limón', desc: 'Sabor cítrico y refrescante, perfecto para celebraciones de primavera y verano. Con un toque de ralladura de limón fresco.' },
-                    { src: '', title: 'Pastel Red Velvet', desc: 'Elegante y distintivo, con su característico color rojo y sabor suave a cacao. Acompañado de nuestro frosting de queso crema.' },
-                    { src: 'cakeCafe.jpg', title: 'Pastel de Café', desc: 'Intenso y aromático, ideal para acompañar con una buena taza de café. Hecho con granos de café recién molidos.' }
-                ]
-            },
-            size: {
-                title: 'Tamaños de pasteles disponibles',
-                description: 'Elige el tamaño perfecto según el número de invitados. Todos nuestros tamaños mantienen la misma calidad y sabor.',
-                items: [
-                    { src: 'cakePequeño.jpg', title: 'Pastel Pequeño (8 porciones)', desc: 'Ideal para reuniones íntimas, cenas románticas o celebraciones pequeñas. Perfecto para 6-8 personas.' },
-                    { src: 'cakeMediano.jpg', title: 'Pastel Mediano (12 porciones)', desc: 'Perfecto para reuniones familiares, cumpleaños pequeños o celebraciones con amigos. Adecuado para 10-12 personas.' },
-                    { src: 'cakeGrande.jpg', title: 'Pastel Grande (20 porciones)', desc: 'Excelente para fiestas grandes, eventos especiales o celebraciones con muchos invitados. Suficiente para 18-20 personas.' }
-                ]
-            },
-            dough: {
-                title: 'Tipos de masa disponibles',
-                description: 'Selecciona el tipo de masa que prefieras para tu pastel. Cada una ofrece una textura y sabor diferente.',
-                items: [
-                    { src: 'cakeVainilla.jpg', title: 'Masa Normal', desc: 'Masa tradicional esponjosa y ligera, perfecta para cualquier ocasión. Hecha con harina de trigo de primera calidad.' },
-                    { src: 'cakeChocolate.jpg', title: 'Masa de Chocolate', desc: 'Masa rica en cacao, con textura húmeda y sabor intenso a chocolate. Ideal para los más chocolateros.' },
-                    { src: '', title: 'Masa Integral', desc: 'Opción más saludable con harina integral, ideal para quienes prefieren alternativas más nutritivas. Con un sabor ligeramente a nuez.' },
-                    { src: '', title: 'Masa de Almendra', desc: 'Masa sin gluten hecha con harina de almendra, con textura densa y sabor a nuez. Perfecta para personas con restricciones dietéticas.' }
-                ]
-            }
-        };
-
         // DOM Elements
         const addToCartBtn = document.getElementById('addToCartBtn');
         const cartIcon = document.getElementById('cartIcon');
@@ -2011,18 +1802,11 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         
-        // Preview modal elements
-        const previewModal = document.getElementById('previewModal');
-        const closePreview = document.getElementById('closePreview');
-        const previewTitle = document.getElementById('previewTitle');
-        const carouselSlide = document.getElementById('carouselSlide');
-        const carouselDots = document.getElementById('carouselDots');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const carouselCounter = document.getElementById('carouselCounter');
-        
-        // View buttons
-        const viewButtons = document.querySelectorAll('.view-btn');
+        // Zoom modal elements
+        const zoomModal = document.getElementById('zoomModal');
+        const closeZoom = document.getElementById('closeZoom');
+        const zoomImage = document.getElementById('zoomImage');
+        const zoomTitle = document.getElementById('zoomTitle');
         
         // Summary elements
         const summaryShape = document.getElementById('summaryShape');
@@ -2039,6 +1823,7 @@
         const customTextInput = document.getElementById('customText');
         const additionalDetailsInput = document.getElementById('additionalDetails');
         const paymentMethods = document.querySelectorAll('.payment-method');
+        const zoomButtons = document.querySelectorAll('.zoom-btn');
         
         // Animation elements
         const customizerContainer = document.getElementById('customizerContainer');
@@ -2238,205 +2023,40 @@
             });
         }
 
-        // Create carousel item
-        function createCarouselItem(item, index) {
-            const carouselItem = document.createElement('div');
-            carouselItem.className = 'carousel-item';
-            carouselItem.setAttribute('data-index', index);
-            
-            // Contenedor de imagen con botón para mostrar descripción
-            let imageContent = '';
-            
-            if (item.src) {
-                imageContent = `
-                    <div class="carousel-image-container">
-                        <img src="${item.src}" alt="${item.title}" class="carousel-image" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML+='<div style=\'width:100%; height:300px; display:flex; align-items:center; justify-content:center; background-color:#f5f5f5; border-radius:10px; color:#666; font-size:1.2rem;\'>Imagen no disponible</div>';">
-                        <button class="description-toggle" data-index="${index}">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                        <div class="image-description-overlay">
-                            <h4 class="description-title">${item.title}</h4>
-                            <p class="description-text">${item.desc}</p>
-                        </div>
-                    </div>
-                `;
+        // Show zoom modal
+        function showZoomModal(imageSrc, title) {
+            if (imageSrc) {
+                zoomImage.src = imageSrc;
+                zoomImage.alt = title;
             } else {
-                // Colores específicos para placeholders según la categoría
-                let placeholderColor = '#f5f5f5';
-                let placeholderTextColor = '#666';
-                
-                if (currentSection === 'color') {
-                    // Asignar colores específicos para los placeholders de colores
-                    const colorMap = {
-                        'Rosa': '#ffcce6',
-                        'Verde': '#c2f0c2',
-                        'Azul': '#c2e6ff',
-                        'Morado': '#e6ccff',
-                        'Naranja': '#ffd9cc',
-                        'Amarillo': '#fff5cc'
-                    };
-                    
-                    if (colorMap[item.title.split(' ')[1]]) {
-                        placeholderColor = colorMap[item.title.split(' ')[1]];
-                        placeholderTextColor = '#333';
-                    }
-                }
-                
-                imageContent = `
-                    <div class="carousel-image-container">
-                        <div style="width:100%; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; background-color:${placeholderColor}; border-radius:10px; color:${placeholderTextColor};">
-                            <div style="font-size: 3rem; margin-bottom: 15px;">
-                                <i class="fas fa-birthday-cake"></i>
-                            </div>
-                            <div style="font-size: 1.2rem; font-weight: bold;">${item.title}</div>
+                // Si no hay imagen, mostrar un placeholder
+                zoomImage.style.display = 'none';
+                zoomImage.parentElement.innerHTML = `
+                    <div style="width: 400px; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: ${darkMode ? '#2d2d44' : '#f5f5f5'}; border-radius: 10px; color: ${darkMode ? '#aaaaaa' : '#666'};">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">
+                            <i class="fas fa-birthday-cake"></i>
                         </div>
-                        <button class="description-toggle" data-index="${index}">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                        <div class="image-description-overlay">
-                            <h4 class="description-title">${item.title}</h4>
-                            <p class="description-text">${item.desc}</p>
-                        </div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">${title}</div>
                     </div>
                 `;
             }
             
-            carouselItem.innerHTML = imageContent;
-            return carouselItem;
-        }
-
-        // Toggle description visibility
-        function toggleDescription(index) {
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            const clickedItem = carouselItems[index];
-            
-            // Si ya está activo, lo desactivamos
-            if (clickedItem.classList.contains('active-description')) {
-                clickedItem.classList.remove('active-description');
-            } else {
-                // Desactivamos cualquier otra descripción activa
-                carouselItems.forEach(item => {
-                    item.classList.remove('active-description');
-                });
-                // Activamos la descripción del item clickeado
-                clickedItem.classList.add('active-description');
-            }
-        }
-
-        // Show preview with carrusel - AHORA CON ÍNDICE
-        function showPreview(section, index = 0) {
-            const sectionData = previewData[section];
-            
-            if (!sectionData) return;
-            
-            currentSection = section;
-            currentSlide = index;
-            totalSlides = sectionData.items.length;
-            
-            // Update title
-            previewTitle.textContent = sectionData.title;
-            
-            // Clear carousel
-            carouselSlide.innerHTML = '';
-            carouselDots.innerHTML = '';
-            
-            // Create carousel items
-            sectionData.items.forEach((item, i) => {
-                const carouselItem = createCarouselItem(item, i);
-                carouselSlide.appendChild(carouselItem);
-                
-                // Create dot
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot';
-                if (i === index) dot.classList.add('active');
-                dot.setAttribute('data-index', i);
-                dot.addEventListener('click', () => goToSlide(i));
-                carouselDots.appendChild(dot);
-            });
-            
-            // Position carousel to the specified slide
-            carouselSlide.style.transform = `translateX(-${index * 100}%)`;
-            
-            // Update carousel counter
-            updateCarouselCounter();
-            
-            // Update button states
-            updateCarouselButtons();
-            
-            // Show modal
-            previewModal.classList.add('active');
+            zoomTitle.textContent = title;
+            zoomModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Go to specific slide
-        function goToSlide(index) {
-            if (index < 0 || index >= totalSlides) return;
-            
-            currentSlide = index;
-            carouselSlide.style.transform = `translateX(-${index * 100}%)`;
-            
-            // Remove any active descriptions when changing slides
-            document.querySelectorAll('.carousel-item').forEach(item => {
-                item.classList.remove('active-description');
-            });
-            
-            // Update active dot
-            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            // Update carousel counter
-            updateCarouselCounter();
-            
-            // Update button states
-            updateCarouselButtons();
-        }
-
-        // Next slide
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                goToSlide(currentSlide + 1);
-            }
-        }
-
-        // Previous slide
-        function prevSlide() {
-            if (currentSlide > 0) {
-                goToSlide(currentSlide - 1);
-            }
-        }
-
-        // Update carousel counter
-        function updateCarouselCounter() {
-            carouselCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-        }
-
-        // Update carousel buttons state
-        function updateCarouselButtons() {
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === totalSlides - 1;
-            
-            if (prevBtn.disabled) {
-                prevBtn.style.backgroundColor = '#ccc';
-            } else {
-                prevBtn.style.backgroundColor = 'var(--secondary)';
-            }
-            
-            if (nextBtn.disabled) {
-                nextBtn.style.backgroundColor = '#ccc';
-            } else {
-                nextBtn.style.backgroundColor = 'var(--secondary)';
-            }
-        }
-
-        // Close preview modal
-        function closePreviewModal() {
-            previewModal.classList.remove('active');
+        // Close zoom modal
+        function closeZoomModal() {
+            zoomModal.classList.remove('active');
             document.body.style.overflow = 'auto';
+            // Restaurar la imagen si se ocultó
+            if (!zoomImage.style.display || zoomImage.style.display === 'none') {
+                zoomImage.style.display = 'block';
+                zoomImage.parentElement.innerHTML = '<img id="zoomImage" src="" alt="Imagen ampliada" class="zoom-image">';
+                // Reasignar referencia después de restaurar
+                zoomImage = document.getElementById('zoomImage');
+            }
         }
 
         // Add cake to cart
@@ -2613,15 +2233,14 @@
 
         // Initialize event listeners
         function initEventListeners() {
-            // Option cards - AHORA ABREN EL CARRUSEL EN ESA IMAGEN
+            // Option cards - SOLO SELECCIONAN
             optionCards.forEach(card => {
                 card.addEventListener('click', (e) => {
-                    // Evitar que se abra el carrusel si se hizo clic en el botón "Ver todas"
-                    if (e.target.closest('.view-btn')) return;
+                    // Evitar que se active si se hace clic en el botón de zoom
+                    if (e.target.closest('.zoom-btn')) return;
                     
                     const option = card.getAttribute('data-option');
                     const value = card.getAttribute('data-value');
-                    const index = parseInt(card.getAttribute('data-index'));
                     
                     currentCake[option] = value;
                     
@@ -2641,20 +2260,16 @@
                     
                     updateCakeSummary();
                     updateActiveOptions();
-                    
-                    // Abrir carrusel en la imagen clickeada
-                    showPreview(option, index);
                 });
             });
             
-            // Color cards - AHORA ABREN EL CARRUSEL EN ESA IMAGEN
+            // Color cards - SOLO SELECCIONAN
             colorCards.forEach(card => {
                 card.addEventListener('click', (e) => {
-                    // Evitar que se abra el carrusel si se hizo clic en el botón "Ver todas"
-                    if (e.target.closest('.view-btn')) return;
+                    // Evitar que se active si se hace clic en el botón de zoom
+                    if (e.target.closest('.zoom-btn')) return;
                     
                     const value = card.getAttribute('data-value');
-                    const index = parseInt(card.getAttribute('data-index'));
                     
                     currentCake.color = value;
                     currentCake.colorName = colorNames[value];
@@ -2664,9 +2279,16 @@
                     
                     updateCakeSummary();
                     updateActiveOptions();
-                    
-                    // Abrir carrusel en la imagen clickeada
-                    showPreview('color', index);
+                });
+            });
+            
+            // Zoom buttons
+            zoomButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Evita que se active la selección de la tarjeta
+                    const imageSrc = button.getAttribute('data-image');
+                    const title = button.getAttribute('data-title');
+                    showZoomModal(imageSrc, title);
                 });
             });
             
@@ -2684,42 +2306,23 @@
             // Add to cart button
             addToCartBtn.addEventListener('click', addCakeToCart);
             
-            // View buttons - DETENER PROPAGACIÓN PARA QUE NO SE ACTIVE EL CLICK DE LA TARJETA
-            viewButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Evita que el evento se propague a la tarjeta
-                    const section = button.getAttribute('data-section');
-                    showPreview(section, 0); // Abre desde la primera imagen
-                });
-            });
-            
-            // Carousel navigation
-            prevBtn.addEventListener('click', prevSlide);
-            nextBtn.addEventListener('click', nextSlide);
-            
-            // Close preview button
-            closePreview.addEventListener('click', closePreviewModal);
+            // Close zoom button
+            closeZoom.addEventListener('click', closeZoomModal);
             
             // Toggle dark mode
             themeToggle.addEventListener('click', toggleDarkMode);
             
-            // Keyboard navigation for carousel
+            // Keyboard navigation for zoom modal
             document.addEventListener('keydown', (e) => {
-                if (previewModal.classList.contains('active')) {
-                    if (e.key === 'ArrowLeft') {
-                        prevSlide();
-                    } else if (e.key === 'ArrowRight') {
-                        nextSlide();
-                    } else if (e.key === 'Escape') {
-                        closePreviewModal();
-                    }
+                if (zoomModal.classList.contains('active') && e.key === 'Escape') {
+                    closeZoomModal();
                 }
             });
             
-            // Close preview when clicking outside
-            previewModal.addEventListener('click', (e) => {
-                if (e.target === previewModal) {
-                    closePreviewModal();
+            // Close zoom when clicking outside
+            zoomModal.addEventListener('click', (e) => {
+                if (e.target === zoomModal) {
+                    closeZoomModal();
                 }
             });
             
@@ -2811,27 +2414,6 @@
         
         // Expose removeFromCart function globally for use in onclick attributes
         window.removeFromCart = removeFromCart;
-        
-        // Event delegation for description toggles in carousel
-        document.addEventListener('click', function(e) {
-            // Check if a description toggle button was clicked
-            if (e.target.closest('.description-toggle')) {
-                const toggleBtn = e.target.closest('.description-toggle');
-                const index = parseInt(toggleBtn.getAttribute('data-index'));
-                toggleDescription(index);
-            }
-            
-            // Check if a carousel image container was clicked (to close description when clicking outside)
-            if (e.target.closest('.carousel-image-container') && !e.target.closest('.description-toggle')) {
-                const container = e.target.closest('.carousel-image-container');
-                const carouselItem = container.parentElement;
-                
-                // If description is active, toggle it off
-                if (carouselItem.classList.contains('active-description')) {
-                    carouselItem.classList.remove('active-description');
-                }
-            }
-        });
     </script>
 </body>
 </html>
