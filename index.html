@@ -341,6 +341,7 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
+            height: 250px; /* Altura fija para las tarjetas */
         }
         
         .option-card:hover {
@@ -360,13 +361,15 @@
             background-color: rgba(156, 136, 255, 0.1);
         }
         
+        /* IMAGENES QUE OCUPAN TODO EL ESPACIO */
         .option-image {
-            height: 150px;
+            height: 200px; /* Ocupa la mayor parte de la tarjeta */
             width: 100%;
-            object-fit: contain;
-            padding: 10px;
+            object-fit: cover; /* Cambiado de contain a cover para llenar el espacio */
+            padding: 0; /* Eliminado padding */
             background-color: #f9f9f9;
             transition: all 0.3s ease;
+            flex-grow: 1; /* Permite que la imagen crezca */
         }
         
         body.dark-mode .option-image {
@@ -384,6 +387,7 @@
             color: var(--text-color);
             font-size: 1.05rem;
             background-color: var(--card-bg);
+            flex-shrink: 0; /* Mantiene el tamaño fijo del nombre */
         }
         
         .color-options {
@@ -401,6 +405,7 @@
             display: flex;
             flex-direction: column;
             transform: scale(1);
+            height: 220px; /* Altura fija para las tarjetas de color */
         }
         
         .color-card:hover {
@@ -419,13 +424,15 @@
             box-shadow: 0 0 0 3px rgba(156, 136, 255, 0.3);
         }
         
+        /* IMAGENES DE COLOR QUE OCUPAN TODO EL ESPACIO */
         .color-preview {
-            height: 120px;
+            height: 160px; /* Ocupa la mayor parte de la tarjeta */
             width: 100%;
-            object-fit: contain;
-            padding: 10px;
+            object-fit: cover; /* Cambiado de contain a cover para llenar el espacio */
+            padding: 0; /* Eliminado padding */
             background-color: #f9f9f9;
             transition: all 0.3s ease;
+            flex-grow: 1; /* Permite que la imagen crezca */
         }
         
         body.dark-mode .color-preview {
@@ -442,6 +449,7 @@
             font-weight: 500;
             color: var(--text-color);
             background-color: var(--card-bg);
+            flex-shrink: 0; /* Mantiene el tamaño fijo del nombre */
         }
         
         input[type="text"], select, textarea {
@@ -656,7 +664,7 @@
             overflow-y: auto;
         }
         
-        /* Carrusel - NUEVA VERSIÓN */
+        /* Carrusel */
         .carousel-container {
             width: 100%;
             position: relative;
@@ -695,7 +703,7 @@
         .carousel-image {
             max-width: 100%;
             max-height: 60vh;
-            object-fit: contain;
+            object-fit: contain; /* Mantenemos contain para el carrusel */
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
@@ -1526,19 +1534,19 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="shape" data-value="round">
+                        <div class="option-card" data-option="shape" data-value="round" data-index="0">
                             <img src="cakeRedondo.jpg" alt="Pastel redondo" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Redondo</div>';">
                             <div class="option-name">Redondo</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="square">
+                        <div class="option-card" data-option="shape" data-value="square" data-index="1">
                             <img src="cakeCuadrado.jpg" alt="Pastel cuadrado" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Cuadrado</div>';">
                             <div class="option-name">Cuadrado</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="heart">
+                        <div class="option-card" data-option="shape" data-value="heart" data-index="2">
                             <img src="cakeCorazon.jpg" alt="Pastel corazón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Corazón</div>';">
                             <div class="option-name">Corazón</div>
                         </div>
-                        <div class="option-card" data-option="shape" data-value="star">
+                        <div class="option-card" data-option="shape" data-value="star" data-index="3">
                             <img src="cakeEstrella.jpg" alt="Pastel estrella" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Estrella</div>';">
                             <div class="option-name">Estrella</div>
                         </div>
@@ -1554,28 +1562,28 @@
                         </button>
                     </div>
                     <div class="color-options">
-                        <div class="color-card" data-option="color" data-value="rosa">
+                        <div class="color-card" data-option="color" data-value="rosa" data-index="0">
                             <img src="merengueRosa.jpg" alt="Merengue rosa" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffcce6;\'>Rosa</div>';">
                             <div class="color-name">Rosa</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="verde">
+                        <div class="color-card" data-option="color" data-value="verde" data-index="1">
                             <img src="merengueVerde.jpg" alt="Merengue verde" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2f0c2;\'>Verde</div>';">
                             <div class="color-name">Verde</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="azul">
+                        <div class="color-card" data-option="color" data-value="azul" data-index="2">
                             <img src="merengueAzul.jpg" alt="Merengue azul" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#c2e6ff;\'>Azul</div>';">
                             <div class="color-name">Azul</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="morado">
+                        <div class="color-card" data-option="color" data-value="morado" data-index="3">
                             <img src="merengueMorado.jpg" alt="Merengue morado" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#e6ccff;\'>Morado</div>';">
                             <div class="color-name">Morado</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="naranja">
+                        <div class="color-card" data-option="color" data-value="naranja" data-index="4">
                             <img src="merengueNaranja.jpg" alt="Merengue naranja" class="color-preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\' style=\'background-color:#ffd9cc;\'>Naranja</div>';">
                             <div class="color-name">Naranja</div>
                         </div>
-                        <div class="color-card" data-option="color" data-value="amarillo">
-                            <div class="color-preview" style="background-color: #fff5cc;"></div>
+                        <div class="color-card" data-option="color" data-value="amarillo" data-index="5">
+                            <div class="color-preview" style="background-color: #fff5cc; height: 100%;"></div>
                             <div class="color-name">Amarillo</div>
                         </div>
                     </div>
@@ -1590,27 +1598,27 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="flavor" data-value="chocolate">
+                        <div class="option-card" data-option="flavor" data-value="chocolate" data-index="0">
                             <img src="cakeChocolate.jpg" alt="Pastel de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="vainilla">
+                        <div class="option-card" data-option="flavor" data-value="vainilla" data-index="1">
                             <img src="cakeVainilla.jpg" alt="Pastel de vainilla" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Vainilla</div>';">
                             <div class="option-name">Vainilla</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="fresa">
+                        <div class="option-card" data-option="flavor" data-value="fresa" data-index="2">
                             <div class="option-image" style="background-color: #ffcce6;"></div>
                             <div class="option-name">Fresa</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="limon">
+                        <div class="option-card" data-option="flavor" data-value="limon" data-index="3">
                             <img src="cakeLimon.jpg" alt="Pastel de limón" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Limón</div>';">
                             <div class="option-name">Limón</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="redvelvet">
+                        <div class="option-card" data-option="flavor" data-value="redvelvet" data-index="4">
                             <div class="option-image" style="background-color: #cc3333;"></div>
                             <div class="option-name">Red Velvet</div>
                         </div>
-                        <div class="option-card" data-option="flavor" data-value="cafe">
+                        <div class="option-card" data-option="flavor" data-value="cafe" data-index="5">
                             <img src="cakeCafe.jpg" alt="Pastel de café" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Café</div>';">
                             <div class="option-name">Café</div>
                         </div>
@@ -1626,15 +1634,15 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="size" data-value="small">
+                        <div class="option-card" data-option="size" data-value="small" data-index="0">
                             <img src="cakePequeño.jpg" alt="Pastel pequeño" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Pequeño</div>';">
                             <div class="option-name">Pequeño (8 porciones)</div>
                         </div>
-                        <div class="option-card" data-option="size" data-value="medium">
+                        <div class="option-card" data-option="size" data-value="medium" data-index="1">
                             <img src="cakeMediano.jpg" alt="Pastel mediano" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Mediano</div>';">
                             <div class="option-name">Mediano (12 porciones)</div>
                         </div>
-                        <div class="option-card" data-option="size" data-value="large">
+                        <div class="option-card" data-option="size" data-value="large" data-index="2">
                             <img src="cakeGrande.jpg" alt="Pastel grande" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Grande</div>';">
                             <div class="option-name">Grande (20 porciones)</div>
                         </div>
@@ -1650,19 +1658,19 @@
                         </button>
                     </div>
                     <div class="options-grid">
-                        <div class="option-card" data-option="dough" data-value="normal">
+                        <div class="option-card" data-option="dough" data-value="normal" data-index="0">
                             <img src="cakeVainilla.jpg" alt="Masa normal" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Normal</div>';">
                             <div class="option-name">Normal</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="chocolate">
+                        <div class="option-card" data-option="dough" data-value="chocolate" data-index="1">
                             <img src="cakeChocolate.jpg" alt="Masa de chocolate" class="option-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'>Chocolate</div>';">
                             <div class="option-name">Chocolate</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="integral">
+                        <div class="option-card" data-option="dough" data-value="integral" data-index="2">
                             <div class="option-image" style="background-color: #f5e6c8;"></div>
                             <div class="option-name">Integral</div>
                         </div>
-                        <div class="option-card" data-option="dough" data-value="almendra">
+                        <div class="option-card" data-option="dough" data-value="almendra" data-index="3">
                             <div class="option-image" style="background-color: #f0d9c2;"></div>
                             <div class="option-name">Almendra</div>
                         </div>
@@ -2230,7 +2238,7 @@
             });
         }
 
-        // Create carousel item - NUEVA VERSIÓN
+        // Create carousel item
         function createCarouselItem(item, index) {
             const carouselItem = document.createElement('div');
             carouselItem.className = 'carousel-item';
@@ -2315,14 +2323,14 @@
             }
         }
 
-        // Show preview with carousel
-        function showPreview(section) {
+        // Show preview with carrusel - AHORA CON ÍNDICE
+        function showPreview(section, index = 0) {
             const sectionData = previewData[section];
             
             if (!sectionData) return;
             
             currentSection = section;
-            currentSlide = 0;
+            currentSlide = index;
             totalSlides = sectionData.items.length;
             
             // Update title
@@ -2333,27 +2341,27 @@
             carouselDots.innerHTML = '';
             
             // Create carousel items
-            sectionData.items.forEach((item, index) => {
-                const carouselItem = createCarouselItem(item, index);
+            sectionData.items.forEach((item, i) => {
+                const carouselItem = createCarouselItem(item, i);
                 carouselSlide.appendChild(carouselItem);
                 
                 // Create dot
                 const dot = document.createElement('div');
                 dot.className = 'carousel-dot';
-                if (index === 0) dot.classList.add('active');
-                dot.setAttribute('data-index', index);
-                dot.addEventListener('click', () => goToSlide(index));
+                if (i === index) dot.classList.add('active');
+                dot.setAttribute('data-index', i);
+                dot.addEventListener('click', () => goToSlide(i));
                 carouselDots.appendChild(dot);
             });
+            
+            // Position carousel to the specified slide
+            carouselSlide.style.transform = `translateX(-${index * 100}%)`;
             
             // Update carousel counter
             updateCarouselCounter();
             
             // Update button states
             updateCarouselButtons();
-            
-            // Position carousel to first slide
-            carouselSlide.style.transform = `translateX(0)`;
             
             // Show modal
             previewModal.classList.add('active');
@@ -2605,11 +2613,15 @@
 
         // Initialize event listeners
         function initEventListeners() {
-            // Option cards
+            // Option cards - AHORA ABREN EL CARRUSEL EN ESA IMAGEN
             optionCards.forEach(card => {
-                card.addEventListener('click', () => {
+                card.addEventListener('click', (e) => {
+                    // Evitar que se abra el carrusel si se hizo clic en el botón "Ver todas"
+                    if (e.target.closest('.view-btn')) return;
+                    
                     const option = card.getAttribute('data-option');
                     const value = card.getAttribute('data-value');
+                    const index = parseInt(card.getAttribute('data-index'));
                     
                     currentCake[option] = value;
                     
@@ -2629,13 +2641,20 @@
                     
                     updateCakeSummary();
                     updateActiveOptions();
+                    
+                    // Abrir carrusel en la imagen clickeada
+                    showPreview(option, index);
                 });
             });
             
-            // Color cards
+            // Color cards - AHORA ABREN EL CARRUSEL EN ESA IMAGEN
             colorCards.forEach(card => {
-                card.addEventListener('click', () => {
+                card.addEventListener('click', (e) => {
+                    // Evitar que se abra el carrusel si se hizo clic en el botón "Ver todas"
+                    if (e.target.closest('.view-btn')) return;
+                    
                     const value = card.getAttribute('data-value');
+                    const index = parseInt(card.getAttribute('data-index'));
                     
                     currentCake.color = value;
                     currentCake.colorName = colorNames[value];
@@ -2645,6 +2664,9 @@
                     
                     updateCakeSummary();
                     updateActiveOptions();
+                    
+                    // Abrir carrusel en la imagen clickeada
+                    showPreview('color', index);
                 });
             });
             
@@ -2662,11 +2684,12 @@
             // Add to cart button
             addToCartBtn.addEventListener('click', addCakeToCart);
             
-            // View buttons
+            // View buttons - DETENER PROPAGACIÓN PARA QUE NO SE ACTIVE EL CLICK DE LA TARJETA
             viewButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Evita que el evento se propague a la tarjeta
                     const section = button.getAttribute('data-section');
-                    showPreview(section);
+                    showPreview(section, 0); // Abre desde la primera imagen
                 });
             });
             
