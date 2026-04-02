@@ -2,13 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>Con Amor de tu Papi 💕</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════
-   VARIABLES & RESET
-══════════════════════════════════════════ */
+/* VARIABLES Y RESET */
 :root {
   --c1: #FFC20B;
   --c2: #FFA9CB;
@@ -27,59 +25,47 @@
   --tab5: #d4b8f0;
   --radius: 14px;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { font-size: 16px; }
-
 body {
   font-family: 'Nunito', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
 }
-
-/* ══════════════════════════════════════════
-   PALETTE SWITCHER
-══════════════════════════════════════════ */
+/* PALETA (dentro del main) */
 #palette-btn {
-  position: fixed;
-  top: 10px; right: 10px;
-  z-index: 1000;
+  position: absolute;
+  top: 12px;
+  right: 16px;
   background: var(--c5);
   border: none;
   border-radius: 50%;
-  width: 42px; height: 42px;
+  width: 40px;
+  height: 40px;
   font-size: 18px;
   cursor: pointer;
   box-shadow: 0 4px 14px var(--shadow);
-  transition: transform .2s;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  z-index: 20;
 }
-#palette-btn:hover { transform: scale(1.15) rotate(20deg); }
-
 #palette-panel {
-  position: fixed;
-  top: 60px; right: 10px;
+  position: absolute;
+  top: 55px;
+  right: 16px;
   background: var(--card);
   border-radius: 16px;
   padding: 10px;
-  z-index: 999;
+  z-index: 25;
   box-shadow: 0 8px 32px var(--shadow);
   display: none;
   flex-direction: column;
   gap: 6px;
   backdrop-filter: blur(12px);
-  max-width: calc(100vw - 20px);
-  width: 220px;
+  width: 210px;
 }
 #palette-panel.open { display: flex; }
-
 .palette-row {
   display: flex;
   align-items: center;
@@ -87,79 +73,38 @@ body {
   cursor: pointer;
   border-radius: 10px;
   padding: 6px 8px;
-  transition: background .2s;
 }
-.palette-row:hover { background: rgba(0,0,0,0.05); }
-.palette-swatch {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
-}
-.palette-row label {
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 2px;
-  white-space: nowrap;
-}
-
-/* ══════════════════════════════════════════
-   NAVBAR — TABS (LIBRETA SOLAPADA)
-══════════════════════════════════════════ */
+.palette-swatch { width: 18px; height: 18px; border-radius: 50%; }
+.palette-row label { font-size: 12px; cursor: pointer; white-space: nowrap; }
+/* NAVBAR */
 #navbar {
   display: flex;
   align-items: flex-end;
   padding: 10px 8px 0;
   gap: 0;
-  position: relative;
-  z-index: 10;
-  flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
-  -ms-overflow-style: none;
-  /* leave room for palette button */
-  padding-right: 56px;
 }
 #navbar::-webkit-scrollbar { display: none; }
-
 .tab {
-  position: relative;
   padding: 8px 10px 7px;
   border-radius: 12px 12px 0 0;
   cursor: pointer;
   font-weight: 700;
   font-size: 12px;
-  letter-spacing: .3px;
   border: 2px solid rgba(255,255,255,0.55);
   border-bottom: none;
-  transition: all .25s;
   margin-right: -3px;
-  user-select: none;
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.07);
-  flex-shrink: 0;
-  text-align: center;
   white-space: nowrap;
-  min-width: 0;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background: var(--tab1);
 }
-.tab:nth-child(1) { background: var(--tab1); z-index: 5; }
-.tab:nth-child(2) { background: var(--tab2); z-index: 4; }
-.tab:nth-child(3) { background: var(--tab3); z-index: 3; }
-.tab:nth-child(4) { background: var(--tab4); z-index: 2; }
-.tab:nth-child(5) { background: var(--tab5); z-index: 1; }
-
-.tab.active {
-  padding-bottom: 10px;
-  margin-bottom: -2px;
-  filter: brightness(1.06);
-  box-shadow: 0 -5px 18px rgba(0,0,0,0.12);
-}
-
-/* ══════════════════════════════════════════
-   MAIN CONTENT AREA
-══════════════════════════════════════════ */
+.tab:nth-child(1) { background: var(--tab1); }
+.tab:nth-child(2) { background: var(--tab2); }
+.tab:nth-child(3) { background: var(--tab3); }
+.tab:nth-child(4) { background: var(--tab4); }
+.tab:nth-child(5) { background: var(--tab5); }
+.tab.active { padding-bottom: 10px; margin-bottom: -2px; filter: brightness(1.06); }
+/* MAIN */
 #main {
   flex: 1;
   background: var(--card);
@@ -167,21 +112,21 @@ body {
   margin: 0 8px 8px;
   padding: 18px 16px;
   box-shadow: 0 4px 24px var(--shadow);
-  overflow-y: auto;
-  overflow-x: hidden;
+  position: relative;
 }
-
 .section { display: none; animation: fadeIn .3s ease; }
 .section.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  color: var(--accent);
+  border-bottom: 2px solid var(--c3);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  padding-right: 48px;
 }
-
-/* ══════════════════════════════════════════
-   HERO / INICIO
-══════════════════════════════════════════ */
+/* HERO */
 #hero {
   display: flex;
   flex-direction: column;
@@ -190,1227 +135,536 @@ body {
   min-height: 60vh;
   text-align: center;
   gap: 14px;
-  padding: 20px 0;
 }
-#hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 6vw, 3.8rem);
-  color: var(--accent);
-  line-height: 1.25;
-}
-.hearts {
-  font-size: clamp(2rem, 5vw, 3rem);
-  animation: pulse 1.4s ease-in-out infinite;
-  display: block;
-}
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-#hero p { font-size: clamp(0.85rem, 2.5vw, 1rem); color: var(--c4); opacity: .85; }
-
-/* ══════════════════════════════════════════
-   SECTION TITLES
-══════════════════════════════════════════ */
-.sec-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 4vw, 1.7rem);
-  color: var(--accent);
-  margin-bottom: 16px;
-  border-bottom: 2px solid var(--c3);
-  padding-bottom: 8px;
-}
-
-/* ══════════════════════════════════════════
-   SHARED COMPONENTS
-══════════════════════════════════════════ */
-.btn-pink {
-  background: var(--c5);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 9px 18px;
-  cursor: pointer;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  transition: .2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.btn-pink:hover { filter: brightness(1.1); transform: scale(1.03); }
-.btn-pink:active { transform: scale(.97); }
-
-/* ══════════════════════════════════════════
-   PENDIENTES
-══════════════════════════════════════════ */
-.pend-list-header {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-.pend-list-header input {
-  flex: 1;
-  min-width: 160px;
-  border: 2px solid var(--c3);
-  border-radius: 12px;
-  padding: 9px 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  outline: none;
-  background: #fff;
-}
-.pend-list-header input:focus { border-color: var(--c5); }
-
-.pend-lists-wrap {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  gap: 12px;
-}
-
-.pend-list-card {
-  background: linear-gradient(135deg, #fff7fa, #fff);
+#hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 6vw, 3.8rem); color: var(--accent); }
+.hearts { font-size: clamp(2rem, 5vw, 3rem); animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+/* CALENDARIO CON HORARIO A LOS LADOS */
+.calendar-container { display: flex; flex-direction: column; gap: 20px; }
+.month-view {
+  background: white;
   border-radius: var(--radius);
-  padding: 14px;
-  border: 1.5px solid var(--c3);
-  box-shadow: 0 2px 10px rgba(242,121,155,.1);
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.pend-list-card h3 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 10px;
+.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cal-nav h3 { font-family: 'Playfair Display', serif; color: var(--accent); }
+.cal-nav button { background: var(--c3); border: none; border-radius: 30px; padding: 6px 12px; cursor: pointer; }
+.weekdays { display: grid; grid-template-columns: repeat(7,1fr); text-align: center; font-weight: 700; color: var(--c4); margin-bottom: 8px; }
+.cal-days-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+.cal-day-cell {
+  aspect-ratio: 1/1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-.del-list { cursor: pointer; font-size: 16px; opacity: .5; flex-shrink: 0; }
-.del-list:hover { opacity: 1; }
-
-.pend-items { display: flex; flex-direction: column; gap: 7px; }
-.pend-item { display: flex; align-items: center; gap: 8px; }
-.pend-item input[type="checkbox"] {
-  width: 18px; height: 18px;
-  accent-color: var(--c5);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.pend-item input[type="text"] {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  border-bottom: 1.5px dashed var(--c3);
-  padding: 4px 2px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  background: transparent;
-  outline: none;
-  color: var(--text);
-}
-.pend-item input[type="text"]:focus { border-bottom-color: var(--c5); }
-.pend-item input[type="text"].checked-item { text-decoration: line-through; opacity: .45; }
-.del-item { cursor: pointer; font-size: 14px; opacity: .35; flex-shrink: 0; }
-.del-item:hover { opacity: 1; }
-
-.add-item-btn {
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--c4);
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  padding: 0;
-}
-.add-item-btn:hover { color: var(--c5); }
-
-/* ══════════════════════════════════════════
-   CALENDARIO
-══════════════════════════════════════════ */
-.cal-wrap { display: flex; flex-direction: column; gap: 16px; }
-
-.cal-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.cal-nav h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  color: var(--accent);
-  text-align: center;
-  flex: 1;
-}
-.cal-nav button {
-  background: var(--c3);
-  border: none;
-  border-radius: 10px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: .2s;
-  flex-shrink: 0;
-}
-.cal-nav button:hover { background: var(--c4); color: #fff; }
-
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
-}
-.cal-day-name {
-  text-align: center;
-  font-size: clamp(10px, 2vw, 12px);
-  font-weight: 700;
-  color: var(--c4);
-  padding: 4px 2px;
-}
-.cal-day {
-  text-align: center;
-  padding: clamp(5px, 1.5vw, 9px) 2px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: clamp(11px, 2.5vw, 14px);
-  transition: background .15s;
-  position: relative;
-  min-height: 34px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  background: #fff0f3;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
 }
-.cal-day:hover { background: var(--c2); }
-.cal-day.today { background: var(--c5); color: #fff; font-weight: 700; }
-.cal-day.has-event::after {
-  content: '';
-  display: block;
-  width: 5px; height: 5px;
-  background: var(--c5);
-  border-radius: 50%;
-  margin-top: 3px;
-}
-.cal-day.today.has-event::after { background: #fff; }
-.cal-day.empty { cursor: default; pointer-events: none; }
-
-.events-panel {
-  background: linear-gradient(135deg, #fff7fa, #fff);
+.cal-day-cell.today { background: var(--c5); color: white; }
+.cal-day-cell.has-event::after { content: '•'; position: absolute; bottom: 2px; font-size: 14px; color: var(--c5); }
+.cal-day-cell.today.has-event::after { color: white; }
+/* Vista diaria con franjas horarias */
+.day-view {
+  background: white;
   border-radius: var(--radius);
-  padding: 14px;
-  border: 1.5px solid var(--c3);
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.events-panel h4 {
-  font-size: 14px;
-  color: var(--accent);
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-.event-item {
+.day-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px dashed var(--c3);
-}
-.event-dot { width: 8px; height: 8px; background: var(--c4); border-radius: 50%; flex-shrink: 0; }
-.event-text { font-size: 13px; flex: 1; min-width: 0; word-break: break-word; }
-.event-del { cursor: pointer; font-size: 14px; opacity: .4; flex-shrink: 0; }
-.event-del:hover { opacity: 1; }
-.event-add {
-  display: none;
-  gap: 8px;
-  margin-top: 10px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
 }
-.event-add.visible { display: flex; }
-.event-add input {
+.back-btn { background: var(--c2); border: none; border-radius: 30px; padding: 6px 12px; cursor: pointer; }
+.schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fffafc;
+  border-radius: 12px;
+  padding: 6px 8px;
+  border-left: 4px solid var(--c5);
+}
+.time-label {
+  font-weight: 800;
+  font-size: 0.75rem;
+  min-width: 60px;
+  background: var(--c2);
+  padding: 4px 8px;
+  border-radius: 20px;
+  text-align: center;
+}
+.event-content {
   flex: 1;
-  min-width: 150px;
-  border: 2px solid var(--c3);
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.event-text {
+  font-size: 0.85rem;
+  word-break: break-word;
+  flex: 1;
+}
+.add-event-input {
+  border: 1px solid var(--c3);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  width: 140px;
   outline: none;
 }
-.event-add input:focus { border-color: var(--c5); }
-
-/* ══════════════════════════════════════════
-   GASTOS — CARDS LAYOUT (mobile-first)
-══════════════════════════════════════════ */
+.add-event-btn {
+  background: var(--c5);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+.del-event { color: var(--c4); cursor: pointer; font-size: 1rem; margin-left: 6px; }
+.empty-schedule { text-align: center; color: var(--c4); padding: 20px; font-style: italic; }
+/* GASTOS (COMPLETO, CON CARDS Y EDICIÓN) */
 .budget-section { margin-bottom: 24px; }
-.budget-section > h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-
-/* TABLE — hidden on small screens, visible ≥600px */
-.budget-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.budget-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  min-width: 420px;
-}
-.budget-table th {
-  background: var(--c3);
-  color: var(--text);
-  padding: 9px 10px;
-  text-align: left;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.budget-table th:first-child { border-radius: 10px 0 0 0; }
-.budget-table th:last-child  { border-radius: 0 10px 0 0; }
-.budget-table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #fce4ef;
-  vertical-align: middle;
-}
-.budget-table tr:nth-child(even) td { background: #fff7fa; }
-.budget-table tr:hover td { background: #fce4ef; }
-
-.total-row td { font-weight: 700; background: var(--c2) !important; font-size: 13px; }
-
-/* CARD LAYOUT for gastos rows on very small screens */
-.gasto-card {
-  background: linear-gradient(135deg, #fff7fa, #fff);
-  border: 1.5px solid var(--c3);
+.budget-table-wrap { overflow-x: auto; }
+.budget-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 420px; }
+.budget-table th, .budget-table td { padding: 8px 10px; border-bottom: 1px solid #fce4ef; vertical-align: middle; }
+.budget-table th { background: var(--c3); color: var(--text); }
+.desc-cell { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.desc-icon { font-size: 16px; }
+.desc-label { cursor: pointer; font-weight: 600; padding: 2px 6px; border-radius: 6px; }
+.desc-label:hover { background: var(--c2); }
+.desc-input { display: none; border: 1.5px solid var(--c3); border-radius: 8px; padding: 4px 8px; width: 120px; }
+.desc-input.visible { display: inline-block; }
+.amount-input { border: none; background: transparent; width: 90px; text-align: right; outline: none; -moz-appearance: textfield; }
+.real-display { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.real-add-input { border: 1.5px solid var(--c3); border-radius: 8px; padding: 4px 8px; width: 80px; text-align: right; }
+.date-input { border: 1.5px solid #f5d0da; border-radius: 8px; padding: 4px 6px; width: 130px; }
+.totals-row { display: flex; justify-content: space-between; background: var(--c2); border-radius: 10px; padding: 10px 14px; font-weight: 700; flex-wrap: wrap; margin-top: 8px; }
+.saldo-row { background: linear-gradient(135deg, var(--c5), var(--c4)); color: white; border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; font-weight: 700; margin-top: 12px; }
+#btn-done { width: 100%; margin-top: 20px; background: linear-gradient(135deg, var(--c5), var(--c4)); color: white; border: none; border-radius: var(--radius); padding: 14px; font-weight: bold; cursor: pointer; }
+.gasto-card, .ingreso-card {
+  background: #fff7fa;
+  border: 1px solid var(--c3);
   border-radius: 12px;
   padding: 12px;
+  margin-bottom: 8px;
   display: none;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 8px;
 }
-.gasto-card-header {
+.gasto-card-header, .ingreso-card-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
+  align-items: center;
 }
-.gasto-card-title {
+.gasto-card-title, .ingreso-card-title {
   display: flex;
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 14px;
-  color: var(--accent);
 }
-.gasto-card-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 13px;
-  flex-wrap: wrap;
-}
-.gasto-card-row label { color: var(--c4); font-size: 12px; font-weight: 600; }
-
-/* Shared desc cell */
-.desc-cell { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.desc-icon { font-size: 16px; flex-shrink: 0; }
-.desc-label {
-  cursor: pointer;
-  font-weight: 600;
-  padding: 3px 6px;
-  border-radius: 6px;
-  transition: background .2s;
-  word-break: break-word;
-}
-.desc-label:hover { background: var(--c2); }
-.desc-input {
-  display: none;
-  border: 1.5px solid var(--c3);
-  border-radius: 8px;
-  padding: 5px 9px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  width: 100%;
-  max-width: 200px;
-  outline: none;
-}
-.desc-input.visible { display: inline-block; }
-.desc-input:focus { border-color: var(--c5); }
-
-.amount-input {
-  border: none;
-  background: transparent;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  width: 90px;
-  text-align: right;
-  outline: none;
-  color: var(--text);
-  -moz-appearance: textfield;
-}
-.amount-input::-webkit-outer-spin-button,
-.amount-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.amount-input:focus { border-bottom: 2px solid var(--c5); }
-
-.real-cell { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-.real-display {
-  font-weight: 700;
-  color: var(--accent);
-  white-space: nowrap;
-}
-.real-add-input {
-  border: 1.5px solid var(--c3);
-  border-radius: 8px;
-  padding: 4px 8px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  width: 80px;
-  text-align: right;
-  outline: none;
-  background: #fff;
-  -moz-appearance: textfield;
-}
-.real-add-input::-webkit-outer-spin-button,
-.real-add-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.real-add-input:focus { border-color: var(--c5); }
-.real-add-input::placeholder { color: #ccc; font-size: 12px; }
-
-.date-input {
-  border: 1.5px solid #f5d0da;
-  border-radius: 8px;
-  padding: 4px 6px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  background: #fff;
-  outline: none;
-  color: var(--text);
-  width: 130px;
-}
-.date-input:focus { border-color: var(--c5); }
-
-/* Totals + Saldo */
-.totals-row {
+.gasto-card-row, .ingreso-card-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--c2);
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-weight: 700;
-  font-size: 13px;
-  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 4px;
-}
-.totals-row span { white-space: nowrap; }
-
-.saldo-row {
-  background: linear-gradient(135deg, var(--c5), var(--c4));
-  color: #fff;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  font-size: clamp(0.9rem, 3vw, 1.1rem);
   gap: 8px;
-  flex-wrap: wrap;
 }
-
-#btn-done {
-  display: block;
-  width: 100%;
-  margin-top: 20px;
-  background: linear-gradient(135deg, var(--c5), var(--c4));
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  padding: 15px;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1rem, 3vw, 1.1rem);
-  cursor: pointer;
-  transition: .25s;
-  box-shadow: 0 4px 16px rgba(237,64,139,.3);
+@media (max-width: 599px) {
+  .budget-table-wrap { display: none; }
+  .gasto-card, .ingreso-card { display: flex; }
 }
-#btn-done:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(237,64,139,.4); }
-#btn-done:active { transform: translateY(0); }
-
-/* ══════════════════════════════════════════
-   HISTÓRICO
-══════════════════════════════════════════ */
-.hist-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.hist-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  min-width: 360px;
+@media (min-width: 600px) {
+  .gasto-card, .ingreso-card { display: none; }
+  .budget-table-wrap { display: block; }
 }
-.hist-table th {
-  background: var(--c4);
-  color: #fff;
-  padding: 9px 12px;
-  text-align: left;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.hist-table th:first-child { border-radius: 10px 0 0 0; }
-.hist-table th:last-child  { border-radius: 0 10px 0 0; }
-.hist-table td { padding: 8px 12px; border-bottom: 1px solid #fce4ef; }
-.hist-table tr:nth-child(even) td { background: #fff7fa; }
-.hist-table tr:hover td { background: #fce4ef; }
-.hist-empty { text-align: center; padding: 40px 20px; color: var(--c3); font-style: italic; }
-.hist-badge {
-  display: inline-block;
-  background: var(--c2);
-  border-radius: 8px;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent);
-  white-space: nowrap;
-}
-
-/* ══════════════════════════════════════════
-   FOOTER & TOAST
-══════════════════════════════════════════ */
-footer {
-  text-align: center;
-  padding: 10px;
-  font-size: 11px;
-  color: var(--c4);
-  opacity: .7;
-  flex-shrink: 0;
-}
-
-#toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--c5);
-  color: #fff;
-  border-radius: 20px;
-  padding: 10px 22px;
-  font-weight: 700;
-  font-size: 14px;
-  z-index: 2000;
-  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-  pointer-events: none;
-  white-space: nowrap;
-  max-width: calc(100vw - 32px);
-}
+/* PENDIENTES */
+.pend-list-header { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.pend-list-header input { flex: 1; border: 2px solid var(--c3); border-radius: 12px; padding: 9px 14px; }
+.pend-lists-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.pend-list-card { background: linear-gradient(135deg, #fff7fa, #fff); border-radius: var(--radius); padding: 14px; border: 1.5px solid var(--c3); }
+.pend-list-card h3 { display: flex; justify-content: space-between; color: var(--accent); margin-bottom: 10px; }
+.pend-items { display: flex; flex-direction: column; gap: 7px; }
+.pend-item { display: flex; align-items: center; gap: 8px; }
+.pend-item input[type="checkbox"] { accent-color: var(--c5); }
+.pend-item input[type="text"] { flex: 1; border: none; border-bottom: 1.5px dashed var(--c3); background: transparent; }
+.checked-item { text-decoration: line-through; opacity: 0.5; }
+.del-item, .del-list { cursor: pointer; opacity: 0.5; }
+.add-item-btn { background: none; border: none; color: var(--c4); font-size: 12px; margin-top: 8px; cursor: pointer; }
+/* HISTÓRICO */
+.hist-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.hist-table th { background: var(--c4); color: white; padding: 8px; text-align: left; }
+.hist-table td { padding: 8px; border-bottom: 1px solid #fce4ef; }
+.hist-badge { background: var(--c2); border-radius: 20px; padding: 2px 10px; display: inline-block; }
+/* TOAST */
+#toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--c5); color: white; border-radius: 40px; padding: 10px 22px; transition: transform .35s; z-index: 2000; white-space: nowrap; }
 #toast.show { transform: translateX(-50%) translateY(0); }
-
-/* ══════════════════════════════════════════
-   SCROLLBAR
-══════════════════════════════════════════ */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--c3); border-radius: 4px; }
-
-/* ══════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-══════════════════════════════════════════ */
-
-/* ── Tiny phones (< 380px) ── */
-@media (max-width: 379px) {
-  #navbar { padding-right: 52px; }
-  .tab { font-size: 10px; padding: 7px 7px 6px; }
-  #main { padding: 14px 12px; }
-  .budget-table-wrap { display: none; }
-  .gasto-card { display: flex; }
-  .date-input { width: 110px; }
-}
-
-/* ── Small phones (380px–599px) ── */
-@media (min-width: 380px) and (max-width: 599px) {
-  .tab { font-size: 11px; padding: 8px 9px 7px; }
-  #main { padding: 16px 14px; }
-  .budget-table-wrap { display: none; }
-  .gasto-card { display: flex; }
-}
-
-/* ── Large phones / small tablets (600px–767px) ── */
-@media (min-width: 600px) and (max-width: 767px) {
-  .tab { font-size: 12px; padding: 9px 12px 8px; }
-  #navbar { padding-right: 58px; }
-  /* show table, hide cards */
-  .budget-table-wrap { display: block; }
-  .gasto-card { display: none; }
-}
-
-/* ── Tablets (768px–1023px) ── */
-@media (min-width: 768px) {
-  #navbar { padding: 12px 12px 0; padding-right: 62px; }
-  .tab { font-size: 13px; padding: 10px 16px 8px; }
-  #main { padding: 22px 24px; margin: 0 12px 12px; }
-  .budget-table-wrap { display: block; }
-  .gasto-card { display: none; }
-  .pend-lists-wrap { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-}
-
-/* ── Desktop (1024px+) ── */
-@media (min-width: 1024px) {
-  body { max-width: 1100px; margin: 0 auto; }
-  #palette-btn { top: 14px; right: 14px; }
-  #palette-panel { top: 66px; right: 14px; }
-  .tab { font-size: 14px; padding: 10px 20px 9px; max-width: 160px; }
-  #main { padding: 28px 32px; margin: 0 14px 14px; border-radius: 0 20px 20px 20px; }
-  .pend-lists-wrap { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-}
+footer { text-align: center; padding: 10px; font-size: 11px; color: var(--c4); }
 </style>
 </head>
 <body>
 
-<!-- PALETTE BUTTON -->
-<button id="palette-btn" title="Cambiar paleta">🎨</button>
-<div id="palette-panel">
-  <div class="palette-row" onclick="setPalette('#FFC20B','#FFA9CB','#F1A0AF','#F2799B','#ED408B')">
-    <span class="palette-swatch" style="background:#FFC20B"></span>
-    <span class="palette-swatch" style="background:#FFA9CB"></span>
-    <span class="palette-swatch" style="background:#F1A0AF"></span>
-    <span class="palette-swatch" style="background:#F2799B"></span>
-    <span class="palette-swatch" style="background:#ED408B"></span>
-    <label>Rosa Dorada</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#DDAEE4','#C8A8D8','#A57788','#765F93','#7B4384')">
-    <span class="palette-swatch" style="background:#DDAEE4"></span>
-    <span class="palette-swatch" style="background:#C8A8D8"></span>
-    <span class="palette-swatch" style="background:#A57788"></span>
-    <span class="palette-swatch" style="background:#765F93"></span>
-    <span class="palette-swatch" style="background:#7B4384"></span>
-    <label>Lila Místico</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#CFE7FF','#BAE3EA','#9DC8DB','#83A8D4','#2874A6')">
-    <span class="palette-swatch" style="background:#CFE7FF"></span>
-    <span class="palette-swatch" style="background:#BAE3EA"></span>
-    <span class="palette-swatch" style="background:#9DC8DB"></span>
-    <span class="palette-swatch" style="background:#83A8D4"></span>
-    <span class="palette-swatch" style="background:#2874A6"></span>
-    <label>Cielo Sereno</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#FCE785','#FDDA59','#FBC15D','#FCA340','#E08000')">
-    <span class="palette-swatch" style="background:#FCE785"></span>
-    <span class="palette-swatch" style="background:#FDDA59"></span>
-    <span class="palette-swatch" style="background:#FBC15D"></span>
-    <span class="palette-swatch" style="background:#FCA340"></span>
-    <span class="palette-swatch" style="background:#E08000"></span>
-    <label>Sol Cálido</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#FFC59E','#F9B57D','#F0844A','#C85F24','#8B3500')">
-    <span class="palette-swatch" style="background:#FFC59E"></span>
-    <span class="palette-swatch" style="background:#F9B57D"></span>
-    <span class="palette-swatch" style="background:#F0844A"></span>
-    <span class="palette-swatch" style="background:#C85F24"></span>
-    <span class="palette-swatch" style="background:#8B3500"></span>
-    <label>Melocotón</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#ABAE98','#919561','#72804A','#485639','#1D3D0B')">
-    <span class="palette-swatch" style="background:#ABAE98"></span>
-    <span class="palette-swatch" style="background:#919561"></span>
-    <span class="palette-swatch" style="background:#72804A"></span>
-    <span class="palette-swatch" style="background:#485639"></span>
-    <span class="palette-swatch" style="background:#1D3D0B"></span>
-    <label>Bosque</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#F8A8A9','#D56464','#A11010','#800D0D','#400000')">
-    <span class="palette-swatch" style="background:#F8A8A9"></span>
-    <span class="palette-swatch" style="background:#D56464"></span>
-    <span class="palette-swatch" style="background:#A11010"></span>
-    <span class="palette-swatch" style="background:#800D0D"></span>
-    <span class="palette-swatch" style="background:#400000"></span>
-    <label>Vino Tinto</label>
-  </div>
-  <div class="palette-row" onclick="setPalette('#9BD9D0','#6EC4BC','#328C8D','#256860','#1A4A4A')">
-    <span class="palette-swatch" style="background:#9BD9D0"></span>
-    <span class="palette-swatch" style="background:#6EC4BC"></span>
-    <span class="palette-swatch" style="background:#328C8D"></span>
-    <span class="palette-swatch" style="background:#256860"></span>
-    <span class="palette-swatch" style="background:#1A4A4A"></span>
-    <label>Menta Verde</label>
-  </div>
-</div>
-
-<!-- NAVBAR -->
 <nav id="navbar">
-  <div class="tab active"  onclick="showSection('home',this)">🏠 Inicio</div>
+  <div class="tab active" onclick="showSection('home',this)">🏠 Inicio</div>
   <div class="tab" onclick="showSection('pendientes',this)">📋 Pendientes</div>
   <div class="tab" onclick="showSection('calendario',this)">📅 Calendario</div>
   <div class="tab" onclick="showSection('gastos',this)">💰 Gastos</div>
   <div class="tab" onclick="showSection('historico',this)">📊 Histórico</div>
 </nav>
 
-<!-- MAIN -->
 <div id="main">
-
-  <!-- ── INICIO ── -->
-  <div id="home" class="section active">
-    <div id="hero">
-      <span class="hearts">💕</span>
-      <h1>Con Amor de<br>tu Papi</h1>
-      <p>Tu espacio personal para organizar tu vida 🌸</p>
-      <span class="hearts" style="font-size:1.4rem;animation-delay:.4s">✨ 🌹 ✨</span>
-    </div>
+  <button id="palette-btn">🎨</button>
+  <div id="palette-panel">
+    <div class="palette-row" onclick="setPalette('#FFC20B','#FFA9CB','#F1A0AF','#F2799B','#ED408B')"><span class="palette-swatch" style="background:#FFC20B"></span><span class="palette-swatch" style="background:#FFA9CB"></span><span class="palette-swatch" style="background:#F1A0AF"></span><span class="palette-swatch" style="background:#F2799B"></span><span class="palette-swatch" style="background:#ED408B"></span><label>Rosa Dorada</label></div>
+    <div class="palette-row" onclick="setPalette('#DDAEE4','#C8A8D8','#A57788','#765F93','#7B4384')"><span class="palette-swatch" style="background:#DDAEE4"></span><span class="palette-swatch" style="background:#C8A8D8"></span><span class="palette-swatch" style="background:#A57788"></span><span class="palette-swatch" style="background:#765F93"></span><span class="palette-swatch" style="background:#7B4384"></span><label>Lila Místico</label></div>
+    <div class="palette-row" onclick="setPalette('#CFE7FF','#BAE3EA','#9DC8DB','#83A8D4','#2874A6')"><span class="palette-swatch" style="background:#CFE7FF"></span><span class="palette-swatch" style="background:#BAE3EA"></span><span class="palette-swatch" style="background:#9DC8DB"></span><span class="palette-swatch" style="background:#83A8D4"></span><span class="palette-swatch" style="background:#2874A6"></span><label>Cielo Sereno</label></div>
+    <div class="palette-row" onclick="setPalette('#FCE785','#FDDA59','#FBC15D','#FCA340','#E08000')"><span class="palette-swatch" style="background:#FCE785"></span><span class="palette-swatch" style="background:#FDDA59"></span><span class="palette-swatch" style="background:#FBC15D"></span><span class="palette-swatch" style="background:#FCA340"></span><span class="palette-swatch" style="background:#E08000"></span><label>Sol Cálido</label></div>
+    <div class="palette-row" onclick="setPalette('#FFC59E','#F9B57D','#F0844A','#C85F24','#8B3500')"><span class="palette-swatch" style="background:#FFC59E"></span><span class="palette-swatch" style="background:#F9B57D"></span><span class="palette-swatch" style="background:#F0844A"></span><span class="palette-swatch" style="background:#C85F24"></span><span class="palette-swatch" style="background:#8B3500"></span><label>Melocotón</label></div>
   </div>
 
-  <!-- ── PENDIENTES ── -->
-  <div id="pendientes" class="section">
-    <h2 class="sec-title">📋 Listas de Pendientes</h2>
-    <div class="pend-list-header">
-      <input type="text" id="new-list-name" placeholder="Nombre de nueva lista (ej: Supermercado)"
-        onkeydown="if(event.key==='Enter')addPendList()">
-      <button class="btn-pink" onclick="addPendList()">+ Lista</button>
+  <!-- INICIO -->
+  <div id="home" class="section active"><div id="hero"><span class="hearts">💕</span><h1>Con Amor de<br>tu Papi</h1><p>Tu espacio personal para organizar tu vida 🌸</p><span class="hearts">✨ 🌹 ✨</span></div></div>
+
+  <!-- PENDIENTES -->
+  <div id="pendientes" class="section"><h2 class="sec-title">📋 Listas de Pendientes</h2><div class="pend-list-header"><input type="text" id="new-list-name" placeholder="Nombre nueva lista" onkeydown="if(event.key==='Enter')addPendList()"><button class="btn-pink" onclick="addPendList()">+ Lista</button></div><div class="pend-lists-wrap" id="pend-lists-wrap"></div></div>
+
+  <!-- CALENDARIO CON HORARIO A LOS LADOS -->
+  <div id="calendario" class="section"><h2 class="sec-title">📅 Agenda con Horario</h2><div id="calendar-root"></div></div>
+
+  <!-- GASTOS (COMPLETO CON TARJETAS DE INGRESOS EN MÓVIL) -->
+  <div id="gastos" class="section"><h2 class="sec-title">💰 Presupuesto Mensual</h2>
+    <div class="budget-section"><h3>✅ (+) Ingresos</h3>
+      <div class="budget-table-wrap"><table class="budget-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Estimado</th><th>Real</th></tr></thead><tbody>
+        <tr><td><input class="date-input" type="date" id="ing-fecha-sueldo" value=""></td><td><div class="desc-cell"><span class="desc-icon">💵</span><span>Sueldo</span></div></td><td><input class="amount-input" type="number" id="ing-est-sueldo" placeholder="$0" oninput="calcTotals()"></td><td><input class="amount-input" type="number" id="ing-real-sueldo" placeholder="$0" oninput="calcTotals()"></td></tr>
+        <tr><td><input class="date-input" type="date" id="ing-fecha-extra" value=""></td><td><div class="desc-cell"><span class="desc-icon">💼</span><span>Trabajo extra</span></div></td><td><input class="amount-input" type="number" id="ing-est-extra" placeholder="$0" oninput="calcTotals()"></td><td><input class="amount-input" type="number" id="ing-real-extra" placeholder="$0" oninput="calcTotals()"></td></tr>
+        <tr><td><input class="date-input" type="date" id="ing-fecha-inv" value=""></td><td><div class="desc-cell"><span class="desc-icon">📈</span><span>Inversiones</span></div></td><td><input class="amount-input" type="number" id="ing-est-inv" placeholder="$0" oninput="calcTotals()"></td><td><input class="amount-input" type="number" id="ing-real-inv" placeholder="$0" oninput="calcTotals()"></td></tr>
+      </tbody></table></div>
+      <!-- Tarjetas de ingresos para móvil -->
+      <div id="ingresos-cards"></div>
+      <div class="totals-row"><span>Suma de ingresos</span><span>Est: <strong id="sum-ing-est">$0</strong> | Real: <strong id="sum-ing-real">$0</strong></span></div>
     </div>
-    <div class="pend-lists-wrap" id="pend-lists-wrap"></div>
-  </div>
-
-  <!-- ── CALENDARIO ── -->
-  <div id="calendario" class="section">
-    <h2 class="sec-title">📅 Calendario</h2>
-    <div class="cal-wrap">
-      <div class="cal-nav">
-        <button onclick="changeMonth(-1)">◀</button>
-        <h3 id="cal-title"></h3>
-        <button onclick="changeMonth(1)">▶</button>
-      </div>
-      <div class="cal-grid" id="cal-grid"></div>
-      <div class="events-panel">
-        <h4 id="events-title">Selecciona un día para ver o agregar eventos</h4>
-        <div id="events-list"></div>
-        <div class="event-add" id="event-add-wrap">
-          <input type="text" id="event-input" placeholder="Agregar nota o evento..."
-            onkeydown="if(event.key==='Enter')addEvent()">
-          <button class="btn-pink" onclick="addEvent()">+ Agregar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── GASTOS ── -->
-  <div id="gastos" class="section">
-    <h2 class="sec-title">💰 Presupuesto Mensual</h2>
-
-    <!-- INGRESOS -->
-    <div class="budget-section">
-      <h3>✅ (+) Ingresos</h3>
-
-      <!-- Table (≥600px) -->
-      <div class="budget-table-wrap">
-        <table class="budget-table">
-          <thead>
-            <tr><th>Fecha</th><th>Descripción</th><th>Estimado</th><th>Real</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input class="date-input" type="date" id="ing-fecha-sueldo" value=""></td>
-              <td><div class="desc-cell"><span class="desc-icon">💵</span><span>Sueldo</span></div></td>
-              <td><input class="amount-input" type="number" id="ing-est-sueldo" placeholder="$0" oninput="calcTotals()"></td>
-              <td><input class="amount-input" type="number" id="ing-real-sueldo" placeholder="$0" oninput="calcTotals()"></td>
-            </tr>
-            <tr>
-              <td><input class="date-input" type="date" id="ing-fecha-extra" value=""></td>
-              <td><div class="desc-cell"><span class="desc-icon">💼</span><span>Trabajo extra</span></div></td>
-              <td><input class="amount-input" type="number" id="ing-est-extra" placeholder="$0" oninput="calcTotals()"></td>
-              <td><input class="amount-input" type="number" id="ing-real-extra" placeholder="$0" oninput="calcTotals()"></td>
-            </tr>
-            <tr>
-              <td><input class="date-input" type="date" id="ing-fecha-inv" value=""></td>
-              <td><div class="desc-cell"><span class="desc-icon">📈</span><span>Inversiones</span></div></td>
-              <td><input class="amount-input" type="number" id="ing-est-inv" placeholder="$0" oninput="calcTotals()"></td>
-              <td><input class="amount-input" type="number" id="ing-real-inv" placeholder="$0" oninput="calcTotals()"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- Cards (mobile) -->
-      <div id="ing-cards">
-        <div class="gasto-card">
-          <div class="gasto-card-header">
-            <div class="gasto-card-title"><span>💵</span><span>Sueldo</span></div>
-            <input class="date-input" type="date" id="ing-fecha-sueldo-m">
-          </div>
-          <div class="gasto-card-row">
-            <div><label>Estimado</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-est-sueldo-m" placeholder="$0" oninput="syncIng('sueldo','est',this.value)"></div>
-            <div><label>Real</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-real-sueldo-m" placeholder="$0" oninput="syncIng('sueldo','real',this.value)"></div>
-          </div>
-        </div>
-        <div class="gasto-card">
-          <div class="gasto-card-header">
-            <div class="gasto-card-title"><span>💼</span><span>Trabajo extra</span></div>
-            <input class="date-input" type="date" id="ing-fecha-extra-m">
-          </div>
-          <div class="gasto-card-row">
-            <div><label>Estimado</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-est-extra-m" placeholder="$0" oninput="syncIng('extra','est',this.value)"></div>
-            <div><label>Real</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-real-extra-m" placeholder="$0" oninput="syncIng('extra','real',this.value)"></div>
-          </div>
-        </div>
-        <div class="gasto-card">
-          <div class="gasto-card-header">
-            <div class="gasto-card-title"><span>📈</span><span>Inversiones</span></div>
-            <input class="date-input" type="date" id="ing-fecha-inv-m">
-          </div>
-          <div class="gasto-card-row">
-            <div><label>Estimado</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-est-inv-m" placeholder="$0" oninput="syncIng('inv','est',this.value)"></div>
-            <div><label>Real</label><br><input class="amount-input" style="width:100px;text-align:left" type="number" id="ing-real-inv-m" placeholder="$0" oninput="syncIng('inv','real',this.value)"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="totals-row">
-        <span>Suma de ingresos</span>
-        <span>Est: <strong id="sum-ing-est">$0</strong> &nbsp;|&nbsp; Real: <strong id="sum-ing-real">$0</strong></span>
-      </div>
-    </div>
-
-    <!-- GASTOS -->
-    <div class="budget-section">
-      <h3>❌ (-) Gastos</h3>
-      <!-- Table (≥600px) -->
-      <div class="budget-table-wrap">
-        <table class="budget-table">
-          <thead>
-            <tr><th>Fecha</th><th>Descripción</th><th>Estimado</th><th>Real acum.</th><th>Agregar</th></tr>
-          </thead>
-          <tbody id="gastos-tbody"></tbody>
-        </table>
-      </div>
-      <!-- Cards (mobile) -->
+    <div class="budget-section"><h3>❌ (-) Gastos</h3>
+      <div class="budget-table-wrap"><table class="budget-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Estimado</th><th>Real acum.</th><th>Agregar</th></tr></thead><tbody id="gastos-tbody"></tbody></table></div>
       <div id="gastos-cards"></div>
-
-      <div class="totals-row">
-        <span>Suma de gastos</span>
-        <span>Est: <strong id="sum-gas-est">$0</strong> &nbsp;|&nbsp; Real: <strong id="sum-gas-real">$0</strong></span>
-      </div>
+      <div class="totals-row"><span>Suma de gastos</span><span>Est: <strong id="sum-gas-est">$0</strong> | Real: <strong id="sum-gas-real">$0</strong></span></div>
     </div>
-
-    <div class="saldo-row">
-      <span>(-) Saldo Neto</span>
-      <span>Est: <strong id="saldo-est">$0</strong> &nbsp;|&nbsp; Real: <strong id="saldo-real">$0</strong></span>
-    </div>
-
+    <div class="saldo-row"><span>(-) Saldo Neto</span><span>Est: <strong id="saldo-est">$0</strong> | Real: <strong id="saldo-real">$0</strong></span></div>
     <button id="btn-done" onclick="doneGastos()">✅ Done — Guardar en Histórico</button>
   </div>
 
-  <!-- ── HISTÓRICO ── -->
-  <div id="historico" class="section">
-    <h2 class="sec-title">📊 Histórico de Gastos</h2>
-    <div class="hist-table-wrap" id="hist-container">
-      <div class="hist-empty">Aún no hay registros. ¡Agrega gastos y presiona Done!</div>
-    </div>
-  </div>
-
+  <!-- HISTÓRICO -->
+  <div id="historico" class="section"><h2 class="sec-title">📊 Histórico de Gastos</h2><div id="hist-container"></div></div>
 </div>
-
 <footer>Hecho con 💕 para ti</footer>
 <div id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════
-//  PALETTE
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════ PALETA
 function setPalette(c1,c2,c3,c4,c5) {
-  const r = document.documentElement.style;
-  r.setProperty('--c1', c1);
-  r.setProperty('--c2', c2);
-  r.setProperty('--c3', c3);
-  r.setProperty('--c4', c4);
-  r.setProperty('--c5', c5);
-  r.setProperty('--accent', c5);
-  r.setProperty('--tab1', c2);
-  r.setProperty('--tab2', c1);
+  let r = document.documentElement.style;
+  r.setProperty('--c1', c1); r.setProperty('--c2', c2); r.setProperty('--c3', c3);
+  r.setProperty('--c4', c4); r.setProperty('--c5', c5); r.setProperty('--accent', c5);
+  r.setProperty('--tab1', c2); r.setProperty('--tab2', c1);
   document.getElementById('palette-panel').classList.remove('open');
-  showToast('Paleta aplicada 🎨');
+  showToast('Paleta cambiada');
 }
-document.getElementById('palette-btn').addEventListener('click', e => {
-  e.stopPropagation();
-  document.getElementById('palette-panel').classList.toggle('open');
-});
-document.addEventListener('click', e => {
-  if (!e.target.closest('#palette-panel') && !e.target.closest('#palette-btn'))
-    document.getElementById('palette-panel').classList.remove('open');
-});
-
-// ═══════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════
+document.getElementById('palette-btn').addEventListener('click', e => { e.stopPropagation(); document.getElementById('palette-panel').classList.toggle('open'); });
+document.addEventListener('click', e => { if (!e.target.closest('#palette-panel') && !e.target.closest('#palette-btn')) document.getElementById('palette-panel').classList.remove('open'); });
+function showToast(msg){ let t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 function showSection(id, tabEl) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (tabEl) tabEl.classList.add('active');
-  if (id === 'calendario') renderCal();
-  if (id === 'historico')  renderHistorico();
+  if (id === 'calendario') renderCalendarApp();
+  if (id === 'historico') renderHistorico();
+  if (id === 'gastos') { calcTotals(); buildIngresosCards(); }
 }
 
-// ═══════════════════════════════════════════
-//  PENDIENTES
-// ═══════════════════════════════════════════
-let pendLists = JSON.parse(localStorage.getItem('pendLists') || '[]');
-function savePend() { localStorage.setItem('pendLists', JSON.stringify(pendLists)); }
+// ═══════════════════════════════════════════ CALENDARIO CON FRANJAS HORARIAS
+let calEvents = JSON.parse(localStorage.getItem('calEventsFull') || '{}'); // { "2026-04-02": { "09:00": "Reunión", "10:30": "Clase" } }
+let currentMonth = new Date();
+let selectedDateStr = null;
+function migrateOldEvents() {
+  let old = localStorage.getItem('calEventsNew');
+  if (old && !localStorage.getItem('calEventsFull')) {
+    try {
+      let oldObj = JSON.parse(old);
+      let newObj = {};
+      for (let date in oldObj) {
+        if (Array.isArray(oldObj[date])) {
+          newObj[date] = {};
+          oldObj[date].forEach(ev => { if(ev.time && ev.text) newObj[date][ev.time] = ev.text; });
+        }
+      }
+      localStorage.setItem('calEventsFull', JSON.stringify(newObj));
+    } catch(e) {}
+  }
+}
+migrateOldEvents();
+function saveCalEvents() { localStorage.setItem('calEventsFull', JSON.stringify(calEvents)); }
 
+function renderCalendarApp() {
+  const container = document.getElementById('calendar-root');
+  if (!container) return;
+  renderMonthView(container);
+}
+
+function renderMonthView(container) {
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  let html = `<div class="calendar-container"><div class="month-view"><div class="cal-nav"><button onclick="changeMonth(-1)">◀</button><h3>${getMonthName(month)} ${year}</h3><button onclick="changeMonth(1)">▶</button></div><div class="weekdays">${['Do','Lu','Ma','Mi','Ju','Vi','Sa'].map(d=>`<div>${d}</div>`).join('')}</div><div class="cal-days-grid">`;
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day-cell empty"></div>`;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const hasEvent = calEvents[dateKey] && Object.keys(calEvents[dateKey]).length > 0;
+    const isToday = (dateKey === todayStr);
+    html += `<div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}" onclick="openDayView('${dateKey}')">${d}</div>`;
+  }
+  html += `</div></div></div>`;
+  container.innerHTML = html;
+}
+
+function changeMonth(dir) { currentMonth.setMonth(currentMonth.getMonth() + dir); renderCalendarApp(); }
+
+function openDayView(dateStr) {
+  selectedDateStr = dateStr;
+  const [year, month, day] = dateStr.split('-');
+  const formattedDate = `${day}/${month}/${year}`;
+  const eventsMap = calEvents[dateStr] || {};
+  let scheduleHtml = `<div class="day-view"><div class="day-header"><h4>📅 ${formattedDate}</h4><button class="back-btn" onclick="renderCalendarApp()">← Volver al mes</button></div><div class="schedule-grid">`;
+  for (let h = 0; h < 24; h++) {
+    const hourStr = `${String(h).padStart(2,'0')}:00`;
+    const displayHour = (h === 0 ? '12:00 AM' : (h < 12 ? `${h}:00 AM` : (h === 12 ? '12:00 PM' : `${h-12}:00 PM`)));
+    const eventText = eventsMap[hourStr] || '';
+    scheduleHtml += `<div class="time-row"><div class="time-label">${displayHour}</div><div class="event-content">`;
+    if (eventText) {
+      scheduleHtml += `<span class="event-text">${escapeHtml(eventText)}</span><span class="del-event" onclick="deleteEventFromHour('${dateStr}','${hourStr}')">🗑️</span>`;
+    } else {
+      scheduleHtml += `<input type="text" class="add-event-input" id="input-${dateStr}-${hourStr}" placeholder="Agregar evento..."><button class="add-event-btn" onclick="addEventToHour('${dateStr}','${hourStr}')">+</button>`;
+    }
+    scheduleHtml += `</div></div>`;
+  }
+  scheduleHtml += `</div></div>`;
+  document.getElementById('calendar-root').innerHTML = scheduleHtml;
+}
+
+function addEventToHour(dateStr, hourStr) {
+  const inputId = `input-${dateStr}-${hourStr}`;
+  const input = document.getElementById(inputId);
+  const text = input.value.trim();
+  if (!text) { showToast("Escribe una descripción"); return; }
+  if (!calEvents[dateStr]) calEvents[dateStr] = {};
+  calEvents[dateStr][hourStr] = text;
+  saveCalEvents();
+  openDayView(dateStr);
+  showToast("Evento agregado");
+}
+
+function deleteEventFromHour(dateStr, hourStr) {
+  if (calEvents[dateStr] && calEvents[dateStr][hourStr]) {
+    delete calEvents[dateStr][hourStr];
+    if (Object.keys(calEvents[dateStr]).length === 0) delete calEvents[dateStr];
+    saveCalEvents();
+    openDayView(dateStr);
+    showToast("Evento eliminado");
+  }
+}
+
+function getMonthName(m) { return ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][m]; }
+function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ═══════════════════════════════════════════ PENDIENTES
+let pendLists = JSON.parse(localStorage.getItem('pendLists') || '[]');
+function savePend() { localStorage.setItem('pendLists', JSON.stringify(pendLists)); renderPendLists(); }
 function renderPendLists() {
   const wrap = document.getElementById('pend-lists-wrap');
+  if(!wrap) return;
   wrap.innerHTML = '';
   pendLists.forEach((list, li) => {
-    const card = document.createElement('div');
-    card.className = 'pend-list-card';
-    card.innerHTML = `
-      <h3><span>${list.name}</span><span class="del-list" onclick="delList(${li})">🗑</span></h3>
-      <div class="pend-items">
-        ${list.items.map((item, ii) => `
-          <div class="pend-item">
-            <input type="checkbox" ${item.done?'checked':''} onchange="toggleItem(${li},${ii},this)">
-            <input type="text" value="${escHtml(item.text)}" class="${item.done?'checked-item':''}"
-              onchange="editItem(${li},${ii},this.value)" placeholder="Escribe aquí...">
-            <span class="del-item" onclick="delItem(${li},${ii})">✕</span>
-          </div>`).join('')}
-      </div>
-      <button class="add-item-btn" onclick="addItem(${li})">+ Agregar ítem</button>`;
+    const card = document.createElement('div'); card.className = 'pend-list-card';
+    card.innerHTML = `<h3><span>${escapeHtml(list.name)}</span><span class="del-list" onclick="delList(${li})">🗑</span></h3><div class="pend-items">${list.items.map((item, ii) => `<div class="pend-item"><input type="checkbox" ${item.done?'checked':''} onchange="toggleItem(${li},${ii},this)"><input type="text" value="${escapeHtml(item.text)}" class="${item.done?'checked-item':''}" onchange="editItem(${li},${ii},this.value)"><span class="del-item" onclick="delItem(${li},${ii})">✕</span></div>`).join('')}</div><button class="add-item-btn" onclick="addItem(${li})">+ Agregar ítem</button>`;
     wrap.appendChild(card);
   });
 }
-
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
-
-function addPendList() {
-  const inp = document.getElementById('new-list-name');
-  const name = inp.value.trim();
-  if (!name) return;
-  pendLists.push({ name, items: [{ text: '', done: false }] });
-  savePend(); renderPendLists(); inp.value = '';
-}
-function delList(li) { pendLists.splice(li,1); savePend(); renderPendLists(); }
-function addItem(li) { pendLists[li].items.push({ text:'', done:false }); savePend(); renderPendLists(); }
-function delItem(li,ii) { pendLists[li].items.splice(ii,1); savePend(); renderPendLists(); }
-function toggleItem(li,ii,cb) { pendLists[li].items[ii].done = cb.checked; savePend(); renderPendLists(); }
+function addPendList() { let name = document.getElementById('new-list-name')?.value.trim(); if(name){ pendLists.push({ name, items: [{ text:'', done:false }] }); savePend(); document.getElementById('new-list-name').value=''; } }
+function delList(li) { pendLists.splice(li,1); savePend(); }
+function addItem(li) { pendLists[li].items.push({ text:'', done:false }); savePend(); }
+function delItem(li,ii) { pendLists[li].items.splice(ii,1); savePend(); }
+function toggleItem(li,ii,cb) { pendLists[li].items[ii].done = cb.checked; savePend(); }
 function editItem(li,ii,val) { pendLists[li].items[ii].text = val; savePend(); }
 renderPendLists();
 
-// ═══════════════════════════════════════════
-//  CALENDARIO
-// ═══════════════════════════════════════════
-let calDate = new Date();
-let calEvents = JSON.parse(localStorage.getItem('calEvents') || '{}');
-let selectedDay = null;
-function saveCalEvents() { localStorage.setItem('calEvents', JSON.stringify(calEvents)); }
-function changeMonth(dir) { calDate.setMonth(calDate.getMonth()+dir); renderCal(); }
-
-function renderCal() {
-  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  const year = calDate.getFullYear(), month = calDate.getMonth();
-  document.getElementById('cal-title').textContent = `${months[month]} ${year}`;
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
-  ['Do','Lu','Ma','Mi','Ju','Vi','Sá'].forEach(d => {
-    const el = document.createElement('div');
-    el.className = 'cal-day-name'; el.textContent = d; grid.appendChild(el);
-  });
-  const first = new Date(year, month, 1).getDay();
-  const days  = new Date(year, month+1, 0).getDate();
-  const today = new Date();
-  for (let i=0; i<first; i++) {
-    const el = document.createElement('div'); el.className='cal-day empty'; grid.appendChild(el);
-  }
-  for (let d=1; d<=days; d++) {
-    const el = document.createElement('div'); el.className = 'cal-day';
-    const key = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    if (today.getDate()===d && today.getMonth()===month && today.getFullYear()===year) el.classList.add('today');
-    if (calEvents[key]?.length) el.classList.add('has-event');
-    el.textContent = d;
-    el.onclick = () => selectDay(key, d, months[month], year);
-    grid.appendChild(el);
-  }
-}
-
-function selectDay(key, d, month, year) {
-  selectedDay = key;
-  document.getElementById('events-title').textContent = `${d} de ${month} ${year}`;
-  const list = document.getElementById('events-list');
-  list.innerHTML = '';
-  (calEvents[key]||[]).forEach((ev,i) => {
-    const div = document.createElement('div');
-    div.className = 'event-item';
-    div.innerHTML = `<div class="event-dot"></div><div class="event-text">${escHtml(ev)}</div><span class="event-del" onclick="delEvent('${key}',${i})">✕</span>`;
-    list.appendChild(div);
-  });
-  document.getElementById('event-add-wrap').classList.add('visible');
-}
-
-function addEvent() {
-  const inp = document.getElementById('event-input');
-  const text = inp.value.trim();
-  if (!text || !selectedDay) return;
-  if (!calEvents[selectedDay]) calEvents[selectedDay] = [];
-  calEvents[selectedDay].push(text);
-  saveCalEvents(); inp.value = '';
-  selectDay(selectedDay, +selectedDay.split('-')[2], '', selectedDay.split('-')[0]);
-  renderCal();
-}
-function delEvent(key,i) {
-  calEvents[key].splice(i,1);
-  if (!calEvents[key].length) delete calEvents[key];
-  saveCalEvents();
-  selectDay(key, +key.split('-')[2], '', key.split('-')[0]);
-  renderCal();
-}
-
-// ═══════════════════════════════════════════
-//  GASTOS
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════ GASTOS COMPLETO + INGRESOS CARDS
 const gastosCats = [
-  { icon:'🍽️', name:'Alimentación', id:'alimentacion', editable:true  },
-  { icon:'🚌', name:'Transporte',    id:'transporte',   editable:false },
-  { icon:'🧴', name:'Higiene',       id:'higiene',      editable:true  },
-  { icon:'🏠', name:'Renta',         id:'renta',        editable:false },
-  { icon:'👗', name:'Ropa',          id:'ropa',         editable:true  },
-  { icon:'🛒', name:'Nec. del Hogar',id:'hogar',        editable:true  },
-  { icon:'💄', name:'Belleza',       id:'belleza',      editable:true  },
-  { icon:'💰', name:'Ahorros',       id:'ahorros',      editable:false },
-  { icon:'📈', name:'Invertir',      id:'invertir',     editable:false },
-  { icon:'🎉', name:'Ocio',          id:'ocio',         editable:true  },
-  { icon:'⭐', name:'Otros',         id:'otros',        editable:true  },
+  { icon:'🍽️', name:'Alimentación', id:'alimentacion', editable:true }, { icon:'🚌', name:'Transporte', id:'transporte', editable:false },
+  { icon:'🧴', name:'Higiene', id:'higiene', editable:true }, { icon:'🏠', name:'Renta', id:'renta', editable:false },
+  { icon:'👗', name:'Ropa', id:'ropa', editable:true }, { icon:'🛒', name:'Nec. del Hogar', id:'hogar', editable:true },
+  { icon:'💄', name:'Belleza', id:'belleza', editable:true }, { icon:'💰', name:'Ahorros', id:'ahorros', editable:false },
+  { icon:'📈', name:'Invertir', id:'invertir', editable:false }, { icon:'🎉', name:'Ocio', id:'ocio', editable:true },
+  { icon:'⭐', name:'Otros', id:'otros', editable:true }
 ];
 let gastosReal = JSON.parse(localStorage.getItem('gastosReal') || '{}');
-let gastosEst  = JSON.parse(localStorage.getItem('gastosEst')  || '{}');
-let currentDescs = {};
-function saveGastos() {
-  localStorage.setItem('gastosReal', JSON.stringify(gastosReal));
-  localStorage.setItem('gastosEst',  JSON.stringify(gastosEst));
+let gastosEst = JSON.parse(localStorage.getItem('gastosEst') || '{}');
+let currentDescs = JSON.parse(localStorage.getItem('gastosDescs') || '{}');
+function saveGastos() { localStorage.setItem('gastosReal', JSON.stringify(gastosReal)); localStorage.setItem('gastosEst', JSON.stringify(gastosEst)); localStorage.setItem('gastosDescs', JSON.stringify(currentDescs)); }
+function todayStr() { let d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+function buildIngresosCards() {
+  const container = document.getElementById('ingresos-cards');
+  if (!container) return;
+  const ingresos = [
+    { icon:'💵', name:'Sueldo', id:'sueldo' },
+    { icon:'💼', name:'Trabajo extra', id:'extra' },
+    { icon:'📈', name:'Inversiones', id:'inv' }
+  ];
+  container.innerHTML = '';
+  ingresos.forEach(inc => {
+    const card = document.createElement('div');
+    card.className = 'ingreso-card';
+    card.innerHTML = `
+      <div class="ingreso-card-header">
+        <div class="ingreso-card-title"><span>${inc.icon}</span><span>${inc.name}</span></div>
+        <input class="date-input" type="date" id="ing-fecha-${inc.id}-m" value="${document.getElementById(`ing-fecha-${inc.id}`)?.value || todayStr()}">
+      </div>
+      <div class="ingreso-card-row">
+        <div><label>Estimado</label><br><input class="amount-input" type="number" id="ing-est-${inc.id}-m" placeholder="$0" value="${document.getElementById(`ing-est-${inc.id}`)?.value || ''}" oninput="syncIngreso('${inc.id}','est',this.value)"></div>
+        <div><label>Real</label><br><input class="amount-input" type="number" id="ing-real-${inc.id}-m" placeholder="$0" value="${document.getElementById(`ing-real-${inc.id}`)?.value || ''}" oninput="syncIngreso('${inc.id}','real',this.value)"></div>
+      </div>
+    `;
+    container.appendChild(card);
+    // sync date changes
+    const mobileDate = document.getElementById(`ing-fecha-${inc.id}-m`);
+    if (mobileDate) {
+      mobileDate.addEventListener('change', () => {
+        const tableDate = document.getElementById(`ing-fecha-${inc.id}`);
+        if (tableDate) tableDate.value = mobileDate.value;
+      });
+    }
+  });
 }
 
-function todayStr() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-// Sync mobile income inputs with table inputs
-function syncIng(key, type, val) {
-  const tableEl = document.getElementById(`ing-${type}-${key}`);
+function syncIngreso(id, type, val) {
+  const tableEl = document.getElementById(`ing-${type}-${id}`);
   if (tableEl) tableEl.value = val;
   calcTotals();
 }
 
-function buildGastosTable() {
+function buildGastos() {
   const tbody = document.getElementById('gastos-tbody');
-  const cards = document.getElementById('gastos-cards');
+  const cardsDiv = document.getElementById('gastos-cards');
+  if (!tbody || !cardsDiv) return;
   tbody.innerHTML = '';
-  cards.innerHTML = '';
-
+  cardsDiv.innerHTML = '';
   gastosCats.forEach(cat => {
     const realVal = gastosReal[cat.id] || 0;
-    const estVal  = gastosEst[cat.id]  || '';
-
-    // ── Table row ──
+    const estVal = gastosEst[cat.id] || '';
+    const descText = currentDescs[cat.id] || cat.name;
+    // Table row
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input class="date-input" type="date" id="gas-fecha-${cat.id}" value="${todayStr()}"></td>
-      <td>
-        <div class="desc-cell">
-          <span class="desc-icon">${cat.icon}</span>
-          ${cat.editable
-            ? `<span class="desc-label" id="label-${cat.id}" onclick="editDesc('${cat.id}')">${cat.name}</span>
-               <input class="desc-input" id="input-${cat.id}" placeholder="${cat.name}..."
-                 onblur="saveDesc('${cat.id}')" onkeydown="if(event.key==='Enter')saveDesc('${cat.id}')">`
-            : `<span>${cat.name}</span>`}
-        </div>
-      </td>
-      <td><input class="amount-input" type="number" id="est-${cat.id}" placeholder="$0" value="${estVal}"
-        oninput="gastosEst['${cat.id}']=this.value;saveGastos();calcTotals()"></td>
+    tr.innerHTML = `<td><input class="date-input" type="date" id="gas-fecha-${cat.id}" value="${todayStr()}"></td>
+      <td><div class="desc-cell"><span class="desc-icon">${cat.icon}</span>${cat.editable ? `<span class="desc-label" onclick="editDesc('${cat.id}')">${escapeHtml(descText)}</span><input class="desc-input" id="input-${cat.id}" onblur="saveDesc('${cat.id}')">` : `<span>${cat.name}</span>`}</div></td>
+      <td><input class="amount-input" type="number" id="est-${cat.id}" value="${estVal}" oninput="gastosEst['${cat.id}']=this.value;saveGastos();calcTotals()"></td>
       <td><span class="real-display" id="real-display-${cat.id}">$${realVal.toLocaleString()}</span></td>
       <td><input class="real-add-input" type="number" id="real-input-${cat.id}" placeholder="+"></td>`;
     tbody.appendChild(tr);
-
-    // ── Card (mobile) ──
-    const card = document.createElement('div');
-    card.className = 'gasto-card';
-    card.innerHTML = `
-      <div class="gasto-card-header">
-        <div class="gasto-card-title">
-          <span>${cat.icon}</span>
-          ${cat.editable
-            ? `<span class="desc-label" id="label-m-${cat.id}" onclick="editDescM('${cat.id}')">${cat.name}</span>
-               <input class="desc-input" id="input-m-${cat.id}" placeholder="${cat.name}..."
-                 onblur="saveDescM('${cat.id}')" onkeydown="if(event.key==='Enter')saveDescM('${cat.id}')">`
-            : `<span>${cat.name}</span>`}
-        </div>
-        <input class="date-input" type="date" id="gas-fecha-m-${cat.id}" value="${todayStr()}">
-      </div>
-      <div class="gasto-card-row">
-        <div>
-          <label>Estimado</label><br>
-          <input class="amount-input" style="width:90px;text-align:left;border:1.5px solid #f5d0da;border-radius:8px;padding:4px 8px"
-            type="number" id="est-m-${cat.id}" placeholder="$0" value="${estVal}"
-            oninput="gastosEst['${cat.id}']=this.value;document.getElementById('est-${cat.id}').value=this.value;saveGastos();calcTotals()">
-        </div>
-        <div>
-          <label>Real acum.</label><br>
-          <span class="real-display" id="real-display-m-${cat.id}" style="font-size:14px">$${realVal.toLocaleString()}</span>
-        </div>
-        <div>
-          <label>Agregar ($)</label><br>
-          <input class="real-add-input" type="number" id="real-input-m-${cat.id}" placeholder="+">
-        </div>
-      </div>`;
-    cards.appendChild(card);
+    // Card mobile
+    const card = document.createElement('div'); card.className = 'gasto-card';
+    card.innerHTML = `<div class="gasto-card-header"><div class="gasto-card-title"><span>${cat.icon}</span>${cat.editable ? `<span class="desc-label" onclick="editDescM('${cat.id}')">${escapeHtml(descText)}</span><input class="desc-input" id="input-m-${cat.id}" onblur="saveDescM('${cat.id}')">` : `<span>${cat.name}</span>`}</div><input class="date-input" type="date" id="gas-fecha-m-${cat.id}" value="${todayStr()}"></div>
+      <div class="gasto-card-row"><div><label>Estimado</label><br><input class="amount-input" type="number" id="est-m-${cat.id}" value="${estVal}" oninput="syncEst('${cat.id}',this.value)"></div>
+      <div><label>Real acum.</label><br><span class="real-display" id="real-display-m-${cat.id}">$${realVal.toLocaleString()}</span></div>
+      <div><label>Agregar</label><br><input class="real-add-input" type="number" id="real-input-m-${cat.id}" placeholder="+"></div></div>`;
+    cardsDiv.appendChild(card);
   });
   calcTotals();
 }
-
-function editDesc(id) {
-  document.getElementById(`label-${id}`).style.display = 'none';
-  const inp = document.getElementById(`input-${id}`);
-  inp.classList.add('visible'); inp.value = currentDescs[id]||''; inp.focus();
-}
-function saveDesc(id) {
-  const val = document.getElementById(`input-${id}`).value.trim();
-  currentDescs[id] = val;
-  const cat = gastosCats.find(c=>c.id===id);
-  const txt = val || cat.name;
-  document.getElementById(`label-${id}`).textContent = txt;
-  document.getElementById(`label-${id}`).style.display = '';
-  document.getElementById(`input-${id}`).classList.remove('visible');
-  // sync mobile
-  const mLabel = document.getElementById(`label-m-${id}`);
-  if (mLabel) mLabel.textContent = txt;
-}
-function editDescM(id) {
-  document.getElementById(`label-m-${id}`).style.display = 'none';
-  const inp = document.getElementById(`input-m-${id}`);
-  inp.classList.add('visible'); inp.value = currentDescs[id]||''; inp.focus();
-}
-function saveDescM(id) {
-  const val = document.getElementById(`input-m-${id}`).value.trim();
-  currentDescs[id] = val;
-  const cat = gastosCats.find(c=>c.id===id);
-  const txt = val || cat.name;
-  document.getElementById(`label-m-${id}`).textContent = txt;
-  document.getElementById(`label-m-${id}`).style.display = '';
-  document.getElementById(`input-m-${id}`).classList.remove('visible');
-  const tLabel = document.getElementById(`label-${id}`);
-  if (tLabel) tLabel.textContent = txt;
-}
-
+function syncEst(id, val) { document.getElementById(`est-${id}`).value = val; gastosEst[id] = val; saveGastos(); calcTotals(); }
+function editDesc(id) { document.getElementById(`input-${id}`).classList.add('visible'); document.getElementById(`input-${id}`).value = currentDescs[id]||''; document.getElementById(`input-${id}`).focus(); }
+function saveDesc(id) { let val = document.getElementById(`input-${id}`).value.trim(); currentDescs[id] = val||gastosCats.find(c=>c.id===id).name; saveGastos(); buildGastos(); }
+function editDescM(id) { document.getElementById(`input-m-${id}`).classList.add('visible'); document.getElementById(`input-m-${id}`).value = currentDescs[id]||''; document.getElementById(`input-m-${id}`).focus(); }
+function saveDescM(id) { let val = document.getElementById(`input-m-${id}`).value.trim(); currentDescs[id] = val||gastosCats.find(c=>c.id===id).name; saveGastos(); buildGastos(); }
 function calcTotals() {
-  let estI=0,realI=0,estG=0,realG=0;
-  ['sueldo','extra','inv'].forEach(k => {
-    estI  += parseFloat(document.getElementById(`ing-est-${k}`)?.value||0);
-    realI += parseFloat(document.getElementById(`ing-real-${k}`)?.value||0);
-  });
-  gastosCats.forEach(cat => {
-    estG  += parseFloat(document.getElementById(`est-${cat.id}`)?.value||0);
-    realG += (gastosReal[cat.id]||0);
-  });
-  const fmt = n => `$${n.toLocaleString()}`;
-  document.getElementById('sum-ing-est').textContent  = fmt(estI);
-  document.getElementById('sum-ing-real').textContent = fmt(realI);
-  document.getElementById('sum-gas-est').textContent  = fmt(estG);
-  document.getElementById('sum-gas-real').textContent = fmt(realG);
-  document.getElementById('saldo-est').textContent    = fmt(estI - estG);
-  document.getElementById('saldo-real').textContent   = fmt(realI - realG);
+  let estI = (parseFloat(document.getElementById('ing-est-sueldo')?.value||0) + parseFloat(document.getElementById('ing-est-extra')?.value||0) + parseFloat(document.getElementById('ing-est-inv')?.value||0));
+  let realI = (parseFloat(document.getElementById('ing-real-sueldo')?.value||0) + parseFloat(document.getElementById('ing-real-extra')?.value||0) + parseFloat(document.getElementById('ing-real-inv')?.value||0));
+  let estG = 0, realG = 0;
+  gastosCats.forEach(cat => { estG += parseFloat(document.getElementById(`est-${cat.id}`)?.value||0); realG += (gastosReal[cat.id]||0); });
+  document.getElementById('sum-ing-est').innerText = `$${estI.toLocaleString()}`;
+  document.getElementById('sum-ing-real').innerText = `$${realI.toLocaleString()}`;
+  document.getElementById('sum-gas-est').innerText = `$${estG.toLocaleString()}`;
+  document.getElementById('sum-gas-real').innerText = `$${realG.toLocaleString()}`;
+  document.getElementById('saldo-est').innerText = `$${(estI-estG).toLocaleString()}`;
+  document.getElementById('saldo-real').innerText = `$${(realI-realG).toLocaleString()}`;
 }
-
-// ═══════════════════════════════════════════
-//  DONE
-// ═══════════════════════════════════════════
-let historico = JSON.parse(localStorage.getItem('historico') || '[]');
-
 function doneGastos() {
-  const date = todayStr();
-  const entries = [];
-  const isMobile = window.innerWidth < 600;
-
+  let entries = [];
   gastosCats.forEach(cat => {
-    const inputId = isMobile ? `real-input-m-${cat.id}` : `real-input-${cat.id}`;
-    const addInput = document.getElementById(inputId) || document.getElementById(`real-input-${cat.id}`);
-    const addVal = parseFloat(addInput?.value || 0);
-    if (addVal > 0) {
-      gastosReal[cat.id] = (gastosReal[cat.id]||0) + addVal;
-      const desc = currentDescs[cat.id] || cat.name;
-      const fechaId = isMobile ? `gas-fecha-m-${cat.id}` : `gas-fecha-${cat.id}`;
-      entries.push({
-        cat: cat.name, icon: cat.icon, desc,
-        amount: addVal,
-        fecha: document.getElementById(fechaId)?.value || date
-      });
-      addInput.value = '';
-      // also clear the other version
-      const other = document.getElementById(isMobile ? `real-input-${cat.id}` : `real-input-m-${cat.id}`);
-      if (other) other.value = '';
-      // reset desc labels
-      currentDescs[cat.id] = null;
-      ['label-','label-m-'].forEach(pfx => {
-        const el = document.getElementById(`${pfx}${cat.id}`);
-        if (el) el.textContent = cat.name;
-      });
+    let addInput = document.getElementById(`real-input-${cat.id}`);
+    let addVal = parseFloat(addInput?.value || 0);
+    let addMobile = document.getElementById(`real-input-m-${cat.id}`);
+    let addValM = parseFloat(addMobile?.value || 0);
+    let totalAdd = addVal + addValM;
+    if(totalAdd > 0){
+      gastosReal[cat.id] = (gastosReal[cat.id]||0) + totalAdd;
+      let fecha = document.getElementById(`gas-fecha-${cat.id}`)?.value || todayStr();
+      entries.push({ cat: cat.name, icon: cat.icon, desc: currentDescs[cat.id]||cat.name, amount: totalAdd, fecha });
+      if(addInput) addInput.value = '';
+      if(addMobile) addMobile.value = '';
+      document.getElementById(`real-display-${cat.id}`).innerText = `$${gastosReal[cat.id].toLocaleString()}`;
+      document.getElementById(`real-display-m-${cat.id}`).innerText = `$${gastosReal[cat.id].toLocaleString()}`;
     }
-    // update both real displays
-    const fmt = `$${(gastosReal[cat.id]||0).toLocaleString()}`;
-    ['real-display-','real-display-m-'].forEach(pfx => {
-      const el = document.getElementById(`${pfx}${cat.id}`);
-      if (el) el.textContent = fmt;
-    });
   });
-
-  if (entries.length) {
-    historico.push({ date, entries });
+  if(entries.length){
+    let historico = JSON.parse(localStorage.getItem('historico') || '[]');
+    historico.push({ date: todayStr(), entries });
     localStorage.setItem('historico', JSON.stringify(historico));
     saveGastos(); calcTotals();
-    showToast('¡Guardado en Histórico! ✨');
-  } else {
-    showToast('No hay montos nuevos 😊');
-  }
+    showToast('Guardado en histórico');
+  } else showToast('Sin montos nuevos');
 }
-
-// ═══════════════════════════════════════════
-//  HISTÓRICO
-// ═══════════════════════════════════════════
 function renderHistorico() {
+  let hist = JSON.parse(localStorage.getItem('historico') || '[]');
   const container = document.getElementById('hist-container');
-  if (!historico.length) {
-    container.innerHTML = '<div class="hist-empty">Aún no hay registros. ¡Agrega gastos y presiona Done!</div>';
-    return;
-  }
-  let html = `<table class="hist-table">
-    <thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Cantidad</th></tr></thead>
-    <tbody>`;
-  historico.forEach(entry => {
-    entry.entries.forEach(e => {
-      html += `<tr>
-        <td style="white-space:nowrap">${e.fecha}</td>
-        <td>${e.icon} ${escHtml(e.desc)}</td>
-        <td><span class="hist-badge">${escHtml(e.cat)}</span></td>
-        <td style="font-weight:700;color:var(--accent);white-space:nowrap">$${e.amount.toLocaleString()}</td>
-      </tr>`;
-    });
-  });
+  if(!hist.length){ container.innerHTML = '<div class="hist-empty">Sin registros</div>'; return; }
+  let html = `<table class="hist-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Cantidad</th></tr></thead><tbody>`;
+  hist.forEach(entry => { entry.entries.forEach(e => { html += `<tr><td>${e.fecha}</td><td>${e.icon} ${escapeHtml(e.desc)}</td><td><span class="hist-badge">${escapeHtml(e.cat)}</span></td><td>$${e.amount.toLocaleString()}</td></tr>`; }); });
   html += `</tbody></table>`;
   container.innerHTML = html;
 }
 
-// ═══════════════════════════════════════════
-//  TOAST
-// ═══════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
+// Inicialización
+buildGastos();
+buildIngresosCards();
+document.querySelectorAll('#ing-est-sueldo, #ing-real-sueldo, #ing-est-extra, #ing-real-extra, #ing-est-inv, #ing-real-inv').forEach(i => i?.addEventListener('input', calcTotals));
+calcTotals();
+renderCalendarApp();
 
-// ═══════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════
-buildGastosTable();
-renderCal();
-// Set today's date on income fields
-['sueldo','extra','inv'].forEach(k => {
-  const el = document.getElementById(`ing-fecha-${k}`);
-  if (el) el.value = todayStr();
+// Sincronización de fechas de ingresos entre tabla y móvil
+['sueldo','extra','inv'].forEach(id => {
+  const tableDate = document.getElementById(`ing-fecha-${id}`);
+  const mobileDate = document.getElementById(`ing-fecha-${id}-m`);
+  if (tableDate && mobileDate) {
+    tableDate.addEventListener('change', () => mobileDate.value = tableDate.value);
+    mobileDate.addEventListener('change', () => tableDate.value = mobileDate.value);
+  }
 });
 </script>
 </body>
