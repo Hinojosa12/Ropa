@@ -187,51 +187,81 @@ function hideLoader() {
   if (a) a.style.display = '';
 }
 
-async function seedIfNeeded() {
-  // Already seeded with correct version — skip entirely
-  if (LS.get('gds_version') === SEED_VERSION) return;
+function seedIfNeeded() {
+  return new Promise((resolve) => {
+    // Already seeded — skip entirely, no work needed
+    if (LS.get('gds_version') === SEED_VERSION) { resolve(); return; }
 
-  setLoader('Descargando datos del Excel...', 5);
+    setLoader('Iniciando importación...', 5);
 
-  let data;
-  try {
-    const res = await fetch(DATA_FILE);
-    if (!res.ok) throw new Error('No se pudo cargar ' + DATA_FILE);
-    setLoader('Procesando datos...', 40);
-    data = await res.json();
-  } catch(e) {
-    setLoader('Error: ' + e.message + '. Asegúrate de que delivery_data.json está en la misma carpeta.', 0);
-    await new Promise(r => setTimeout(r, 4000));
-    return;
-  }
+    // Create Web Worker via Blob URL — runs completely OFF the main thread
+    // JSON.parse of 712KB happens in the worker, browser NEVER freezes
+    const workerCode = "\nself.onmessage = async function(e) {\n  const { url, version } = e.data;\n  \n  // 1. Fetch JSON\n  self.postMessage({ type:'progress', pct:10, msg:'Descargando datos...' });\n  let data;\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error('No se pudo cargar ' + url);\n    self.postMessage({ type:'progress', pct:35, msg:'Procesando datos...' });\n    // JSON.parse happens here - OFF main thread, browser won't freeze\n    data = await res.json();\n  } catch(err) {\n    self.postMessage({ type:'error', msg: err.message });\n    return;\n  }\n\n  self.postMessage({ type:'progress', pct:50, msg:'Preparando hojas...' });\n\n  // 2. Send sheets index (small, one shot)\n  self.postMessage({ type:'sheets', sheets: data.sheets });\n\n  // 3. Send deliveries in chunks of 20\n  const ids = Object.keys(data.deliveries);\n  const CHUNK = 20;\n  for (let i = 0; i < ids.length; i += CHUNK) {\n    const chunk = {};\n    ids.slice(i, i + CHUNK).forEach(id => {\n      if (data.deliveries[id]?.length > 0) chunk[id] = data.deliveries[id];\n    });\n    const pct = 50 + Math.round((i / ids.length) * 48);\n    self.postMessage({ type:'chunk', chunk, pct, i, total: ids.length });\n    // Yield so browser doesn't consider worker hung\n    await new Promise(r => setTimeout(r, 0));\n  }\n\n  self.postMessage({ type:'done', version });\n};\n";
+    const blob   = new Blob([workerCode], { type: 'application/javascript' });
+    const blobURL = URL.createObjectURL(blob);
+    const worker = new Worker(blobURL);
 
-  setLoader('Limpiando datos anteriores...', 50);
-  // Clear old data
-  for (const k of Object.keys(localStorage)) {
-    if (k.startsWith('gds_')) localStorage.removeItem(k);
-  }
+    worker.onmessage = (e) => {
+      const { type } = e.data;
 
-  // Save sheets index (small)
-  LS.set('gds_sheets', data.sheets);
+      if (type === 'progress') {
+        setLoader(e.data.msg, e.data.pct);
 
-  // Write deliveries in async chunks so UI stays responsive
-  const ids = Object.keys(data.deliveries);
-  const CHUNK = 20;
-  for (let i = 0; i < ids.length; i += CHUNK) {
-    const slice = ids.slice(i, i + CHUNK);
-    for (const id of slice) {
-      const d = data.deliveries[id];
-      if (d && d.length > 0) LS.set('gds_d_' + id, d);
-    }
-    const pct = 50 + Math.round((i / ids.length) * 48);
-    setLoader(`Importando hojas... ${i}/${ids.length}`, pct);
-    // Yield to browser between chunks
-    await new Promise(r => setTimeout(r, 0));
-  }
+      } else if (type === 'sheets') {
+        // Clear old gds_ keys before writing fresh data
+        for (const k of Object.keys(localStorage)) {
+          if (k.startsWith('gds_')) localStorage.removeItem(k);
+        }
+        LS.set('gds_sheets', e.data.sheets);
 
-  LS.set('gds_version', SEED_VERSION);
-  setLoader('¡Listo!', 100);
-  await new Promise(r => setTimeout(r, 300));
+      } else if (type === 'chunk') {
+        // Write this chunk to localStorage (small, fast)
+        for (const [id, dels] of Object.entries(e.data.chunk)) {
+          LS.set('gds_d_' + id, dels);
+        }
+        setLoader(`Importando... ${e.data.i}/${e.data.total} hojas`, e.data.pct);
+
+      } else if (type === 'done') {
+        LS.set('gds_version', e.data.version);
+        worker.terminate();
+        URL.revokeObjectURL(blobURL);
+        setLoader('¡Listo!', 100);
+        setTimeout(resolve, 300);
+
+      } else if (type === 'error') {
+        setLoader('Error: ' + e.data.msg, 0);
+        worker.terminate();
+        URL.revokeObjectURL(blobURL);
+        setTimeout(resolve, 4000);
+      }
+    };
+
+    worker.onerror = (err) => {
+      // Worker not supported — fall back to main thread fetch
+      setLoader('Cargando datos...', 10);
+      fetch(DATA_FILE)
+        .then(r => r.json())
+        .then(data => {
+          for (const k of Object.keys(localStorage)) {
+            if (k.startsWith('gds_')) localStorage.removeItem(k);
+          }
+          LS.set('gds_sheets', data.sheets);
+          for (const [id, dels] of Object.entries(data.deliveries)) {
+            if (dels?.length > 0) LS.set('gds_d_' + id, dels);
+          }
+          LS.set('gds_version', SEED_VERSION);
+          setLoader('¡Listo!', 100);
+          setTimeout(resolve, 300);
+        })
+        .catch(err2 => {
+          setLoader('Error cargando datos: ' + err2.message, 0);
+          setTimeout(resolve, 4000);
+        });
+    };
+
+    // Start the worker
+    worker.postMessage({ url: DATA_FILE, version: SEED_VERSION });
+  });
 }
 
 // ═══════════ HELPERS ═══════════
