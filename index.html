@@ -260,7 +260,7 @@ function seedIfNeeded() {
     };
 
     // Start the worker
-    worker.postMessage({ url: DATA_FILE, version: SEED_VERSION });
+    worker.postMessage({ url: new URL(DATA_FILE, location.href).href, version: SEED_VERSION });
   });
 }
 
