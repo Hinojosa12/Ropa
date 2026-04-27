@@ -127,7 +127,7 @@
 <div id="loader">
   <div class="spinner"></div>
   <div class="loader-title">General Delivery Sheet</div>
-  <div class="loader-sub" id="loader-msg">Iniciando...</div>
+  <div class="loader-sub" id="loader-msg">Starting...</div>
   <div class="pbar"><div class="pfill" id="loader-bar" style="width:0%"></div></div>
 </div>
 
@@ -142,15 +142,15 @@ const TYPES     = ['DELIVERY','PICKUP','RENTALS'];
 const BUSINESSES= ['CARIBZOOM','DGA','PPS','DC','BZ','HE','ZP','PH','HJ','OD','NATIVE','COLLAGE','ROSE','KAY','THURSTON','MARYAM','SHANIAH','GLAMOUR','FIONA','CHRISTINE','DAC','BLISS','XFINITY','LUMIERE','CHATRAM','PINK RIBBON','PINK HEAVEN','ARTYSCRAFT','LIVITY','592 EVENTS','SUSANA','PSS','DIY','LUMIERE SPEC'];
 const EXP_T     = ['GAS','BOTELLAS','COMIDA','POLVO','SILLAS','BUSES','PASAJE','REPUESTO','OTRO'];
 const STATUSES  = [
-  {k:'PENDING',    l:'Pendiente',   c:'b-pending'},
-  {k:'DELIVERED',  l:'Entregado',   c:'b-delivered'},
-  {k:'CANCELLED',  l:'Cancelado',   c:'b-cancelled'},
-  {k:'NO_ANSWER',  l:'Sin resp.',   c:'b-gray'},
-  {k:'RETURNED',   l:'Devuelto',    c:'b-gray'},
+  {k:'PENDING',    l:'Pending',   c:'b-pending'},
+  {k:'DELIVERED',  l:'Delivered',   c:'b-delivered'},
+  {k:'CANCELLED',  l:'Cancelled',   c:'b-cancelled'},
+  {k:'NO_ANSWER',  l:'No answer',   c:'b-gray'},
+  {k:'RETURNED',   l:'Returned',    c:'b-gray'},
   {k:'MARK',       l:'→ Mark',      c:'b-blue'},
   {k:'GRANT',      l:'→ Grant',     c:'b-blue'},
   {k:'NURSE',      l:'→ Nurse',     c:'b-blue'},
-  {k:'TRANSFERRED',l:'Transferido', c:'b-blue'},
+  {k:'TRANSFERRED',l:'Transferred', c:'b-blue'},
 ];
 const TRANS_KEYS = new Set(['MARK','GRANT','NURSE','TRANSFERRED','RETURNED']);
 const PAGE_SIZE  = 30;
@@ -192,11 +192,11 @@ function seedIfNeeded() {
     // Already seeded — skip entirely, no work needed
     if (LS.get('gds_version') === SEED_VERSION) { resolve(); return; }
 
-    setLoader('Iniciando importación...', 5);
+    setLoader('Starting import...', 5);
 
     // Create Web Worker via Blob URL — runs completely OFF the main thread
     // JSON.parse of 712KB happens in the worker, browser NEVER freezes
-    const workerCode = "\nself.onmessage = async function(e) {\n  const { url, version } = e.data;\n  \n  // 1. Fetch JSON\n  self.postMessage({ type:'progress', pct:10, msg:'Descargando datos...' });\n  let data;\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error('No se pudo cargar ' + url);\n    self.postMessage({ type:'progress', pct:35, msg:'Procesando datos...' });\n    // JSON.parse happens here - OFF main thread, browser won't freeze\n    data = await res.json();\n  } catch(err) {\n    self.postMessage({ type:'error', msg: err.message });\n    return;\n  }\n\n  self.postMessage({ type:'progress', pct:50, msg:'Preparando hojas...' });\n\n  // 2. Send sheets index (small, one shot)\n  self.postMessage({ type:'sheets', sheets: data.sheets });\n\n  // 3. Send deliveries in chunks of 20\n  const ids = Object.keys(data.deliveries);\n  const CHUNK = 20;\n  for (let i = 0; i < ids.length; i += CHUNK) {\n    const chunk = {};\n    ids.slice(i, i + CHUNK).forEach(id => {\n      if (data.deliveries[id]?.length > 0) chunk[id] = data.deliveries[id];\n    });\n    const pct = 50 + Math.round((i / ids.length) * 48);\n    self.postMessage({ type:'chunk', chunk, pct, i, total: ids.length });\n    // Yield so browser doesn't consider worker hung\n    await new Promise(r => setTimeout(r, 0));\n  }\n\n  self.postMessage({ type:'done', version });\n};\n";
+    const workerCoof = "\nself.onmessage = async function(e) {\n  const { url, version } = e.data;\n  \n  // 1. Fetch JSON\n  self.postMessage({ type:'progress', pct:10, msg:'Downloading data...' });\n  let data;\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error('No se pudo cargar ' + url);\n    self.postMessage({ type:'progress', pct:35, msg:'Processing data...' });\n    // JSON.parse happens here - OFF main thread, browser won't freeze\n    data = await res.json();\n  } catch(err) {\n    self.postMessage({ type:'error', msg: err.message });\n    return;\n  }\n\n  self.postMessage({ type:'progress', pct:50, msg:'Preparing sheets...' });\n\n  // 2. Send sheets index (small, one shot)\n  self.postMessage({ type:'sheets', sheets: data.sheets });\n\n  // 3. Send deliveries in chunks of 20\n  const ids = Object.keys(data.deliveries);\n  const CHUNK = 20;\n  for (let i = 0; i < ids.length; i += CHUNK) {\n    const chunk = {};\n    ids.slice(i, i + CHUNK).forEach(id => {\n      if (data.deliveries[id]?.length > 0) chunk[id] = data.deliveries[id];\n    });\n    const pct = 50 + Math.round((i / ids.length) * 48);\n    self.postMessage({ type:'chunk', chunk, pct, i, total: ids.length });\n    // Yield so browser doesn't consider worker hung\n    await new Promise(r => setTimeout(r, 0));\n  }\n\n  self.postMessage({ type:'done', version });\n};\n";
     const blob   = new Blob([workerCode], { type: 'application/javascript' });
     const blobURL = URL.createObjectURL(blob);
     const worker = new Worker(blobURL);
@@ -219,13 +219,13 @@ function seedIfNeeded() {
         for (const [id, dels] of Object.entries(e.data.chunk)) {
           LS.set('gds_d_' + id, dels);
         }
-        setLoader(`Importando... ${e.data.i}/${e.data.total} hojas`, e.data.pct);
+        setLoader(`Importing... ${e.data.i}/${e.data.total} sheets`, e.data.pct);
 
       } else if (type === 'done') {
         LS.set('gds_version', e.data.version);
         worker.terminate();
         URL.revokeObjectURL(blobURL);
-        setLoader('¡Listo!', 100);
+        setLoader('Done!', 100);
         setTimeout(resolve, 300);
 
       } else if (type === 'error') {
@@ -238,7 +238,7 @@ function seedIfNeeded() {
 
     worker.onerror = (err) => {
       // Worker not supported — fall back to main thread fetch
-      setLoader('Cargando datos...', 10);
+      setLoader('Loading data...', 10);
       fetch(DATA_FILE)
         .then(r => r.json())
         .then(data => {
@@ -250,11 +250,11 @@ function seedIfNeeded() {
             if (dels?.length > 0) LS.set('gds_d_' + id, dels);
           }
           LS.set('gds_version', SEED_VERSION);
-          setLoader('¡Listo!', 100);
+          setLoader('Done!', 100);
           setTimeout(resolve, 300);
         })
         .catch(err2 => {
-          setLoader('Error cargando datos: ' + err2.message, 0);
+          setLoader('Error loading data: ' + err2.message, 0);
           setTimeout(resolve, 4000);
         });
     };
@@ -271,9 +271,9 @@ const fmt     = n  => 'G$'+(n||0).toLocaleString('en');
 const scls    = s  => s==='DELIVERED'?'b-delivered':s==='PENDING'?'b-pending':s==='CANCELLED'?'b-cancelled':TRANS_KEYS.has(s)?'b-blue':'b-gray';
 const slbl    = s  => STATUSES.find(x=>x.k===s)?.l||s;
 const badge   = s  => `<span class="badge ${scls(s)}">${slbl(s)}</span>`;
-const fmtDate = d  => { try{return new Date(d+'T12:00:00').toLocaleDateString('es',{weekday:'short',day:'2-digit',month:'short'})}catch{return d} };
+const fmtDate = d  => { try{return new Date(d+'T12:00:00').toLocaleDateString('en',{weekday:'short',day:'2-digit',month:'short'})}catch{return d} };
 const tcls    = t  => t==='DELIVERY'?'t-delivery':t==='PICKUP'?'t-pickup':'t-rentals';
-const mlabel  = m  => { const [y,mo]=m.split('-'); return new Date(+y,+mo-1,1).toLocaleDateString('es',{month:'short',year:'2-digit'}) };
+const mlabel  = m  => { const [y,mo]=m.split('-'); return new Date(+y,+mo-1,1).toLocaleDateString('en',{month:'short',year:'2-digit'}) };
 
 function calcSummary() {
   const done = S.dels.filter(d=>d.status==='DELIVERED');
@@ -342,7 +342,7 @@ function rHomeList() {
   const dates = Object.keys(groups).sort((a,b)=>b.localeCompare(a));
 
   const listHtml = dates.length===0
-    ? `<div class="empty"><div class="empty-icon">📦</div><div>${S.homeSearch||S.month||S.homeDate?'Sin resultados para este filtro.':'Sin hojas.'}</div></div>`
+    ? `<div class="empty"><div class="empty-icon">📦</div><div>${S.homeSearch||S.month||S.homeDate?'No results for this filter.':'No sheets.'}</div></div>`
     : dates.map(d=>`
         <div class="sec-lbl">${fmtDate(d)} · ${d}</div>
         ${groups[d].map(s=>`
@@ -358,19 +358,19 @@ function rHomeList() {
 
 function rHome() {
   const nav = `<nav class="nav">
-    <div class="nav-info"><div class="nav-title">General Delivery Sheet</div><div class="nav-sub">${S.sheets.length} hojas importadas</div></div>
-    <button class="nav-btn ${S.showNewSheet?'ghost':''}" id="na">${S.showNewSheet?'Cancelar':'+ Nueva Hoja'}</button>
+    <div class="nav-info"><div class="nav-title">General Delivery Sheet</div><div class="nav-sub">${S.sheets.length} sheets importadas</div></div>
+    <button class="nav-btn ${S.showNewSheet?'ghost':''}" id="na">${S.showNewSheet?'Cancel':'+ New Sheet'}</button>
   </nav>`;
 
   const hstats = `<div class="home-stats">
-    <div class="hstat"><div class="hstat-val">${S.sheets.length}</div><div class="hstat-lbl">Hojas</div></div>
+    <div class="hstat"><div class="hstat-val">${S.sheets.length}</div><div class="hstat-lbl">Sheets</div></div>
     <div class="hstat"><div class="hstat-val">${S.sheets.filter(s=>s.driver==='MR. NURSE').length}</div><div class="hstat-lbl">MR. NURSE</div></div>
     <div class="hstat"><div class="hstat-val">${S.sheets.filter(s=>s.driver==='MR. GRANT').length}</div><div class="hstat-lbl">MR. GRANT</div></div>
     <div class="hstat"><div class="hstat-val">${S.sheets.filter(s=>s.type==='PICKUP').length}</div><div class="hstat-lbl">Pickups</div></div>
   </div>`;
 
   const monthBar = `<div class="month-bar">
-    <button class="mchip ${!S.month?'active':''}" data-month="">Todos</button>
+    <button class="mchip ${!S.month?'active':''}" data-month="">All</button>
     ${MONTHS.map(m=>`<button class="mchip ${S.month===m?'active':''}" data-month="${m}">${mlabel(m)}</button>`).join('')}
   </div>`;
 
@@ -378,7 +378,7 @@ function rHome() {
     <div class="home-filter-bar">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input id="home-search" class="fc search-ic" type="search" value="${S.homeSearch}" placeholder="Buscar conductor, cliente...">
+        <input id="home-search" class="fc search-ic" type="search" value="${S.homeSearch}" placeholder="Search driver, customer...">
       </div>
       <div class="date-wrap">
         <span class="date-ico">📅</span>
@@ -388,15 +388,15 @@ function rHome() {
     </div>`;;
 
   const newForm = S.showNewSheet ? `<div class="card">
-    <div class="card-title">Nueva hoja</div>
-    <div class="fg"><label class="fl">Fecha</label><input id="ns-d" class="fc" type="date" value="${today()}"></div>
-    <div class="fg"><label class="fl">Conductor</label><select id="ns-dr" class="fc">${DRIVERS.map(d=>`<option>${d}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Tipo</label><select id="ns-t" class="fc">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
-    <div class="flex gap-8 mt-14"><button class="btn f1" id="ns-cancel">Cancelar</button><button class="btn btn-p f1" id="ns-ok">Crear</button></div>
+    <div class="card-title">New sheet</div>
+    <div class="fg"><label class="fl">Date</label><input id="ns-d" class="fc" type="date" value="${today()}"></div>
+    <div class="fg"><label class="fl">Driver</label><select id="ns-dr" class="fc">${DRIVERS.map(d=>`<option>${d}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Type</label><select id="ns-t" class="fc">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+    <div class="flex gap-8 mt-14"><button class="btn f1" id="ns-cancel">Cancel</button><button class="btn btn-p f1" id="ns-ok">Create</button></div>
   </div>` : '';
 
   const resetRow = `<div style="text-align:right;margin-bottom:8px">
-    <button class="btn btn-sm text3" id="reset-btn" style="font-size:11px">&#8635; Reimportar Excel</button>
+    <button class="btn btn-sm text3" id="reset-btn" style="font-size:11px">&#8635; Reimport Excel</button>
   </div>`;
 
   return `${nav}<div class="page">${hstats}${resetRow}${monthBar}${searchBar}${newForm}<div id="home-list">${rHomeList()}</div></div>`;
@@ -411,7 +411,7 @@ function rDelItems() {
   if (S.filterStatus==='transferred') list=list.filter(d=>TRANS_KEYS.has(d.status));
   if (S.search) { const q=S.search.toLowerCase(); list=list.filter(d=>(d.name||'').toLowerCase().includes(q)||(d.location||'').toLowerCase().includes(q)||(d.businessName||'').toLowerCase().includes(q)) }
 
-  if (!list.length) return `<div class="empty"><div class="empty-icon">🔍</div><div>Sin resultados</div></div>`;
+  if (!list.length) return `<div class="empty"><div class="empty-icon">🔍</div><div>No results</div></div>`;
   return list.map(d=>{
     const exp=S.expandedId===d.id, tot=(d.itemCharge||0)+(d.deliveryCharge||0), conf=S.confirmId===d.id;
     return `<div class="di ${exp?'expanded':''}" data-xp="${d.id}">
@@ -425,11 +425,11 @@ function rDelItems() {
         <div class="di-right">${badge(d.status)}<div class="di-amount">${fmt(tot)}</div></div>
       </div>
       ${exp?`<div class="di-actions" onclick="event.stopPropagation()">
-        <div class="di-actions-lbl">Cambiar estado:</div>
+        <div class="di-actions-lbl">Change status:</div>
         <div class="status-grid">${STATUSES.map(s=>`<button class="sq-btn" data-ss="${d.id}" data-sv="${s.k}">${s.l}</button>`).join('')}</div>
         ${conf
-          ?`<div class="confirm-box"><div class="confirm-text">¿Eliminar esta entrega?</div><div class="flex gap-8"><button class="btn btn-sm f1" data-cnx>Cancelar</button><button class="btn btn-sm btn-d f1" data-cdel="${d.id}">Sí, eliminar</button></div></div>`
-          :`<div class="flex gap-8 mt-10"><button class="btn btn-sm f1" data-edit="${d.id}">Editar</button><button class="btn btn-sm btn-d" data-askd="${d.id}">Eliminar</button></div>`}
+          ?`<div class="confirm-box"><div class="confirm-text">Delete this delivery?</div><div class="flex gap-8"><button class="btn btn-sm f1" data-cnx>Cancel</button><button class="btn btn-sm btn-d f1" data-cdel="${d.id}">Yes, delete</button></div></div>`
+          :`<div class="flex gap-8 mt-10"><button class="btn btn-sm f1" data-edit="${d.id}">Edit</button><button class="btn btn-sm btn-d" data-askd="${d.id}">Delete</button></div>`}
       </div>`:''}
     </div>`;
   }).join('');
@@ -441,30 +441,30 @@ function rSheet() {
   const nav=`<nav class="nav">
     <button class="nav-back show" id="nb">‹</button>
     <div class="nav-info"><div class="nav-title">${sh.driver}</div><div class="nav-sub">${fmtDate(sh.date)} · ${sh.type}</div></div>
-    <button class="nav-btn ${S.showSummary?'ghost':''}" id="na">${S.showSummary?'Lista':'Resumen'}</button>
+    <button class="nav-btn ${S.showSummary?'ghost':''}" id="na">${S.showSummary?'List':'Summary'}</button>
   </nav>`;
   if (S.showForm) return `${nav}<div class="page">${rForm()}</div>`;
   if (S.showSummary) return `${nav}<div class="page">${rSummary(sum)}</div>`;
   const filters=`<div class="filters">
-    <button class="chip ${S.filterStatus==='all'?'active':''}" data-f="all">Todos (${sum.cnt.tot})</button>
+    <button class="chip ${S.filterStatus==='all'?'active':''}" data-f="all">All (${sum.cnt.tot})</button>
     <button class="chip ${S.filterStatus==='pending'?'active':''}" data-f="pending">Pend. (${sum.cnt.pen})</button>
-    <button class="chip ${S.filterStatus==='delivered'?'active':''}" data-f="delivered">Entregados (${sum.cnt.del})</button>
+    <button class="chip ${S.filterStatus==='delivered'?'active':''}" data-f="delivered">Delivered (${sum.cnt.del})</button>
     <button class="chip ${S.filterStatus==='cancelled'?'active':''}" data-f="cancelled">Cancel. (${sum.cnt.can})</button>
-    <button class="chip ${S.filterStatus==='transferred'?'active':''}" data-f="transferred">Otros (${sum.cnt.tr})</button>
+    <button class="chip ${S.filterStatus==='transferred'?'active':''}" data-f="transferred">Other (${sum.cnt.tr})</button>
   </div>`;
-  const search=`<div class="search-wrap"><span class="search-icon">🔍</span><input id="del-search" class="fc search-ic" type="search" value="${S.search}" placeholder="Buscar cliente, ubicación, proveedor..."></div>`;
-  const confSheet=S.confirmId==='sheet'?`<div class="confirm-box" style="margin-top:10px"><div class="confirm-text">¿Eliminar esta hoja y todas sus entregas?</div><div class="flex gap-8"><button class="btn btn-sm f1" data-cnx>Cancelar</button><button class="btn btn-sm btn-d f1" data-cds="${sh.id}">Sí, eliminar</button></div></div>`:'';
+  const search=`<div class="search-wrap"><span class="search-icon">🔍</span><input id="del-search" class="fc search-ic" type="search" value="${S.search}" placeholder="Search customer, location, supplier..."></div>`;
+  const confSheet=S.confirmId==='sheet'?`<div class="confirm-box" style="margin-top:10px"><div class="confirm-text">Delete this sheet and all its deliveries?</div><div class="flex gap-8"><button class="btn btn-sm f1" data-cnx>Cancel</button><button class="btn btn-sm btn-d f1" data-cds="${sh.id}">Yes, delete</button></div></div>`:'';
   return `${nav}<div class="page">
     <div class="progress"><div class="progress-fill" style="width:${pct}%"></div></div>
     <div class="stats">
-      <div class="stat"><div class="sl">Entregados</div><div class="sv green">${sum.cnt.del}</div></div>
-      <div class="stat"><div class="sl">Cobrado</div><div class="sv">${fmt(sum.tc)}</div></div>
-      <div class="stat"><div class="sl">Pendientes</div><div class="sv accent">${sum.cnt.pen}</div></div>
+      <div class="stat"><div class="sl">Delivered</div><div class="sv green">${sum.cnt.del}</div></div>
+      <div class="stat"><div class="sl">Collected</div><div class="sv">${fmt(sum.tc)}</div></div>
+      <div class="stat"><div class="sl">Pendings</div><div class="sv accent">${sum.cnt.pen}</div></div>
     </div>
     ${filters}${search}
     <div id="del-list">${rDelItems()}</div>
-    <div class="mt-14"><button class="btn btn-p btn-full" id="add-del">+ Agregar entrega</button></div>
-    <div class="mt-10"><button class="btn btn-full text3" id="del-sheet-btn">Eliminar hoja</button></div>
+    <div class="mt-14"><button class="btn btn-p btn-full" id="add-del">+ Add delivery</button></div>
+    <div class="mt-10"><button class="btn btn-full text3" id="del-sheet-btn">Delete sheet</button></div>
     ${confSheet}
   </div>`;
 }
@@ -487,18 +487,18 @@ function renderDelList() {
 function rForm() {
   const d=S.editId?S.dels.find(x=>x.id===S.editId)||{}:{}, ie=!!d.id;
   return `<div class="card">
-    <div class="card-title">${ie?'Editar entrega':'Nueva entrega'}</div>
-    <div class="fg"><label class="fl">Nombre *</label><input id="f-n" class="fc" type="text" value="${d.name||''}" placeholder="HILARY DAVIDSON" style="text-transform:uppercase"></div>
-    <div class="fg"><label class="fl">Ubicación</label><input id="f-l" class="fc" type="text" value="${d.location||''}" placeholder="PRASHAD NAGAR"></div>
-    <div class="fg"><label class="fl">Teléfono</label><input id="f-c" class="fc" type="tel" value="${d.contact||''}" placeholder="609-4480"></div>
-    <div class="fg"><label class="fl">Negocio / Proveedor</label><input id="f-b" class="fc" list="biz-list" value="${d.businessName||''}" placeholder="Escribe o selecciona..."><datalist id="biz-list">${BUSINESSES.map(b=>`<option value="${b}">`).join('')}</datalist></div>
+    <div class="card-title">${ie?'Edit delivery':'New delivery'}</div>
+    <div class="fg"><label class="fl">Name *</label><input id="f-n" class="fc" type="text" value="${d.name||''}" placeholder="HILARY DAVIDSON" style="text-transform:uppercase"></div>
+    <div class="fg"><label class="fl">Location</label><input id="f-l" class="fc" type="text" value="${d.location||''}" placeholder="PRASHAD NAGAR"></div>
+    <div class="fg"><label class="fl">Phone</label><input id="f-c" class="fc" type="tel" value="${d.contact||''}" placeholder="609-4480"></div>
+    <div class="fg"><label class="fl">Business / Supplier</label><input id="f-b" class="fc" list="biz-list" value="${d.businessName||''}" placeholder="Type or select..."><datalist id="biz-list">${BUSINESSES.map(b=>`<option value="${b}">`).join('')}</datalist></div>
     <div class="fr">
-      <div class="fg"><label class="fl">Cargo item (G$)</label><input id="f-i" class="fc" type="number" min="0" value="${d.itemCharge||''}"></div>
-      <div class="fg"><label class="fl">Cargo entrega (G$)</label><input id="f-dc" class="fc" type="number" min="0" value="${d.deliveryCharge||''}"></div>
+      <div class="fg"><label class="fl">Item charge (G$)</label><input id="f-i" class="fc" type="number" min="0" value="${d.itemCharge||''}"></div>
+      <div class="fg"><label class="fl">Delivery charge (G$)</label><input id="f-dc" class="fc" type="number" min="0" value="${d.deliveryCharge||''}"></div>
     </div>
-    <div class="fg"><label class="fl">Estado</label><select id="f-s" class="fc">${STATUSES.map(s=>`<option value="${s.k}" ${(d.status||'PENDING')===s.k?'selected':''}>${s.l}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Notas</label><input id="f-no" class="fc" type="text" value="${d.notes||''}" placeholder="Instrucciones..."></div>
-    <div class="flex gap-8 mt-14"><button class="btn f1" id="form-cancel">Cancelar</button><button class="btn btn-p f1" id="form-ok">${ie?'Guardar':'Agregar'}</button></div>
+    <div class="fg"><label class="fl">Status</label><select id="f-s" class="fc">${STATUSES.map(s=>`<option value="${s.k}" ${(d.status||'PENDING')===s.k?'selected':''}>${s.l}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Notes</label><input id="f-no" class="fc" type="text" value="${d.notes||''}" placeholder="Instructions..."></div>
+    <div class="flex gap-8 mt-14"><button class="btn f1" id="form-cancel">Cancel</button><button class="btn btn-p f1" id="form-ok">${ie?'Save':'Add'}</button></div>
   </div>`;
 }
 
@@ -507,25 +507,25 @@ function rSummary(sum) {
   const biz=Object.entries(sum.biz).sort((a,b)=>b[1]-a[1]);
   const expForm=S.showNewExp?`<div style="background:var(--surface2);border-radius:var(--r2);padding:12px;margin-bottom:10px">
     <div class="fr" style="margin-bottom:8px">
-      <div><label class="fl">Tipo</label><select id="et" class="fc" style="font-size:12px">${EXP_T.map(e=>`<option>${e}</option>`).join('')}</select></div>
-      <div><label class="fl">Monto (G$)</label><input id="ea" class="fc" type="number" min="0" placeholder="0" style="font-size:12px"></div>
+      <div><label class="fl">Type</label><select id="et" class="fc" style="font-size:12px">${EXP_T.map(e=>`<option>${e}</option>`).join('')}</select></div>
+      <div><label class="fl">Amount (G$)</label><input id="ea" class="fc" type="number" min="0" placeholder="0" style="font-size:12px"></div>
     </div>
-    <div class="flex gap-8"><button class="btn f1 btn-sm" id="exp-cancel">Cancelar</button><button class="btn btn-p f1 btn-sm" id="exp-ok">Agregar</button></div>
+    <div class="flex gap-8"><button class="btn f1 btn-sm" id="exp-cancel">Cancel</button><button class="btn btn-p f1 btn-sm" id="exp-ok">Add</button></div>
   </div>`:'';
   return `
     <div class="stats stats-2">
-      <div class="stat"><div class="sl">Total cobrado</div><div class="sv accent">${fmt(sum.tc)}</div></div>
-      <div class="stat"><div class="sl">Gastos</div><div class="sv red">−${fmt(sum.te)}</div></div>
-      <div class="stat"><div class="sl">Balance neto</div><div class="sv ${sum.bal>=0?'green':'red'}">${fmt(sum.bal)}</div></div>
-      <div class="stat"><div class="sl">Entregados</div><div class="sv">${sum.cnt.del} / ${sum.cnt.tot}</div></div>
+      <div class="stat"><div class="sl">Total collected</div><div class="sv accent">${fmt(sum.tc)}</div></div>
+      <div class="stat"><div class="sl">Expenses</div><div class="sv red">−${fmt(sum.te)}</div></div>
+      <div class="stat"><div class="sl">Net balance</div><div class="sv ${sum.bal>=0?'green':'red'}">${fmt(sum.bal)}</div></div>
+      <div class="stat"><div class="sl">Delivered</div><div class="sv">${sum.cnt.del} / ${sum.cnt.tot}</div></div>
     </div>
     <div class="card">
-      <div class="flex ai jb" style="margin-bottom:10px"><div class="card-title" style="margin:0">Gastos</div><button class="btn btn-sm" id="add-exp">+ Gasto</button></div>
+      <div class="flex ai jb" style="margin-bottom:10px"><div class="card-title" style="margin:0">Expenses</div><button class="btn btn-sm" id="add-exp">+ Expense</button></div>
       ${expForm}
-      ${!S.exps.length?`<div class="text3" style="font-size:13px;text-align:center;padding:10px">Sin gastos</div>`:S.exps.map(e=>`<div class="dr"><div class="dn">${e.type}</div><div class="flex ai gap-8"><div class="dv">−${fmt(e.amount)}</div><button class="btn btn-sm btn-d" data-dexp="${e.id}" style="padding:2px 8px">✕</button></div></div>`).join('')}
+      ${!S.exps.length?`<div class="text3" style="font-size:13px;text-align:center;padding:10px">No expenses</div>`:S.exps.map(e=>`<div class="dr"><div class="dn">${e.type}</div><div class="flex ai gap-8"><div class="dv">−${fmt(e.amount)}</div><button class="btn btn-sm btn-d" data-dexp="${e.id}" style="padding:2px 8px">✕</button></div></div>`).join('')}
     </div>
-    ${biz.length?`<div class="card"><div class="card-title">Desembolso por proveedor</div>${biz.map(([b,a])=>`<div class="dr"><div class="dn">${b}</div><div class="dv">${fmt(a)}</div></div>`).join('')}</div>`:''}
-    <div class="card"><div class="card-title text2">Desglose</div>
+    ${biz.length?`<div class="card"><div class="card-title">Disbursement by supplier</div>${biz.map(([b,a])=>`<div class="dr"><div class="dn">${b}</div><div class="dv">${fmt(a)}</div></div>`).join('')}</div>`:''}
+    <div class="card"><div class="card-title text2">Breakdown</div>
       <div class="dr"><div class="dn">Items</div><div class="dv">${fmt(sum.ti)}</div></div>
       <div class="dr"><div class="dn">Delivery fees</div><div class="dv">${fmt(sum.td)}</div></div>
       <div class="dr" style="border-top:2px solid var(--border2);padding-top:9px;margin-top:3px"><div style="font-weight:700">Total</div><div class="dv" style="color:var(--accent)">${fmt(sum.tc)}</div></div>
@@ -564,7 +564,7 @@ function attachEvents() {
   const fc2=$('form-cancel'),fo=$('form-ok');
   if(fc2) fc2.addEventListener('click',()=>{S.showForm=false;S.editId=null;render()});
   if(fo)  fo.addEventListener('click',()=>{
-    const name=($('f-n').value||'').toUpperCase().trim();if(!name){alert('Nombre requerido');return}
+    const name=($('f-n').value||'').toUpperCase().trim();if(!name){alert('Name required');return}
     saveDel({id:S.editId||undefined,name,location:$('f-l').value.trim(),contact:$('f-c').value.trim(),businessName:$('f-b').value.trim(),itemCharge:parseInt($('f-i').value)||0,deliveryCharge:parseInt($('f-dc').value)||0,status:$('f-s').value,notes:$('f-no').value.trim()});
   });
   const ad=$('add-del'); if(ad) ad.addEventListener('click',()=>{S.showForm=true;S.editId=null;render()});
@@ -574,7 +574,7 @@ function attachEvents() {
   if(ec) ec.addEventListener('click',()=>{S.showNewExp=false;render()});
   if(eo) eo.addEventListener('click',()=>{const a=parseInt($('ea').value)||0;if(!a)return;saveExp({type:$('et').value,amount:a})});
   const rb=$('reset-btn'); if(rb) rb.addEventListener('click',async()=>{
-    if(!confirm('¿Reimportar todos los datos del Excel?')) return;
+    if(!confirm('Reimport all Excel data?')) return;
     LS.del('gds_version');
     document.getElementById('app').style.display='none';
     document.getElementById('loader').style.display='flex';
@@ -609,7 +609,7 @@ function attachEvents() {
 
 // ═══════════ INIT ═══════════
 (async () => {
-  setLoader('Verificando datos...', 10);
+  setLoader('Verifying data...', 10);
   await seedIfNeeded();
   loadSheets();
   hideLoader();
